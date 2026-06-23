@@ -1,44 +1,39 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="overflow-hidden h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apartemen Purimas Surabaya - Hunian & Investasi Futuristik Masa Depan</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Temukan hunian modern & investasi terbaik di Apartemen Purimas Surabaya. Selangkah dari Kampus UPN Veteran, 5 Menit ke Gerbang Tol Tambak Sumur, dan 10 Menit ke Bandara Juanda.">
-  <meta name="keywords" content="apartemen purimas surabaya, sewa apartemen purimas rungkut, apartemen murah surabaya timur, apartemen dekat upn, apartemen dekat merr">
+  <title>PURIMAS NEO - Exclusive Cyber-Residence</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Orbitron (Futuristic Headers) & Plus Jakarta Sans (Body) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;500;700&display=swap" rel="stylesheet">
   
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Segoe UI', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
             cyber: ['Orbitron', 'sans-serif'],
           },
           colors: {
             cyber: {
-              purple: '#d946ef',  /* Neon Purple / Fuchsia */
-              violet: '#8b5cf6',  /* Deep Violet */
-              cyan: '#06b6d4',    /* Electric Cyan */
-              dark: '#020617',    /* Deep Cyber Dark */
-              card: '#0b0f19',    /* Glass-like Card Background */
+              purple: '#d946ef',
+              violet: '#8b5cf6',
+              cyan: '#06b6d4',
+              dark: '#03030b',
+              card: 'rgba(11, 15, 25, 0.7)',
             }
           },
           boxShadow: {
-            'neon-purple': '0 0 15px rgba(217, 70, 239, 0.4)',
-            'neon-cyan': '0 0 15px rgba(6, 182, 212, 0.4)',
-            'neon-glow': '0 0 25px rgba(139, 92, 246, 0.25)',
+            'neon-purple': '0 0 20px rgba(217, 70, 239, 0.45)',
+            'neon-cyan': '0 0 20px rgba(6, 182, 212, 0.45)',
+            'hud-glow': '0 0 30px rgba(139, 92, 246, 0.15)',
           }
         }
       }
@@ -46,1454 +41,313 @@
   </script>
   
   <style>
-    /* Cyberpunk Scanline Effect */
+    /* Digital Grid Background overlay */
+    .grid-overlay {
+      background-size: 30px 30px;
+      background-image: 
+        linear-gradient(to right, rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+    }
+    
+    /* Cyberpunk CRT Scanline */
     body::before {
       content: " ";
       display: block;
       position: fixed;
       top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
       z-index: 9999;
       background-size: 100% 4px, 6px 100%;
       pointer-events: none;
-      opacity: 0.3;
-    }
-
-    /* Scrollbar Styling */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #020617;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #8b5cf6;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #d946ef;
+      opacity: 0.4;
     }
   </style>
 </head>
-<body class="bg-cyber-dark text-slate-100 font-sans antialiased overflow-x-hidden relative">
+<body class="bg-cyber-dark text-slate-100 font-sans h-full w-full overflow-hidden select-none relative grid-overlay">
 
-  <!-- GLOWING BACKGROUND DECORATIONS -->
-  <div class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-cyber-purple/10 blur-[150px] pointer-events-none"></div>
-  <div class="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-cyber-cyan/10 blur-[130px] pointer-events-none"></div>
-  <div class="absolute bottom-1/4 left-1/3 w-[600px] h-[600px] rounded-full bg-cyber-violet/10 blur-[180px] pointer-events-none"></div>
+  <!-- AMBIENT GLOWS -->
+  <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyber-purple/10 blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyber-cyan/10 blur-[120px] pointer-events-none"></div>
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+  <!-- MAIN WRAPPER: Fixed 1 Screen High -->
+  <div class="h-[100dvh] w-full flex flex-col justify-between p-4 sm:p-6 lg:p-8 relative z-10">
+    
+    <!-- HEADER -->
+    <header class="flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded border border-cyber-purple flex items-center justify-center text-white font-extrabold text-lg sm:text-xl shadow-neon-purple bg-black/40">
+          P
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xs sm:text-sm font-black tracking-widest text-white font-cyber leading-none">PURIMAS</span>
+          <span class="text-[8px] sm:text-[9px] text-cyber-cyan font-bold tracking-[0.25em]">NEO RESIDENCE</span>
+        </div>
+      </div>
+      
+      <!-- Hologram Status Badge -->
+      <div class="flex items-center space-x-2 px-3 py-1 rounded-full border border-cyber-cyan/20 bg-cyber-cyan/5">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan animate-pulse shadow-neon-cyan"></span>
+        <span class="text-[9px] sm:text-xs font-cyber tracking-widest text-cyber-cyan uppercase font-bold">Akses Publik Aktif</span>
+      </div>
+    </header>
 
-  <!-- NAVIGATION HEADER -->
-  <header class="sticky top-0 z-40 w-full bg-cyber-dark/85 backdrop-blur-md border-b border-purple-950/40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16 sm:h-20">
+    <!-- CORE HERO & HUD (CENTERED) -->
+    <main class="flex-1 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12 max-w-7xl mx-auto w-full my-auto">
+      
+      <!-- Left Side: Mysterious Text -->
+      <div class="flex flex-col space-y-4 sm:space-y-6 text-center lg:text-left max-w-xl">
+        <div class="inline-flex justify-center lg:justify-start">
+          <span class="inline-block px-3 py-1 rounded bg-cyber-purple/10 border border-cyber-purple/30 text-cyber-purple text-[9px] sm:text-xs font-cyber tracking-widest uppercase">
+            ⚡ DEKLASIFIKASI DATA UNIT
+          </span>
+        </div>
         
-        <!-- Logo -->
-        <a href="#" class="flex items-center space-x-3 group">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyber-purple to-cyber-cyan flex items-center justify-center text-white font-extrabold text-xl shadow-neon-purple group-hover:scale-105 transition-transform">
-            P
-          </div>
-          <div class="flex flex-col">
-            <span class="text-base sm:text-lg font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-300 font-cyber leading-none">PURIMAS</span>
-            <span class="text-[10px] text-cyber-cyan font-extrabold tracking-[0.2em]">NEO RESIDENCE</span>
-          </div>
-        </a>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black font-cyber tracking-tight text-white leading-tight">
+          Hunian Masa Depan <br class="hidden sm:inline">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-purple via-cyber-violet to-cyber-cyan">Selangkah dari UPN</span>
+        </h1>
+        
+        <p class="text-xs sm:text-sm text-slate-400 max-w-md mx-auto lg:mx-0 leading-relaxed">
+          Apartemen Purimas Surabaya. Koridor emas Gunung Anyar. Keamanan biometrik, kemudahan akses Tol MERR, dan nilai investasi tinggi dalam satu genggaman.
+        </p>
 
-        <!-- Desktop Menu -->
-        <nav class="hidden md:flex space-x-8 items-center">
-          <a href="#lokasi" class="text-xs font-bold font-cyber tracking-wider text-slate-300 hover:text-cyber-cyan transition-colors">AKSES LOKASI</a>
-          <a href="#fitur" class="text-xs font-bold font-cyber tracking-wider text-slate-300 hover:text-cyber-cyan transition-colors">FASILITAS</a>
-          <a href="#katalog" class="text-xs font-bold font-cyber tracking-wider text-slate-300 hover:text-cyber-cyan transition-colors">PILIHAN UNIT</a>
-          <a href="#kalkulator-yield" class="text-xs font-bold font-cyber tracking-wider text-slate-300 hover:text-cyber-cyan transition-colors">SIMULATOR INVESTASI</a>
-          <a href="#faq" class="text-xs font-bold font-cyber tracking-wider text-slate-300 hover:text-cyber-cyan transition-colors">FAQ</a>
-        </nav>
+        <!-- CTA Trigger -->
+        <div class="pt-2">
+          <button onclick="openModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-violet text-white font-cyber font-bold tracking-widest text-xs transition-all hover:shadow-neon-purple active:scale-95 border border-cyber-purple/40">
+            DAPATKAN KUNCI AKSES →
+          </button>
+        </div>
+      </div>
 
-        <!-- Right Side Utility & CTA -->
-        <div class="flex items-center space-x-4">
-          <!-- WhatsApp CTA Button -->
-          <a href="#reservasi" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-violet text-white font-cyber font-semibold text-xs tracking-wider hover:opacity-90 transition-all shadow-neon-purple active:scale-95">
-            DAPATKAN PRICELIST
-          </a>
-
-          <!-- Mobile Menu Button -->
-          <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-lg border border-purple-900/50 bg-purple-950/20 text-slate-300 hover:text-cyber-cyan transition-all focus:outline-none" aria-label="Menu Mobile">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <!-- Right Side: Interactive HUD (Tab Control to Avoid Scrolling) -->
+      <div class="w-full max-w-md p-5 sm:p-6 rounded-xl bg-black/60 border border-purple-950/60 shadow-hud-glow backdrop-blur-md flex flex-col space-y-4">
+        
+        <!-- Interactive Tabs -->
+        <div class="grid grid-cols-3 gap-2 border-b border-purple-950/40 pb-3">
+          <button id="tab-lokasi" onclick="switchTab('lokasi')" class="pb-2 text-[10px] font-cyber tracking-widest font-bold border-b border-cyber-cyan text-cyber-cyan transition-colors focus:outline-none">
+            01 LOKASI
+          </button>
+          <button id="tab-unit" onclick="switchTab('unit')" class="pb-2 text-[10px] font-cyber tracking-widest font-bold border-b border-transparent text-slate-500 hover:text-slate-300 transition-colors focus:outline-none">
+            02 UNIT
+          </button>
+          <button id="tab-yield" onclick="switchTab('yield')" class="pb-2 text-[10px] font-cyber tracking-widest font-bold border-b border-transparent text-slate-500 hover:text-slate-300 transition-colors focus:outline-none">
+            03 ESTIMASI
           </button>
         </div>
 
-      </div>
-    </div>
-  </header>
-
-  <!-- MOBILE SIDEBAR DRAWER (FIXED: Added 'invisible' class to prevent blocking clicks when closed) -->
-  <div id="mobile-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-all duration-300 invisible">
-    <!-- Backdrop -->
-    <div id="drawer-backdrop" class="absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
-    <!-- Content Panel -->
-    <div class="absolute inset-y-0 right-0 max-w-xs w-full bg-cyber-dark shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 pointer-events-auto border-l border-purple-950/60">
-      <div>
-        <div class="flex items-center justify-between pb-6 border-b border-purple-950/40">
-          <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded bg-cyber-purple flex items-center justify-center text-white font-extrabold text-base">P</div>
-            <span class="font-extrabold tracking-widest text-white font-cyber">PURIMAS NEO</span>
+        <!-- HUD Dynamic Panels -->
+        <div class="min-h-[140px] sm:min-h-[160px] flex items-center">
+          
+          <!-- Panel 1: Lokasi -->
+          <div id="panel-lokasi" class="w-full space-y-3">
+            <p class="text-[10px] font-cyber tracking-widest text-cyber-cyan uppercase font-bold">AKSES UTAMA:</p>
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-2.5 rounded bg-white/5 border border-slate-900">
+                <span class="text-cyber-purple font-cyber font-bold block text-sm">300 METER</span>
+                <span class="text-slate-400">Ke Kampus UPN Veteran</span>
+              </div>
+              <div class="p-2.5 rounded bg-white/5 border border-slate-900">
+                <span class="text-cyber-cyan font-cyber font-bold block text-sm">5 MENIT</span>
+                <span class="text-slate-400">Ke Gerbang Tol Tambak Sumur</span>
+              </div>
+              <div class="p-2.5 rounded bg-white/5 border border-slate-900">
+                <span class="text-cyber-purple font-cyber font-bold block text-sm">0 JALAN</span>
+                <span class="text-slate-400">Dari Jalur Utama MERR</span>
+              </div>
+              <div class="p-2.5 rounded bg-white/5 border border-slate-900">
+                <span class="text-cyber-cyan font-cyber font-bold block text-sm">10 MENIT</span>
+                <span class="text-slate-400">Ke Bandara Juanda</span>
+              </div>
+            </div>
           </div>
-          <button id="drawer-close-btn" class="p-2 rounded text-slate-400 hover:text-cyber-cyan focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
+
+          <!-- Panel 2: Unit (Hidden by default) -->
+          <div id="panel-unit" class="w-full hidden space-y-3">
+            <p class="text-[10px] font-cyber tracking-widest text-cyber-purple uppercase font-bold">TIPE INVESTASI UNIT:</p>
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded bg-white/5 border border-slate-900 flex flex-col justify-between">
+                <div>
+                  <span class="font-cyber font-bold text-white text-xs sm:text-sm block">STUDIO</span>
+                  <span class="text-slate-400 text-[10px]">SGA 21 m² (Semi-Furnish)</span>
+                </div>
+                <span class="text-cyber-purple font-cyber font-bold mt-2 text-xs sm:text-sm block">Mulai 180 Jt*</span>
+              </div>
+              <div class="p-3 rounded bg-white/5 border border-slate-900 flex flex-col justify-between">
+                <div>
+                  <span class="font-cyber font-bold text-white text-xs sm:text-sm block">2 BEDROOM</span>
+                  <span class="text-slate-400 text-[10px]">SGA 36 m² (Full-Furnish)</span>
+                </div>
+                <span class="text-cyber-cyan font-cyber font-bold mt-2 text-xs sm:text-sm block">Mulai 295 Jt*</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: Yield (Hidden by default) -->
+          <div id="panel-yield" class="w-full hidden space-y-3">
+            <p class="text-[10px] font-cyber tracking-widest text-cyber-cyan uppercase font-bold">ESTIMASI PASSIVE INCOME:</p>
+            <div class="p-3 rounded bg-cyber-cyan/5 border border-cyber-cyan/20 space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-slate-300">Potensi Yield Sewa Anual:</span>
+                <span class="text-cyber-cyan font-cyber font-bold text-sm">8% - 10%</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-slate-300">Tingkat Okupansi Kawasan:</span>
+                <span class="text-cyber-purple font-cyber font-bold text-sm">85% / Tahun</span>
+              </div>
+              <p class="text-[9px] text-slate-500 leading-normal border-t border-purple-950/20 pt-2 text-center">
+                Digerakkan oleh kebutuhan konstan mahasiswa UPN & pekerja industri SIER.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- FOOTER INFO -->
+    <footer class="flex flex-col sm:flex-row justify-between items-center gap-2 pt-2 border-t border-purple-950/30 text-[10px] tracking-wider text-slate-500">
+      <p>&copy; 2026 Apartemen Purimas Residences Surabaya. All rights reserved.</p>
+      <div class="flex space-x-4 font-cyber text-cyber-cyan">
+        <span>LATITUDE: -7.3373507</span>
+        <span>LONGITUDE: 112.7852179</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- RESERVASI MODAL OVERLAY (ENCRYPTED ENTRANCE LOOK) -->
+  <div id="access-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-md p-6 sm:p-8 rounded-xl bg-cyber-dark border border-cyber-purple/50 shadow-neon-purple transform scale-95 transition-transform duration-300">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-4 right-4 p-1 text-slate-400 hover:text-cyber-cyan focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Modal Title -->
+      <div class="text-center space-y-2 mb-6">
+        <h3 class="text-lg sm:text-xl font-bold font-cyber text-white tracking-widest uppercase">ENCRYPTED ACCESS KEY</h3>
+        <p class="text-xs text-cyber-cyan font-cyber uppercase tracking-wider">Silakan lengkapi formulir untuk membuka akses</p>
+      </div>
+
+      <!-- Booking Form -->
+      <form id="modal-form" class="space-y-4">
+        <div class="space-y-1">
+          <label class="block text-[10px] font-bold font-cyber text-slate-400 uppercase tracking-widest">NAMA IDENTITAS</label>
+          <input type="text" id="modal-name" required placeholder="Andi Wijaya" class="w-full h-11 px-4 rounded border border-purple-950/80 bg-black text-white focus:outline-none focus:ring-1 focus:ring-cyber-purple text-xs">
         </div>
 
-        <nav class="mt-8 flex flex-col gap-4">
-          <a href="#lokasi" class="drawer-link font-cyber text-sm tracking-wider text-slate-300 hover:text-cyber-cyan py-2">AKSES LOKASI</a>
-          <a href="#fitur" class="drawer-link font-cyber text-sm tracking-wider text-slate-300 hover:text-cyber-cyan py-2">FASILITAS</a>
-          <a href="#katalog" class="drawer-link font-cyber text-sm tracking-wider text-slate-300 hover:text-cyber-cyan py-2">PILIHAN UNIT</a>
-          <a href="#kalkulator-yield" class="drawer-link font-cyber text-sm tracking-wider text-slate-300 hover:text-cyber-cyan py-2">SIMULATOR INVESTASI</a>
-          <a href="#faq" class="drawer-link font-cyber text-sm tracking-wider text-slate-300 hover:text-cyber-cyan py-2">FAQ</a>
-        </nav>
-      </div>
+        <div class="space-y-1">
+          <label class="block text-[10px] font-bold font-cyber text-slate-400 uppercase tracking-widest">NOMOR TELEPON (WHATSAPP)</label>
+          <input type="tel" id="modal-wa" required placeholder="081234567xxx" class="w-full h-11 px-4 rounded border border-purple-950/80 bg-black text-white focus:outline-none focus:ring-1 focus:ring-cyber-purple text-xs">
+        </div>
 
-      <div class="pt-6 border-t border-purple-950/40 flex flex-col gap-3">
-        <a href="#reservasi" class="drawer-link w-full inline-flex items-center justify-center px-4 py-3 rounded bg-gradient-to-r from-cyber-purple to-cyber-violet text-white font-cyber text-xs tracking-widest font-bold text-center transition-all">
-          BOOKING SEKARANG
-        </a>
-      </div>
+        <div class="space-y-1">
+          <label class="block text-[10px] font-bold font-cyber text-slate-400 uppercase tracking-widest">PILIHAN UNIT</label>
+          <select id="modal-unit" class="w-full h-11 px-4 rounded border border-purple-950/80 bg-black text-slate-300 focus:outline-none focus:ring-1 focus:ring-cyber-purple text-xs">
+            <option value="Studio - Rp 180 Juta">Studio Unit (Rp 180 Juta)</option>
+            <option value="2 Bedroom - Rp 295 Juta">2 Bedroom Unit (Rp 295 Juta)</option>
+            <option value="Konsultasi Investasi">Konsultasi / Sewa Unit</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full h-12 rounded bg-gradient-to-r from-cyber-purple to-cyber-violet text-white font-cyber font-bold tracking-widest text-xs transition-all hover:opacity-90 shadow-neon-purple active:scale-95 mt-4">
+          DEKRIPSI DATA SEKARANG
+        </button>
+      </form>
+
     </div>
   </div>
 
-  <!-- HERO SECTION -->
-  <section class="relative overflow-hidden pt-12 pb-20 sm:py-28 md:py-36">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-        
-        <!-- Hero Text -->
-        <div class="lg:col-span-7 flex flex-col space-y-6 sm:space-y-8 text-center lg:text-left">
-          
-          <!-- Badge -->
-          <div class="inline-flex items-center justify-center lg:justify-start">
-            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold font-cyber tracking-widest bg-cyber-purple/10 text-cyber-purple border border-cyber-purple/30 uppercase animate-pulse">
-              ⚡ AMANKAN ASSET INVESTASI TERBAIK SURABAYA TIMUR
-            </span>
-          </div>
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
-          <h1 class="text-4xl sm:text-5xl md:text-6xl font-black font-cyber tracking-tight text-white leading-tight">
-            Miliki Hunian Futuristik <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-purple via-cyber-violet to-cyber-cyan">Selangkah dari UPN</span> & Akses Tol MERR
-          </h1>
-
-          <p class="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-            Apartemen Purimas Surabaya menghadirkan gaya hidup modern di pusat koridor emas Gunung Anyar. Sangat strategis untuk tempat tinggal mahasiswa, profesional muda, dengan hasil sewa (*yield*) pasif yang sangat menjanjikan.
-          </p>
-
-          <!-- CTAs -->
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
-            <a href="#katalog" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyber-purple via-cyber-violet to-cyber-cyan text-white font-cyber font-bold tracking-widest text-xs transition-all transform hover:-translate-y-0.5 shadow-neon-purple text-center active:scale-95">
-              JELAJAHI PILIHAN UNIT
-            </a>
-            <a href="#kalkulator-yield" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-purple-950/20 border border-cyber-purple/30 text-slate-200 hover:bg-cyber-purple/10 font-cyber font-semibold tracking-widest text-xs transition-all text-center">
-              ESTIMASI HASIL INVESTASI
-            </a>
-          </div>
-
-          <!-- Feature badges -->
-          <div class="pt-6 border-t border-purple-950/40 grid grid-cols-3 gap-4">
-            <div class="text-center lg:text-left">
-              <p class="text-2xl sm:text-3xl font-extrabold font-cyber text-cyber-cyan">Rp 180 Jt+</p>
-              <p class="text-[10px] tracking-wider text-slate-400 mt-1 uppercase font-cyber">Harga Unit Terjangkau</p>
-            </div>
-            <div class="text-center lg:text-left">
-              <p class="text-2xl sm:text-3xl font-extrabold font-cyber text-cyber-purple">8 - 10%</p>
-              <p class="text-[10px] tracking-wider text-slate-400 mt-1 uppercase font-cyber">Proyeksi Hasil Sewa</p>
-            </div>
-            <div class="text-center lg:text-left">
-              <p class="text-2xl sm:text-3xl font-extrabold font-cyber text-white">SHMSRS</p>
-              <p class="text-[10px] tracking-wider text-slate-400 mt-1 uppercase font-cyber">Sertifikat Legalitas Aman</p>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Hero Image -->
-        <div class="lg:col-span-5 relative mt-6 lg:mt-0">
-          <div class="relative mx-auto max-w-[400px] lg:max-w-none">
-            <!-- Neon Decorative Frame Glowing -->
-            <div class="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-cyber-purple via-cyber-violet to-cyber-cyan opacity-40 blur-xl animate-pulse"></div>
-            
-            <!-- Main Hero Frame representing Luxury Lifestyle -->
-            <div class="relative rounded-2xl border border-cyber-purple/50 bg-cyber-dark overflow-hidden shadow-neon-glow aspect-[4/5]">
-              <img 
-                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" 
-                alt="Apartemen Purimas Surabaya di Malam Hari" 
-                class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
-                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%221000%22 viewBox=%220 0 800 1000%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2228%22 fill=%22%23d946ef%22 font-weight=%22bold%22>PURIMAS NEO</text></svg>'"
-              >
-              
-              <!-- Floating Card on Image -->
-              <div class="absolute bottom-6 left-6 right-6 p-5 rounded-xl bg-cyber-dark/90 backdrop-blur-md shadow-neon-cyan border border-cyber-cyan/30">
-                <div class="flex items-center space-x-3">
-                  <span class="flex h-3 w-3 relative">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
-                  </span>
-                  <p class="text-[10px] font-cyber tracking-widest uppercase text-cyber-cyan">Ready stock & Potensial Tinggi</p>
-                </div>
-                <h3 class="text-base sm:text-lg font-bold text-white mt-2">Unit Eksklusif Fully-Furnished</h3>
-                <div class="flex items-center justify-between mt-3 pt-3 border-t border-purple-950/40 text-xs text-slate-400">
-                  <span>Mulai Rp 1.5jt-an / bln (Sewa)</span>
-                  <span class="font-cyber font-bold text-cyber-purple">PESAN SEKARANG →</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- STRATEGIC LOCATION ACCESS -->
-  <section id="lokasi" class="py-16 sm:py-24 bg-cyber-card border-y border-purple-950/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-4">
-        <h2 class="text-2xl sm:text-4xl font-extrabold font-cyber tracking-wide text-white">
-          LOKASI STRATEGIS SURABAYA TIMUR
-        </h2>
-        <div class="h-1 w-24 bg-gradient-to-r from-cyber-purple to-cyber-cyan mx-auto"></div>
-        <p class="text-base text-slate-400 font-normal">
-          Terletak di lingkungan yang tenang namun sangat mudah dijangkau melalui jalur MERR dan Tol Bandara Juanda.
-        </p>
-      </div>
-
-      <!-- Route Cards Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 sm:mt-16">
-        
-        <!-- Point 1 -->
-        <div class="p-6 rounded-xl bg-cyber-dark border border-purple-950/40 hover:border-cyber-purple/50 hover:shadow-neon-purple transition-all duration-300">
-          <div class="w-12 h-12 rounded-lg bg-cyber-purple/10 text-cyber-purple flex items-center justify-center mb-5 border border-cyber-purple/20">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-          </div>
-          <h3 class="text-lg font-bold font-cyber text-white">1 Menit ke UPN</h3>
-          <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-            Hanya berjalan kaki menuju Kampus UPN Veteran Jawa Timur, menjadikannya magnet sewa bagi mahasiswa.
-          </p>
-        </div>
-
-        <!-- Point 2 -->
-        <div class="p-6 rounded-xl bg-cyber-dark border border-purple-950/40 hover:border-cyber-cyan/50 hover:shadow-neon-cyan transition-all duration-300">
-          <div class="w-12 h-12 rounded-lg bg-cyber-cyan/10 text-cyber-cyan flex items-center justify-center mb-5 border border-cyber-cyan/20">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
-          </div>
-          <h3 class="text-lg font-bold font-cyber text-white">0 Jalan dari MERR</h3>
-          <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-            Akses super dekat koridor utama MERR (Middle East Ring Road) Surabaya Timur yang sangat ramai.
-          </p>
-        </div>
-
-        <!-- Point 3 -->
-        <div class="p-6 rounded-xl bg-cyber-dark border border-purple-950/40 hover:border-cyber-purple/50 hover:shadow-neon-purple transition-all duration-300">
-          <div class="w-12 h-12 rounded-lg bg-cyber-purple/10 text-cyber-purple flex items-center justify-center mb-5 border border-cyber-purple/20">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-          </div>
-          <h3 class="text-lg font-bold font-cyber text-white">5 Menit Tol</h3>
-          <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-            Hanya 5 menit menuju Gerbang Tol Tambak Sumur untuk akses bebas hambatan keluar-masuk kota.
-          </p>
-        </div>
-
-        <!-- Point 4 -->
-        <div class="p-6 rounded-xl bg-cyber-dark border border-purple-950/40 hover:border-cyber-cyan/50 hover:shadow-neon-cyan transition-all duration-300">
-          <div class="w-12 h-12 rounded-lg bg-cyber-cyan/10 text-cyber-cyan flex items-center justify-center mb-5 border border-cyber-cyan/20">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <h3 class="text-lg font-bold font-cyber text-white">10 Menit Juanda</h3>
-          <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-            Menuju Bandara Internasional Juanda lebih cepat tanpa harus menghadapi kemacetan parah kota.
-          </p>
-        </div>
-
-      </div>
-
-      <!-- Live Location Highlights Panel -->
-      <div class="mt-12 p-6 sm:p-8 rounded-2xl bg-cyber-dark border border-purple-950/60 flex flex-col lg:flex-row gap-8 items-center shadow-neon-glow">
-        <!-- Interactive Map Embed -->
-        <div class="w-full lg:w-1/2 h-[280px] sm:h-[350px] rounded-xl overflow-hidden border border-purple-950/80">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.147285601262!2d112.7852179!3d-7.3373507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fab3b384d5db%3A0xe6796c9c669fb7a7!2sApartemen%20Puri%20Mas!5e0!3m2!1sid!2sid!4v1700000000000" 
-            width="100%" 
-            height="100%" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade"
-            class="filter grayscale hover:grayscale-0 dark:invert-[90%] dark:hue-rotate-[180deg] transition-all duration-500 opacity-80 hover:opacity-100">
-          </iframe>
-        </div>
-
-        <!-- Landmarks checklist -->
-        <div class="w-full lg:w-1/2 flex flex-col space-y-6">
-          <h3 class="text-xl font-bold font-cyber text-white">Fasilitas & Layanan Sekatar Area</h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            
-            <div class="flex items-start space-x-3">
-              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyber-purple/20 text-cyber-purple flex items-center justify-center font-bold text-xs border border-cyber-purple/30">01</span>
-              <div>
-                <p class="text-sm font-bold text-slate-200 font-cyber">Universitas UPN Veteran</p>
-                <p class="text-xs text-slate-400">Jalan kaki hanya 300 meter</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3">
-              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyber-cyan/20 text-cyber-cyan flex items-center justify-center font-bold text-xs border border-cyber-cyan/30">02</span>
-              <div>
-                <p class="text-sm font-bold text-slate-200 font-cyber">Poltekpel Surabaya</p>
-                <p class="text-xs text-slate-400">Berkendara ± 5 Menit</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3">
-              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyber-purple/20 text-cyber-purple flex items-center justify-center font-bold text-xs border border-cyber-purple/30">03</span>
-              <div>
-                <p class="text-sm font-bold text-slate-200 font-cyber">Galaxy Mall Surabaya</p>
-                <p class="text-xs text-slate-400">Berkendara ± 12 Menit</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3">
-              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyber-cyan/20 text-cyber-cyan flex items-center justify-center font-bold text-xs border border-cyber-cyan/30">04</span>
-              <div>
-                <p class="text-sm font-bold text-slate-200 font-cyber">RS Mitra Keluarga</p>
-                <p class="text-xs text-slate-400">Berkendara ± 8 Menit</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3">
-              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyber-purple/20 text-cyber-purple flex items-center justify-center font-bold text-xs border border-cyber-purple/30">05</span>
-              <div>
-                <p class="text-sm font-bold text-slate-200 font-cyber">Kawasan SIER Rungkut</p>
-                <p class="text-xs text-slate-400">Kawasan Industri ± 10 Menit</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3">
-              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyber-cyan/20 text-cyber-cyan flex items-center justify-center font-bold text-xs border border-cyber-cyan/30">06</span>
-              <div>
-                <p class="text-sm font-bold text-slate-200 font-cyber">Superindo Merr</p>
-                <p class="text-xs text-slate-400">Kebutuhan Harian ± 4 Menit</p>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="p-4 rounded-xl bg-cyan-950/30 border border-cyber-cyan/30 text-cyber-cyan text-sm font-medium flex items-center gap-3">
-            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-            Sangat strategis & potensial disewakan kembali ke mahasiswa UPN dengan yield berkisar 8-10% per tahun.
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- AMENITIES (FASILITAS INTERNAL) -->
-  <section id="fitur" class="py-16 sm:py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-4">
-        <h2 class="text-2xl sm:text-4xl font-extrabold font-cyber tracking-wide text-white">
-          FASILITAS INTERNAL APARTEMEN
-        </h2>
-        <div class="h-1 w-24 bg-gradient-to-r from-cyber-purple to-cyber-cyan mx-auto"></div>
-        <p class="text-base text-slate-400 font-normal">
-          Nikmati kenyamanan premium dengan fasilitas internal modern yang siap mendukung produktivitas dan relaksasi Anda.
-        </p>
-      </div>
-
-      <!-- Facilities Showcase Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 sm:mt-16">
-        
-        <!-- Facility Item 1 -->
-        <div class="relative group rounded-2xl overflow-hidden bg-cyber-card border border-purple-950/40 hover:border-cyber-purple/50 transition-all duration-300 shadow-sm hover:shadow-neon-purple">
-          <div class="h-52 w-full overflow-hidden bg-purple-950/20">
-            <img 
-              src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=600&q=80" 
-              alt="Kolam renang di malam hari" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%238b5cf6%22 font-weight=%22bold%22>POOL AREA</text></svg>';"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-lg font-bold font-cyber text-white group-hover:text-cyber-purple transition-colors">Kolam Renang Tematik</h3>
-            <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-              Dua kolam renang semi-private yang bersih untuk memulihkan kebugaran dan menyegarkan pikiran Anda.
-            </p>
-          </div>
-        </div>
-
-        <!-- Facility Item 2 -->
-        <div class="relative group rounded-2xl overflow-hidden bg-cyber-card border border-purple-950/40 hover:border-cyber-cyan/50 transition-all duration-300 shadow-sm hover:shadow-neon-cyan">
-          <div class="h-52 w-full overflow-hidden bg-purple-950/20">
-            <img 
-              src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" 
-              alt="Gym & Fitness Center" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%2306b6d4%22 font-weight=%22bold%22>GYM AREA</text></svg>';"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-lg font-bold font-cyber text-white group-hover:text-cyber-cyan transition-colors">Fitness Center Modern</h3>
-            <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-              Area olahraga lengkap dengan berbagai alat kardio dan angkat beban khusus bagi penghuni.
-            </p>
-          </div>
-        </div>
-
-        <!-- Facility Item 3 -->
-        <div class="relative group rounded-2xl overflow-hidden bg-cyber-card border border-purple-950/40 hover:border-cyber-purple/50 transition-all duration-300 shadow-sm hover:shadow-neon-purple">
-          <div class="h-52 w-full overflow-hidden bg-purple-950/20">
-            <img 
-              src="https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80" 
-              alt="Security & Access Card" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%238b5cf6%22 font-weight=%22bold%22>SECURITY 24/7</text></svg>';"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-lg font-bold font-cyber text-white group-hover:text-cyber-purple transition-colors">Proteksi Keamanan 24/7</h3>
-            <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-              Akses kartu pintar privat, CCTV di setiap lantai, serta penjagaan sekuriti ganda sepanjang hari.
-            </p>
-          </div>
-        </div>
-
-        <!-- Facility Item 4 -->
-        <div class="relative group rounded-2xl overflow-hidden bg-cyber-card border border-purple-950/40 hover:border-cyber-cyan/50 transition-all duration-300 shadow-sm hover:shadow-neon-cyan">
-          <div class="h-52 w-full overflow-hidden bg-purple-950/20">
-            <img 
-              src="https://images.unsplash.com/photo-1588880331179-bc9b93a8c5d8?auto=format&fit=crop&w=600&q=80" 
-              alt="Taman Santai & Ruang Terbuka" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%2306b6d4%22 font-weight=%22bold%22>GREEN PARK</text></svg>';"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-lg font-bold font-cyber text-white group-hover:text-cyber-cyan transition-colors">Jogging Track & Taman Hijau</h3>
-            <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-              Kawasan luar ruang yang asri di kompleks perumahan Purimas dengan pepohonan rindang untuk bersantai.
-            </p>
-          </div>
-        </div>
-
-        <!-- Facility Item 5 -->
-        <div class="relative group rounded-2xl overflow-hidden bg-cyber-card border border-purple-950/40 hover:border-cyber-purple/50 transition-all duration-300 shadow-sm hover:shadow-neon-purple">
-          <div class="h-52 w-full overflow-hidden bg-purple-950/20">
-            <img 
-              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" 
-              alt="Kawasan Komersial" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%238b5cf6%22 font-weight=%22bold%22>COMMERCIAL AREA</text></svg>';"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-lg font-bold font-cyber text-white group-hover:text-cyber-purple transition-colors">Area Komersial & Laundry</h3>
-            <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-              Akses cepat menuju minimarket, laundry interior, kafe kopi, dan pujasera kuliner di area lobi bawah.
-            </p>
-          </div>
-        </div>
-
-        <!-- Facility Item 6 -->
-        <div class="relative group rounded-2xl overflow-hidden bg-cyber-card border border-purple-950/40 hover:border-cyber-cyan/50 transition-all duration-300 shadow-sm hover:shadow-neon-cyan">
-          <div class="h-52 w-full overflow-hidden bg-purple-950/20">
-            <img 
-              src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" 
-              alt="Exclusive Lobby" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%2306b6d4%22 font-weight=%22bold%22>EXCLUSIVE LOBBY</text></svg>';"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-lg font-bold font-cyber text-white group-hover:text-cyber-cyan transition-colors">Lobi Eksklusif & Resepsionis</h3>
-            <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-              Lobi utama yang megah dengan staf resepsionis andal dan sistem manajemen kurir paket yang aman.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- INTERACTIVE UNIT EXPLORER -->
-  <section id="katalog" class="py-16 sm:py-24 bg-cyber-card border-y border-purple-950/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-4">
-        <h2 class="text-2xl sm:text-4xl font-extrabold font-cyber tracking-wide text-white">
-          PILIHAN TIPE UNIT APARTEMEN
-        </h2>
-        <div class="h-1 w-24 bg-gradient-to-r from-cyber-purple to-cyber-cyan mx-auto"></div>
-        <p class="text-base text-slate-400 font-normal">
-          Dapatkan unit dengan performa estetika terbaik. Tersedia opsi siap huni maupun custom furnish.
-        </p>
-
-        <!-- Filter Controls -->
-        <div class="inline-flex p-1 rounded-xl bg-cyber-dark border border-purple-950/80 mt-6 gap-1 overflow-x-auto max-w-full">
-          <button id="filter-all" class="filter-btn px-5 py-2.5 rounded-lg text-xs font-cyber tracking-widest font-semibold transition-all bg-gradient-to-r from-cyber-purple to-cyber-violet text-white shadow-neon-purple focus:outline-none">
-            SEMUA UNIT
-          </button>
-          <button id="filter-studio" class="filter-btn px-5 py-2.5 rounded-lg text-xs font-cyber tracking-widest font-semibold transition-all text-slate-400 hover:text-white focus:outline-none">
-            STUDIO
-          </button>
-          <button id="filter-2br" class="filter-btn px-5 py-2.5 rounded-lg text-xs font-cyber tracking-widest font-semibold transition-all text-slate-400 hover:text-white focus:outline-none">
-            2 BEDROOM (2BR)
-          </button>
-        </div>
-      </div>
-
-      <!-- Units Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 sm:mt-16">
-        
-        <!-- Unit Card: Studio -->
-        <div class="unit-card flex flex-col rounded-2xl bg-cyber-dark border border-purple-950/60 overflow-hidden shadow-sm hover:shadow-neon-purple hover:border-cyber-purple/40 transition-all duration-300" data-type="studio">
-          <div class="h-64 relative bg-purple-950/20 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80" 
-              alt="Unit Studio Apartemen Purimas" 
-              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22 viewBox=%220 0 800 600%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2224%22 fill=%22%23d946ef%22 font-weight=%22bold%22>STUDIO UNIT</text></svg>';"
-            >
-            <div class="absolute top-4 left-4 py-1 px-3.5 rounded bg-cyber-purple text-white font-cyber font-bold text-[10px] tracking-wider">
-              STUDIO UNIT
-            </div>
-            <div class="absolute bottom-4 right-4 py-1.5 px-3 rounded bg-cyber-dark/95 border border-purple-950/60 shadow-md font-cyber font-extrabold text-xs text-cyber-cyan">
-              SGA 21 m²
-            </div>
-          </div>
-          
-          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="text-xl font-cyber font-bold text-white">Tipe Studio (Semi-Furnished)</h3>
-                  <p class="text-xs text-slate-400 mt-1">Sangat ideal untuk mahasiswa & investor pemula</p>
-                </div>
-                <div class="text-right">
-                  <span class="text-[10px] text-slate-500 line-through block">Rp 210 Jt</span>
-                  <span class="text-lg sm:text-xl font-cyber font-black text-cyber-purple">Rp 180 Juta*</span>
-                </div>
-              </div>
-
-              <!-- Specs Grid -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-cyber-card border border-purple-950/40 text-[10px] text-slate-300">
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-slate-500 font-cyber">Kamar Tidur</span>
-                  <span class="font-bold text-sm text-white font-cyber">1 Studio</span>
-                </div>
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-slate-500 font-cyber">Kamar Mandi</span>
-                  <span class="font-bold text-sm text-white font-cyber">1 KM</span>
-                </div>
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-slate-500 font-cyber">Daya Listrik</span>
-                  <span class="font-bold text-sm text-white font-cyber">1300W</span>
-                </div>
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-slate-500 font-cyber">Sertifikat</span>
-                  <span class="font-bold text-sm text-white font-cyber">SHMSRS</span>
-                </div>
-              </div>
-
-              <!-- Features checklist -->
-              <ul class="space-y-2 text-sm text-slate-400">
-                <li class="flex items-center gap-2.5">
-                  <svg class="w-4 h-4 text-cyber-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Sudah termasuk AC, Water Heater & Kitchen set.
-                </li>
-                <li class="flex items-center gap-2.5">
-                  <svg class="w-4 h-4 text-cyber-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Pilihan view eksklusif: Kolam renang / City View MERR.
-                </li>
-                <li class="flex items-center gap-2.5">
-                  <svg class="w-4 h-4 text-cyber-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Tingkat okupansi sewa harian & bulanan yang stabil.
-                </li>
-              </ul>
-            </div>
-
-            <!-- Card Actions -->
-            <div class="grid grid-cols-2 gap-4 pt-6 mt-6 border-t border-purple-950/40">
-              <button onclick="sesuaikanKalkulator(180000000, 'Studio')" class="px-4 py-3 rounded-lg border border-cyber-purple/30 text-slate-300 font-cyber text-xs hover:bg-cyber-purple/10 transition-all text-center">
-                SIMULASI YIELD
-              </button>
-              <button onclick="bookingUnit('Studio - Rp 180 Juta')" class="px-4 py-3 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-violet hover:opacity-90 text-white font-cyber font-bold text-xs transition-all text-center shadow-neon-purple">
-                PESAN UNIT
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Unit Card: 2BR -->
-        <div class="unit-card flex flex-col rounded-2xl bg-cyber-dark border border-purple-950/60 overflow-hidden shadow-sm hover:shadow-neon-cyan hover:border-cyber-cyan/40 transition-all duration-300" data-type="2br">
-          <div class="h-64 relative bg-purple-950/20 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80" 
-              alt="Unit 2 Bedroom Apartemen Purimas" 
-              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22 viewBox=%220 0 800 600%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2224%22 fill=%22%2306b6d4%22 font-weight=%22bold%22>2 BEDROOM UNIT</text></svg>';"
-            >
-            <div class="absolute top-4 left-4 py-1 px-3.5 rounded bg-cyber-cyan text-slate-950 font-cyber font-bold text-[10px] tracking-wider">
-              2 BEDROOM UNIT
-            </div>
-            <div class="absolute bottom-4 right-4 py-1.5 px-3 rounded bg-cyber-dark/95 border border-purple-950/60 shadow-md font-cyber font-extrabold text-xs text-cyber-purple">
-              SGA 36 m²
-            </div>
-          </div>
-          
-          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="text-xl font-cyber font-bold text-white">Tipe 2 Bedroom (Fully-Furnished)</h3>
-                  <p class="text-xs text-slate-400 mt-1">Sangat pas untuk keluarga muda & tenaga pengajar</p>
-                </div>
-                <div class="text-right">
-                  <span class="text-[10px] text-slate-500 line-through block">Rp 340 Jt</span>
-                  <span class="text-lg sm:text-xl font-cyber font-black text-cyber-cyan">Rp 295 Juta*</span>
-                </div>
-              </div>
-
-              <!-- Specs Grid -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-cyber-card border border-purple-950/40 text-[10px] text-slate-300">
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-slate-500 font-cyber">Kamar Tidur</span>
-                  <span class="font-bold text-sm text-white font-cyber">2 KT</span>
-                </div>
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-slate-500 font-cyber">Kamar Mandi</span>
-                  <span class="font-bold text-sm text-white font-cyber">1 KM</span>
-                </div>
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-slate-500 font-cyber">Daya Listrik</span>
-                  <span class="font-bold text-sm text-white font-cyber">2200W</span>
-                </div>
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-slate-500 font-cyber">Sertifikat</span>
-                  <span class="font-bold text-sm text-white font-cyber">SHMSRS</span>
-                </div>
-              </div>
-
-              <!-- Features checklist -->
-              <ul class="space-y-2 text-sm text-slate-400">
-                <li class="flex items-center gap-2.5">
-                  <svg class="w-4 h-4 text-cyber-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Furnish Lengkap: Tempat Tidur, Sofa bed, TV, & Kulkas.
-                </li>
-                <li class="flex items-center gap-2.5">
-                  <svg class="w-4 h-4 text-cyber-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Sudah lengkap dengan Kitchen Set & kompor siap masak.
-                </li>
-                <li class="flex items-center gap-2.5">
-                  <svg class="w-4 h-4 text-cyber-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Sirkulasi udara optimal dengan balkon pemandangan luas.
-                </li>
-              </ul>
-            </div>
-
-            <!-- Card Actions -->
-            <div class="grid grid-cols-2 gap-4 pt-6 mt-6 border-t border-purple-950/40">
-              <button onclick="sesuaikanKalkulator(295000000, '2 Bedroom')" class="px-4 py-3 rounded-lg border border-cyber-cyan/30 text-slate-300 font-cyber text-xs hover:bg-cyber-cyan/10 transition-all text-center">
-                SIMULASI YIELD
-              </button>
-              <button onclick="bookingUnit('2 Bedroom - Rp 295 Juta')" class="px-4 py-3 rounded-lg bg-gradient-to-r from-cyber-cyan to-cyber-violet hover:opacity-90 text-slate-950 font-cyber font-bold text-xs transition-all text-center shadow-neon-cyan">
-                PESAN UNIT
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- INTERACTIVE UNIT CUSTOMIZER & INVESTMENT YIELD CALCULATOR -->
-  <section id="kalkulator-yield" class="py-16 sm:py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-4">
-        <h2 class="text-2xl sm:text-4xl font-extrabold font-cyber tracking-wide text-white">
-          KUSTOMISASI UNIT & HASIL SEWA
-        </h2>
-        <div class="h-1 w-24 bg-gradient-to-r from-cyber-purple to-cyber-cyan mx-auto"></div>
-        <p class="text-base text-slate-400 font-normal">
-          Sesuaikan rencana investasi atau hunian Anda secara instan. Pilih opsi paket unit di bawah untuk menghitung langsung estimasi harga tunai serta potensi yield pendapatan sewa tahunan Anda.
-        </p>
-      </div>
-
-      <!-- Simulator Panel -->
-      <div class="mt-12 sm:mt-16 rounded-2xl bg-cyber-card border border-purple-950/60 p-6 sm:p-8 lg:p-12 shadow-neon-glow">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
-          <!-- Customizer Inputs (lg:7) -->
-          <div class="lg:col-span-7 flex flex-col space-y-8">
-            <h3 class="text-lg font-bold font-cyber text-white border-b border-purple-950/40 pb-4">Konfigurasi Desain Unit Anda</h3>
-            
-            <!-- Tipe Unit Selector -->
-            <div class="space-y-3">
-              <label class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Tipe Apartemen</label>
-              <div class="grid grid-cols-2 gap-4">
-                <button id="btn-type-studio" onclick="setSimType('studio')" class="px-4 py-3.5 rounded-lg border border-cyber-purple bg-cyber-purple/10 text-white font-cyber text-xs font-bold tracking-wider transition-all">
-                  STUDIO (Rp 180 Jt)
-                </button>
-                <button id="btn-type-2br" onclick="setSimType('2br')" class="px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all">
-                  2 BEDROOM (Rp 295 Jt)
-                </button>
-              </div>
-            </div>
-
-            <!-- Floor Level Selection -->
-            <div class="space-y-3">
-              <label class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Pilihan Lantai Unit</label>
-              <div class="grid grid-cols-3 gap-3">
-                <button id="btn-floor-low" onclick="setSimFloor('low')" class="px-3 py-3 rounded-lg border border-cyber-cyan bg-cyber-cyan/10 text-white font-cyber text-[10px] tracking-wider font-bold transition-all">
-                  LOW FLOOR (Lantai 1-5)
-                </button>
-                <button id="btn-floor-mid" onclick="setSimFloor('mid')" class="px-3 py-3 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-[10px] tracking-wider font-bold hover:text-white transition-all">
-                  MID FLOOR (+Rp 5 Jt)
-                </button>
-                <button id="btn-floor-high" onclick="setSimFloor('high')" class="px-3 py-3 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-[10px] tracking-wider font-bold hover:text-white transition-all">
-                  HIGH FLOOR (+Rp 10 Jt)
-                </button>
-              </div>
-            </div>
-
-            <!-- Furniture Package Selection -->
-            <div class="space-y-3">
-              <label class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Paket Furnishing interior</label>
-              <div class="grid grid-cols-2 gap-4">
-                <button id="btn-furnish-semi" onclick="setSimFurnish('semi')" class="px-4 py-3.5 rounded-lg border border-cyber-purple bg-cyber-purple/10 text-white font-cyber text-xs font-bold tracking-wider transition-all">
-                  SEMI-FURNISHED (Bawaan)
-                </button>
-                <button id="btn-furnish-full" onclick="setSimFurnish('full')" class="px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all">
-                  FULLY-FURNISHED (+Rp 25 Jt)
-                </button>
-              </div>
-            </div>
-
-            <!-- View Selection -->
-            <div class="space-y-3">
-              <label class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Pemandangan / View Jendela</label>
-              <div class="grid grid-cols-2 gap-4">
-                <button id="btn-view-city" onclick="setSimView('city')" class="px-4 py-3.5 rounded-lg border border-cyber-cyan bg-cyber-cyan/10 text-white font-cyber text-xs font-bold tracking-wider transition-all">
-                  CITY VIEW / MERR (Standard)
-                </button>
-                <button id="btn-view-pool" onclick="setSimView('pool')" class="px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all">
-                  POOL VIEW (+Rp 8 Jt)
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Summary Outputs (lg:5) -->
-          <div class="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 rounded-xl bg-cyber-dark border border-purple-950/80 shadow-neon-glow">
-            <div class="space-y-6">
-              <h4 class="text-xs font-bold font-cyber tracking-widest uppercase text-cyber-cyan">Ringkasan Konfigurasi & Proyeksi</h4>
-              
-              <!-- Total Price Display -->
-              <div class="p-5 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-violet text-white shadow-neon-purple">
-                <p class="text-[10px] font-cyber tracking-widest uppercase opacity-80">Estimasi Total Harga Tunai</p>
-                <p id="sim-total-price" class="text-2xl sm:text-3xl font-black font-cyber mt-1">Rp 180.000.000</p>
-              </div>
-
-              <!-- Profit Estimates Display -->
-              <div class="p-5 rounded-lg bg-cyber-card border border-cyber-cyan/30 text-white shadow-neon-cyan">
-                <p class="text-[10px] font-cyber tracking-widest uppercase text-cyber-cyan">Estimasi Pendapatan Pasif Sewa / Tahun</p>
-                <p id="sim-yearly-yield" class="text-xl sm:text-2xl font-black font-cyber text-white mt-1">Rp 16.200.000</p>
-                <p class="text-[9px] text-slate-400 mt-1">Proyeksi Yield Sewa Bersih: <span id="sim-yield-pct" class="font-bold text-cyber-cyan">9.0%</span> per tahun</p>
-              </div>
-
-              <div class="space-y-3 pt-4 border-t border-purple-950/40 text-xs text-slate-300">
-                <div class="flex justify-between">
-                  <span class="text-slate-500">Tipe Unit Terpilih</span>
-                  <span id="sum-sim-type" class="font-bold font-cyber">Studio (Rp 180 Jt)</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-500">Tambahan Lantai</span>
-                  <span id="sum-sim-floor" class="font-bold font-cyber">Lantai Rendah (Rp 0)</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-500">Tambahan Interior</span>
-                  <span id="sum-sim-furnish" class="font-bold font-cyber">Semi-Furnished (Rp 0)</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-500">Tambahan View</span>
-                  <span id="sum-sim-view" class="font-bold font-cyber">City View (Rp 0)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-8 space-y-3">
-              <button onclick="bookingCustomUnit()" class="w-full inline-flex items-center justify-center px-5 py-4 rounded-lg bg-gradient-to-r from-cyber-purple via-cyber-violet to-cyber-cyan text-white font-cyber font-bold text-xs tracking-widest text-center transition-all shadow-neon-purple active:scale-95">
-                AMANKAN HARGA UNIT INI
-              </button>
-              <p class="text-[10px] text-center text-slate-500 leading-normal">
-                *Kalkulasi yield tahunan di atas disimulasikan berdasarkan rata-rata harga sewa pasar apartemen sekitar kampus UPN Veteran Surabaya (tingkat hunian 80-90%).
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SOCIAL PROOF / REAL TESTIMONIALS -->
-  <section class="py-16 sm:py-24 bg-cyber-card border-y border-purple-950/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-4">
-        <h2 class="text-2xl sm:text-4xl font-extrabold font-cyber tracking-wide text-white">
-          TESTIMONI PEMILIK & PENYEWA
-        </h2>
-        <div class="h-1 w-24 bg-gradient-to-r from-cyber-purple to-cyber-cyan mx-auto"></div>
-        <p class="text-base text-slate-400 font-normal">
-          Ulasan nyata dari mereka yang telah merasakan pengalaman tinggal serta return investasi sewa yang nyata di Purimas.
-        </p>
-      </div>
-
-      <!-- Testimonial deck -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 sm:mt-16">
-        
-        <!-- Testi 1 -->
-        <div class="p-6 sm:p-8 rounded-2xl bg-cyber-dark border border-purple-950/60 flex flex-col justify-between shadow-sm">
-          <div class="space-y-4">
-            <!-- Stars -->
-            <div class="flex text-cyber-purple gap-1">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            </div>
-            <p class="text-sm text-slate-300 italic leading-relaxed">
-              "Sangat nyaman tinggal di Purimas. Cari makan & minimarket sangat gampang, hanya perlu berjalan kaki. Akses MERR dan Tol Tambak Sumur juga sangat mendukung mobilitas dinas saya."
-            </p>
-          </div>
-          <div class="flex items-center gap-4 pt-6 mt-6 border-t border-purple-950/40">
-            <div class="w-11 h-11 rounded-full bg-purple-950/40 overflow-hidden flex-shrink-0 border border-cyber-purple/30">
-              <img 
-                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80" 
-                alt="Ika S. - Penyewa" 
-                class="w-full h-full object-cover"
-                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%238b5cf6%22/></svg>';"
-              >
-            </div>
-            <div>
-              <p class="text-sm font-bold font-cyber text-white">Ika S.</p>
-              <p class="text-xs text-slate-500">Penyewa Unit Studio</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testi 2 -->
-        <div class="p-6 sm:p-8 rounded-2xl bg-cyber-dark border border-purple-950/60 flex flex-col justify-between shadow-sm">
-          <div class="space-y-4">
-            <!-- Stars -->
-            <div class="flex text-cyber-cyan gap-1">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            </div>
-            <p class="text-sm text-slate-300 italic leading-relaxed">
-              "Sebagai wali mahasiswa, membeli unit di Purimas adalah keputusan investasi yang cerdas. Tidak perlu bayar kos tiap bulan, dan jika lulus nanti unit ini bisa saya jadikan passive income."
-            </p>
-          </div>
-          <div class="flex items-center gap-4 pt-6 mt-6 border-t border-purple-950/40">
-            <div class="w-11 h-11 rounded-full bg-purple-950/40 overflow-hidden flex-shrink-0 border border-cyber-cyan/30">
-              <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" 
-                alt="Budi H. - Investor" 
-                class="w-full h-full object-cover"
-                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%2306b6d4%22/></svg>';"
-              >
-            </div>
-            <div>
-              <p class="text-sm font-bold font-cyber text-white">Drs. Budi H.</p>
-              <p class="text-xs text-slate-500">Pemilik Unit / Wali Mahasiswa</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testi 3 -->
-        <div class="p-6 sm:p-8 rounded-2xl bg-cyber-dark border border-purple-950/60 flex flex-col justify-between shadow-sm">
-          <div class="space-y-4">
-            <!-- Stars -->
-            <div class="flex text-cyber-purple gap-1">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            </div>
-            <p class="text-sm text-slate-300 italic leading-relaxed">
-              "Kami memilih tipe 2 Bedroom. Unitnya sangat lega, udaranya segar karena letak apartemen tidak langsung berdampingan bising dengan jalan raya utama, sangat tenang."
-            </p>
-          </div>
-          <div class="flex items-center gap-4 pt-6 mt-6 border-t border-purple-950/40">
-            <div class="w-11 h-11 rounded-full bg-purple-950/40 overflow-hidden flex-shrink-0 border border-cyber-purple/30">
-              <img 
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80" 
-                alt="Rizka R. - Pemilik" 
-                class="w-full h-full object-cover"
-                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%238b5cf6%22/></svg>';"
-              >
-            </div>
-            <div>
-              <p class="text-sm font-bold font-cyber text-white">Rizka R.</p>
-              <p class="text-xs text-slate-500">Penghuni / Ibu Rumah Tangga</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- RESERVASI & CONTACT FORM -->
-  <section id="reservasi" class="py-16 sm:py-24">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-2xl mx-auto space-y-4">
-        <h2 class="text-2xl sm:text-4xl font-extrabold font-cyber tracking-wide text-white">
-          DAPATKAN PENAWARAN & VISIT UNIT
-        </h2>
-        <div class="h-1 w-24 bg-gradient-to-r from-cyber-purple to-cyber-cyan mx-auto"></div>
-        <p class="text-base text-slate-400 font-normal">
-          Isi formulir singkat di bawah untuk menjadwalkan kunjungan unit secara langsung atau berkonsultasi mengenai promo menarik.
-        </p>
-      </div>
-
-      <!-- Form Container -->
-      <div class="mt-12 rounded-2xl bg-cyber-card border border-purple-950/60 p-6 sm:p-10 shadow-neon-glow relative">
-        <form id="booking-form" class="space-y-6">
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <!-- Nama -->
-            <div class="space-y-2">
-              <label for="form-name" class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Nama Lengkap</label>
-              <input type="text" id="form-name" required placeholder="Contoh: Andi Wijaya" class="w-full h-12 px-4 rounded-lg border border-purple-950/80 bg-cyber-dark text-white focus:outline-none focus:ring-2 focus:ring-cyber-purple text-sm">
-            </div>
-
-            <!-- WhatsApp -->
-            <div class="space-y-2">
-              <label for="form-wa" class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Nomor WhatsApp</label>
-              <input type="tel" id="form-wa" required placeholder="Contoh: 081234567xxx" class="w-full h-12 px-4 rounded-lg border border-purple-950/80 bg-cyber-dark text-white focus:outline-none focus:ring-2 focus:ring-cyber-purple text-sm">
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <!-- Tipe Unit Yang Diminati -->
-            <div class="space-y-2">
-              <label for="form-unit" class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Pilihan Tipe Unit</label>
-              <select id="form-unit" class="w-full h-12 px-4 rounded-lg border border-purple-950/80 bg-cyber-dark font-cyber font-medium text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyber-purple text-sm">
-                <option value="Studio - Rp 180 Juta">Studio Unit (Rp 180 Juta)</option>
-                <option value="2 Bedroom - Rp 295 Juta">2 Bedroom Unit (Rp 295 Juta)</option>
-                <option value="Sewa Unit">Sewa Bulanan / Tahunan</option>
-                <option value="Kunjungan / Tanya Agen">Kunjungan / Konsultasi Dulu</option>
-              </select>
-            </div>
-
-            <!-- Tanggal Rencana Kunjungan -->
-            <div class="space-y-2">
-              <label for="form-date" class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Rencana Tanggal Kunjungan</label>
-              <input type="date" id="form-date" class="w-full h-12 px-4 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyber-purple text-sm">
-            </div>
-          </div>
-
-          <!-- Pesan Tambahan -->
-          <div class="space-y-2">
-            <label for="form-message" class="block text-xs font-bold font-cyber text-slate-400 uppercase tracking-widest">Pesan Tambahan (Opsional)</label>
-            <textarea id="form-message" rows="3" placeholder="Tuliskan jika Anda memiliki catatan khusus atau waktu kunjungan spesifik..." class="w-full p-4 rounded-lg border border-purple-950/80 bg-cyber-dark text-white focus:outline-none focus:ring-2 focus:ring-cyber-purple text-sm"></textarea>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" id="submit-btn" class="w-full h-14 rounded-xl bg-gradient-to-r from-cyber-purple via-cyber-violet to-cyber-cyan text-white font-cyber font-bold tracking-widest text-xs transition-all flex items-center justify-center gap-2 relative active:scale-95 shadow-neon-purple">
-            <span id="btn-text">KIRIM FORMULIR KE AGEN</span>
-            <svg id="btn-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          </button>
-        </form>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FAQ SECTION (ACCORDION) -->
-  <section id="faq" class="py-16 sm:py-24 bg-cyber-card border-y border-purple-950/30">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-2xl mx-auto space-y-4">
-        <h2 class="text-2xl sm:text-4xl font-extrabold font-cyber tracking-wide text-white">
-          PERTANYAAN UMUM (FAQ)
-        </h2>
-        <div class="h-1 w-24 bg-gradient-to-r from-cyber-purple to-cyber-cyan mx-auto"></div>
-        <p class="text-base text-slate-400 font-normal">
-          Dapatkan jawaban cepat terkait proses kepemilikan, legalitas, dan operasional Apartemen Purimas.
-        </p>
-      </div>
-
-      <!-- FAQ Accordion -->
-      <div class="mt-12 sm:mt-16 space-y-4">
-        
-        <!-- Accordion 1 -->
-        <div class="faq-item rounded-xl bg-cyber-dark border border-purple-950/60 overflow-hidden transition-all duration-300">
-          <button class="w-full p-6 text-left flex justify-between items-center font-bold font-cyber tracking-wide text-white hover:text-cyber-purple focus:outline-none transition-colors">
-            <span>Bagaimana status kepemilikan unit di Purimas?</span>
-            <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0 text-cyber-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-            <div class="p-6 pt-0 border-t border-purple-950/40 text-sm sm:text-base text-slate-400 leading-relaxed">
-              Seluruh unit di Apartemen Purimas berstatus kepemilikan sah Strata Title atau SHMSRS (Sertifikat Hak Milik atas Satuan Rumah Susun), aman secara legalitas untuk investasi jangka panjang maupun waris.
-            </div>
-          </div>
-        </div>
-
-        <!-- Accordion 2 -->
-        <div class="faq-item rounded-xl bg-cyber-dark border border-purple-950/60 overflow-hidden transition-all duration-300">
-          <button class="w-full p-6 text-left flex justify-between items-center font-bold font-cyber tracking-wide text-white hover:text-cyber-purple focus:outline-none transition-colors">
-            <span>Apakah manajemen sewa apartemen ini dikelola mandiri?</span>
-            <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0 text-cyber-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-            <div class="p-6 pt-0 border-t border-purple-950/40 text-sm sm:text-base text-slate-400 leading-relaxed">
-              Anda bisa menyewakan unit secara mandiri, lewat agen lokal, maupun menggunakan layanan pihak ketiga pengelola sewa penginapan harian digital yang banyak beroperasi di apartemen ini untuk mempermudah operasional Anda.
-            </div>
-          </div>
-        </div>
-
-        <!-- Accordion 3 -->
-        <div class="faq-item rounded-xl bg-cyber-dark border border-purple-950/60 overflow-hidden transition-all duration-300">
-          <button class="w-full p-6 text-left flex justify-between items-center font-bold font-cyber tracking-wide text-white hover:text-cyber-purple focus:outline-none transition-colors">
-            <span>Bagaimana dengan sistem parkir kendaraan penghuni?</span>
-            <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0 text-cyber-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-            <div class="p-6 pt-0 border-t border-purple-950/40 text-sm sm:text-base text-slate-400 leading-relaxed">
-              Apartemen Purimas menyediakan area parkir mobil dan motor yang luas dan aman di area basement serta halaman luar dengan sistem pengamanan khusus komplek perumahan Puri Mas.
-            </div>
-          </div>
-        </div>
-
-        <!-- Accordion 4 -->
-        <div class="faq-item rounded-xl bg-cyber-dark border border-purple-950/60 overflow-hidden transition-all duration-300">
-          <button class="w-full p-6 text-left flex justify-between items-center font-bold font-cyber tracking-wide text-white hover:text-cyber-purple focus:outline-none transition-colors">
-            <span>Apakah unit Rp 180 Juta sudah siap langsung dihuni?</span>
-            <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0 text-cyber-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-            <div class="p-6 pt-0 border-t border-purple-950/40 text-sm sm:text-base text-slate-400 leading-relaxed">
-              Benar. Harga mulai Rp 180 Juta berlaku untuk unit Studio semi-furnished yang sudah terpasang AC, pemanas air mandi (*water heater*), dan kompor/kitchen hood standar berkualitas, siap serah terima unit secara kilat.
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-cyber-dark border-t border-purple-950/40 py-16 text-slate-400">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
-        
-        <!-- About -->
-        <div class="md:col-span-5 space-y-4">
-          <a href="#" class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyber-purple to-cyber-cyan flex items-center justify-center text-white font-extrabold text-xl shadow-neon-purple">
-              P
-            </div>
-            <div class="flex flex-col">
-              <span class="text-lg font-black tracking-widest text-white font-cyber leading-none">PURIMAS</span>
-              <span class="text-[10px] text-cyber-cyan font-bold tracking-wider">NEO RESIDENCE</span>
-            </div>
-          </a>
-          <p class="text-sm leading-relaxed max-w-sm">
-            Investasi apartemen paling kompetitif di Surabaya Timur, tepat berdampingan dengan Kampus UPN Veteran Jawa Timur dan akses MERR.
-          </p>
-        </div>
-
-        <!-- Links -->
-        <div class="md:col-span-3 space-y-4">
-          <h4 class="text-sm font-bold font-cyber tracking-widest text-white uppercase">MENU UTAMA</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href="#lokasi" class="hover:text-cyber-cyan transition-colors">Akses Lokasi</a></li>
-            <li><a href="#fitur" class="hover:text-cyber-cyan transition-colors">Fasilitas Komplek</a></li>
-            <li><a href="#katalog" class="hover:text-cyber-cyan transition-colors">Pilihan Unit</a></li>
-            <li><a href="#kalkulator-yield" class="hover:text-cyber-cyan transition-colors">Kalkulator Yield</a></li>
-            <li><a href="#faq" class="hover:text-cyber-cyan transition-colors">Pertanyaan (FAQ)</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact Column -->
-        <div class="md:col-span-4 space-y-4">
-          <h4 class="text-sm font-bold font-cyber tracking-widest text-white uppercase">KANTOR & KONTAK</h4>
-          <p class="text-sm leading-relaxed">
-            <strong>Apartemen Purimas:</strong><br>
-            Jl. I Gusti Ngurah Rai No.44, Gn. Anyar, Kec. Gn. Anyar, Kota Surabaya, Jawa Timur 60294.
-          </p>
-          <div class="pt-2 flex flex-col gap-1.5 text-sm">
-            <p><strong>Hotline WA:</strong> <a href="https://wa.me/6289524184040" target="_blank" class="text-cyber-purple hover:underline font-bold">0895-2418-4040</a></p>
-            <p><strong>Jam Visit:</strong> Setiap Hari (08.00 - 18.00 WIB)</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Copyright Area -->
-      <div class="pt-8 mt-12 border-t border-purple-950/40 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p>&copy; 2026 Apartemen Purimas Residences Surabaya. Seluruh Hak Cipta Dilindungi.</p>
-        <p class="font-cyber tracking-wider text-[10px] text-cyber-cyan">PURIMAS NEO SYSTEM ONLINE</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- CLIENT-SIDE SCRIPT LOGIC -->
+  <!-- CLIENT-SIDE SCRIPT -->
   <script>
-    // --- 1. MOBILE MENU & DRAWER MECHANISM (FIXED: Toggle 'invisible' to completely unblock interactions when closed) ---
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileDrawer = document.getElementById('mobile-drawer');
-    const drawerBackdrop = document.getElementById('drawer-backdrop');
-    const drawerCloseBtn = document.getElementById('drawer-close-btn');
-    const drawerLinks = document.querySelectorAll('.drawer-link');
-
-    function openDrawer() {
-      mobileDrawer.classList.remove('invisible');
-      drawerBackdrop.classList.remove('opacity-0');
-      drawerBackdrop.classList.add('opacity-100');
-      const panel = mobileDrawer.querySelector('.translate-x-full');
-      if (panel) {
-        panel.classList.remove('translate-x-full');
-        panel.classList.add('translate-x-0');
-      }
+    // --- 1. DYNAMIC HUD TABS SYSTEM ---
+    function switchTab(tabId) {
+      const tabs = ['lokasi', 'unit', 'yield'];
+      
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        const panel = document.getElementById(`panel-${t}`);
+        
+        if (t === tabId) {
+          // Activate
+          btn.className = "pb-2 text-[10px] font-cyber tracking-widest font-bold border-b border-cyber-cyan text-cyber-cyan transition-colors focus:outline-none";
+          panel.classList.remove('hidden');
+        } else {
+          // Deactivate
+          btn.className = "pb-2 text-[10px] font-cyber tracking-widest font-bold border-b border-transparent text-slate-500 hover:text-slate-300 transition-colors focus:outline-none";
+          panel.classList.add('hidden');
+        }
+      });
     }
 
-    function closeDrawer() {
-      drawerBackdrop.classList.remove('opacity-100');
-      drawerBackdrop.classList.add('opacity-0');
-      const panel = mobileDrawer.querySelector('.translate-x-0');
-      if (panel) {
-        panel.classList.remove('translate-x-0');
-        panel.classList.add('translate-x-full');
-      }
-      // Wait for transitions to finish before completely adding 'invisible' to clean pointer interactions
-      setTimeout(() => {
-        mobileDrawer.classList.add('invisible');
-      }, 300);
+    // --- 2. MODAL OVERLAY TRIGGER ---
+    const modal = document.getElementById('access-modal');
+    const modalContent = modal.querySelector('.transform');
+
+    function openModal() {
+      modal.classList.remove('pointer-events-none', 'opacity-0');
+      modal.classList.add('opacity-100');
+      modalContent.classList.remove('scale-95');
+      modalContent.classList.add('scale-100');
     }
 
-    mobileMenuBtn.addEventListener('click', openDrawer);
-    drawerBackdrop.addEventListener('click', closeDrawer);
-    drawerCloseBtn.addEventListener('click', closeDrawer);
-    drawerLinks.forEach(link => link.addEventListener('click', closeDrawer));
+    function closeModal() {
+      modal.classList.add('pointer-events-none', 'opacity-0');
+      modal.classList.remove('opacity-100');
+      modalContent.classList.add('scale-95');
+      modalContent.classList.remove('scale-100');
+    }
 
-    // --- 2. TOAST NOTIFICATION UTILITY ---
-    function showToast(message, type = 'success') {
+    // --- 3. TOAST NOTIFICATION UTILITY ---
+    function showToast(message) {
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
       
-      let bgStyle = 'bg-slate-900 text-white border-purple-500/30';
-      let iconColor = 'text-cyber-purple';
-      let iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
-
-      if (type === 'success') {
-        iconColor = 'text-cyber-cyan';
-        iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
-      }
-
-      toast.className = `flex items-center gap-3 p-4 rounded-xl shadow-neon-purple border pointer-events-auto transform transition-all duration-300 translate-y-2 opacity-0 ${bgStyle}`;
+      toast.className = "flex items-center gap-3 p-3.5 rounded bg-black/90 text-white border border-cyber-cyan/30 shadow-neon-cyan pointer-events-auto transform transition-all duration-300 translate-y-2 opacity-0 text-[10px] font-cyber tracking-wider";
       toast.innerHTML = `
-        <span class="${iconColor}">${iconSvg}</span>
-        <span class="text-xs font-cyber tracking-wider font-semibold">${message}</span>
+        <span class="text-cyber-cyan">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </span>
+        <span>${message.toUpperCase()}</span>
       `;
 
       container.appendChild(toast);
       
-      // Animate entry
       setTimeout(() => {
         toast.classList.remove('translate-y-2', 'opacity-0');
       }, 50);
 
-      // Automatic exit
       setTimeout(() => {
         toast.classList.add('opacity-0', 'translate-y-2');
-        setTimeout(() => {
-          toast.remove();
-        }, 300);
-      }, 4000);
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
     }
 
-    // --- 3. INTERACTIVE UNIT EXPLORER FILTER ---
-    const filterAllBtn = document.getElementById('filter-all');
-    const filterStudioBtn = document.getElementById('filter-studio');
-    const filter2brBtn = document.getElementById('filter-2br');
-    const unitCards = document.querySelectorAll('.unit-card');
-
-    function setActiveFilterButton(activeBtn) {
-      const buttons = [filterAllBtn, filterStudioBtn, filter2brBtn];
-      buttons.forEach(btn => {
-        btn.className = "filter-btn px-5 py-2.5 rounded-lg text-xs font-cyber tracking-widest font-semibold transition-all text-slate-400 hover:text-white focus:outline-none";
-      });
-      activeBtn.className = "filter-btn px-5 py-2.5 rounded-lg text-xs font-cyber tracking-widest font-semibold transition-all bg-gradient-to-r from-cyber-purple to-cyber-violet text-white shadow-neon-purple focus:outline-none";
-    }
-
-    function filterUnits(type) {
-      unitCards.forEach(card => {
-        if (type === 'all' || card.dataset.type === type) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    }
-
-    filterAllBtn.addEventListener('click', () => {
-      setActiveFilterButton(filterAllBtn);
-      filterUnits('all');
-    });
-    filterStudioBtn.addEventListener('click', () => {
-      setActiveFilterButton(filterStudioBtn);
-      filterUnits('studio');
-    });
-    filter2brBtn.addEventListener('click', () => {
-      setActiveFilterButton(filter2brBtn);
-      filterUnits('2br');
-    });
-
-    // --- 4. INTERACTIVE UNIT TRIGGERS ---
-    function bookingUnit(tipeUnit) {
-      const selectElement = document.getElementById('form-unit');
-      selectElement.value = tipeUnit;
-      showToast(`UNIT ${tipeUnit.toUpperCase()} TERPILIH. SILAKAN ISI DETAIL VISIT. ⚡`, 'success');
-      document.getElementById('reservasi').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // --- 5. UNIT CUSTOMIZER & YIELD CALCULATOR LOGIC ---
-    let simState = {
-      type: 'studio',
-      floor: 'low',
-      furnish: 'semi',
-      view: 'city'
-    };
-
-    function formatSimPrice(val) {
-      return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        maximumFractionDigits: 0
-      }).format(val);
-    }
-
-    function sesuaikanKalkulator(hargaBawaan, tipe) {
-      setSimType(tipe === 'Studio' ? 'studio' : '2br');
-      showToast(`Membuka opsi kustomisasi untuk tipe ${tipe} ⚙️`, 'success');
-      document.getElementById('kalkulator-yield').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function setSimType(val) {
-      simState.type = val;
-      
-      const btnStudio = document.getElementById('btn-type-studio');
-      const btn2br = document.getElementById('btn-type-2br');
-
-      if (val === 'studio') {
-        btnStudio.className = "px-4 py-3.5 rounded-lg border border-cyber-purple bg-cyber-purple/10 text-white font-cyber text-xs font-bold tracking-wider transition-all";
-        btn2br.className = "px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all";
-      } else {
-        btn2br.className = "px-4 py-3.5 rounded-lg border border-cyber-purple bg-cyber-purple/10 text-white font-cyber text-xs font-bold tracking-wider transition-all";
-        btnStudio.className = "px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all";
-      }
-      recalculateSimulation();
-    }
-
-    function setSimFloor(val) {
-      simState.floor = val;
-
-      const btnLow = document.getElementById('btn-floor-low');
-      const btnMid = document.getElementById('btn-floor-mid');
-      const btnHigh = document.getElementById('btn-floor-high');
-
-      [btnLow, btnMid, btnHigh].forEach(btn => {
-        btn.className = "px-3 py-3 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-[10px] tracking-wider font-bold hover:text-white transition-all";
-      });
-
-      if (val === 'low') {
-        btnLow.className = "px-3 py-3 rounded-lg border border-cyber-cyan bg-cyber-cyan/10 text-white font-cyber text-[10px] tracking-wider font-bold transition-all";
-      } else if (val === 'mid') {
-        btnMid.className = "px-3 py-3 rounded-lg border border-cyber-cyan bg-cyber-cyan/10 text-white font-cyber text-[10px] tracking-wider font-bold transition-all";
-      } else {
-        btnHigh.className = "px-3 py-3 rounded-lg border border-cyber-cyan bg-cyber-cyan/10 text-white font-cyber text-[10px] tracking-wider font-bold transition-all";
-      }
-      recalculateSimulation();
-    }
-
-    function setSimFurnish(val) {
-      simState.furnish = val;
-
-      const btnSemi = document.getElementById('btn-furnish-semi');
-      const btnFull = document.getElementById('btn-furnish-full');
-
-      if (val === 'semi') {
-        btnSemi.className = "px-4 py-3.5 rounded-lg border border-cyber-purple bg-cyber-purple/10 text-white font-cyber text-xs font-bold tracking-wider transition-all";
-        btnFull.className = "px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all";
-      } else {
-        btnFull.className = "px-4 py-3.5 rounded-lg border border-cyber-purple bg-cyber-purple/10 text-white font-cyber text-xs font-bold tracking-wider transition-all";
-        btnSemi.className = "px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all";
-      }
-      recalculateSimulation();
-    }
-
-    function setSimView(val) {
-      simState.view = val;
-
-      const btnCity = document.getElementById('btn-view-city');
-      const btnPool = document.getElementById('btn-view-pool');
-
-      if (val === 'city') {
-        btnCity.className = "px-4 py-3.5 rounded-lg border border-cyber-cyan bg-cyber-cyan/10 text-white font-cyber text-xs font-bold tracking-wider transition-all";
-        btnPool.className = "px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all";
-      } else {
-        btnPool.className = "px-4 py-3.5 rounded-lg border border-cyber-cyan bg-cyber-cyan/10 text-white font-cyber text-xs font-bold tracking-wider transition-all";
-        btnCity.className = "px-4 py-3.5 rounded-lg border border-purple-950/80 bg-cyber-dark text-slate-400 font-cyber text-xs font-bold tracking-wider hover:text-white transition-all";
-      }
-      recalculateSimulation();
-    }
-
-    function recalculateSimulation() {
-      // Base Prices
-      let basePrice = simState.type === 'studio' ? 180000000 : 295000000;
-      let floorSurcharge = simState.floor === 'low' ? 0 : (simState.floor === 'mid' ? 5000000 : 10000000);
-      let furnishSurcharge = simState.furnish === 'semi' ? 0 : 25000000;
-      let viewSurcharge = simState.view === 'city' ? 0 : 8000000;
-
-      let totalPrice = basePrice + floorSurcharge + furnishSurcharge + viewSurcharge;
-
-      // Yield calculation (projections base)
-      let baseRent = 0;
-      if (simState.type === 'studio') {
-        baseRent = simState.furnish === 'semi' ? 1500000 : 2000000;
-      } else {
-        baseRent = simState.furnish === 'semi' ? 2200000 : 3000000;
-      }
-
-      // Surcharges for floor & view in monthly rent
-      let floorRentBonus = simState.floor === 'low' ? 0 : (simState.floor === 'mid' ? 100000 : 200000);
-      let viewRentBonus = simState.view === 'city' ? 0 : 150000;
-
-      let monthlyRentEst = baseRent + floorRentBonus + viewRentBonus;
-      let yearlyYieldEst = monthlyRentEst * 10;
-      let yieldPercentage = (yearlyYieldEst / totalPrice) * 100;
-
-      // UI Update
-      document.getElementById('sim-total-price').textContent = formatSimPrice(totalPrice);
-      document.getElementById('sim-yearly-yield').textContent = formatSimPrice(yearlyYieldEst);
-      document.getElementById('sim-yield-pct').textContent = `${yieldPercentage.toFixed(1)}%`;
-
-      document.getElementById('sum-sim-type').textContent = `${simState.type === 'studio' ? 'Studio' : '2 Bedroom'} (${formatSimPrice(basePrice)})`;
-      document.getElementById('sum-sim-floor').textContent = `${simState.floor.toUpperCase()} (${formatSimPrice(floorSurcharge)})`;
-      document.getElementById('sum-sim-furnish').textContent = `${simState.furnish === 'semi' ? 'Semi-Furnish' : 'Full-Furnish'} (${formatSimPrice(furnishSurcharge)})`;
-      document.getElementById('sum-sim-view').textContent = `${simState.view === 'city' ? 'City' : 'Pool'} View (${formatSimPrice(viewSurcharge)})`;
-    }
-
-    function bookingCustomUnit() {
-      const typeText = simState.type === 'studio' ? 'Studio' : '2 Bedroom';
-      const furnishText = simState.furnish === 'semi' ? 'Semi-Furnished' : 'Fully-Furnished';
-      
-      const selectElement = document.getElementById('form-unit');
-      selectElement.value = typeText === 'Studio' ? 'Studio - Rp 180 Juta' : '2 Bedroom - Rp 295 Juta';
-      
-      const msgField = document.getElementById('form-message');
-      msgField.value = `Saya tertarik dengan unit Kustomisasi: Tipe ${typeText}, Lantai ${simState.floor.toUpperCase()}, Paket Furnish ${furnishText}, View ${simState.view.toUpperCase()}. Estimasi harga: ${document.getElementById('sim-total-price').textContent}`;
-
-      showToast(`KONFIGURASI DIMUAT KE DALAM FORM RESERVASI! ⚙️`, 'success');
-      document.getElementById('reservasi').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Initialize Simulator Values on Load
-    recalculateSimulation();
-
-    // --- 6. FAQ ACCORDION SYSTEM ---
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      const button = item.querySelector('button');
-      const content = item.querySelector('.faq-content');
-      const arrow = button.querySelector('svg');
-
-      button.addEventListener('click', () => {
-        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
-
-        faqItems.forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.querySelector('.faq-content').style.maxHeight = '0px';
-            otherItem.querySelector('button svg').classList.remove('rotate-180');
-          }
-        });
-
-        if (isOpen) {
-          content.style.maxHeight = '0px';
-          arrow.classList.remove('rotate-180');
-        } else {
-          content.style.maxHeight = content.scrollHeight + 'px';
-          arrow.classList.add('rotate-180');
-        }
-      });
-    });
-
-    // --- 7. FORM SUBMISSION TO WHATSAPP ---
-    const bookingForm = document.getElementById('booking-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const btnText = document.getElementById('btn-text');
-    const btnSpinner = document.getElementById('btn-spinner');
-
-    bookingForm.addEventListener('submit', (e) => {
+    // --- 4. FORM TO WHATSAPP ---
+    const form = document.getElementById('modal-form');
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      submitBtn.disabled = true;
-      btnText.textContent = "SEDANG MENGIRIM...";
-      btnSpinner.classList.remove('hidden');
-
-      const name = document.getElementById('form-name').value.trim();
-      const whatsapp = document.getElementById('form-wa').value.trim();
-      const unit = document.getElementById('form-unit').value;
-      const date = document.getElementById('form-date').value || "Belum ditentukan";
-      const message = document.getElementById('form-message').value.trim();
-
+      
+      const name = document.getElementById('modal-name').value.trim();
+      const wa = document.getElementById('modal-wa').value.trim();
+      const unit = document.getElementById('modal-unit').value;
+      
+      showToast('Koneksi Terjalin! Membuka WhatsApp...');
+      
       setTimeout(() => {
-        submitBtn.disabled = false;
-        btnText.textContent = "KIRIM FORMULIR KE AGEN";
-        btnSpinner.classList.add('hidden');
-
-        showToast('DATA TERKIRIM! Membuka WhatsApp untuk konfirmasi kilat. 🚀', 'success');
-
-        bookingForm.reset();
-
-        const waText = `Halo Agen Apartemen Purimas, saya ingin menjadwalkan kunjungan unit & konsultasi promo.%0A%0A*Nama:* ${name}%0A*WhatsApp:* ${whatsapp}%0A*Unit Diminati:* ${unit}%0A*Rencana Tanggal:* ${date}%0A*Pesan Tambahan:* ${message}`;
-        window.open(`https://wa.me/6289524184040?text=${waText}`, '_blank');
-
-      }, 1200);
+        closeModal();
+        form.reset();
+        
+        const message = `Halo Pihak Pemasaran Purimas,%0A%0ASaya ingin meminta dekripsi data brosur & ketersediaan unit.%0A%0A*Nama:* ${name}%0A*WhatsApp:* ${wa}%0A*Unit Diminati:* ${unit}`;
+        window.open(`https://wa.me/6289524184040?text=${message}`, '_blank');
+      }, 1000);
     });
-
   </script>
+
 </body>
 </html>
