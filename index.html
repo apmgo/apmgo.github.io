@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontrol Manajemen Terpadu - Hub Sistem Pintar</title>
-    <!-- Tailwind CSS -->
+    <title>Kontrol Manajemen Terpadu</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,1180 +14,1134 @@
                     fontFamily: {
                         sans: ['Inter', 'Segoe UI', 'Roboto', 'sans-serif'],
                     },
-                    colors: {
-                        brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#075985',
-                            900: '#0c4a6e',
-                        }
+                    boxShadow: {
+                        'premium': '0 10px 30px -10px rgba(0, 0, 0, 0.05)',
+                        'premium-dark': '0 10px 30px -10px rgba(0, 0, 0, 0.3)',
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Font Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        /* Custom Scrollbar */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: transparent;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 4px;
         }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col antialiased">
 
-    <!-- TOAST CONTAINER -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full px-4 md:px-0"></div>
-
-    <!-- HEADER / NAVIGATION -->
-    <header class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-gradient-to-tr from-sky-500 to-indigo-600 rounded-xl text-white shadow-md shadow-sky-500/10">
-                    <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 3.055A9.003 9.003 0 1020.945 13H11V3.055z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-slate-900 via-sky-600 to-indigo-500 dark:from-white dark:via-sky-400 dark:to-indigo-300 bg-clip-text text-transparent">KMT</span>
-                    <span class="hidden sm:inline text-xs text-slate-500 dark:text-slate-400 ml-2 border-l border-slate-300 dark:border-slate-700 pl-2">Hub Kontrol Terpadu</span>
-                </div>
-            </div>
-
-            <!-- Header Controls -->
-            <div class="flex items-center gap-3">
-                <!-- Live System Badge -->
-                <div class="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 px-3 py-1.5 rounded-full">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    <span class="text-xs font-semibold text-emerald-700 dark:text-emerald-400">SISTEM ONLINE</span>
-                </div>
-
-                <!-- Dark/Light Theme Toggle -->
-                <button id="theme-toggle" class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Ganti Tema">
-                    <!-- Sun Icon -->
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
-                    </svg>
-                    <!-- Moon Icon -->
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- MAIN APP CANVAS -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <!-- HERO SECTION & OVERVIEW -->
-        <section class="mb-10 text-center sm:text-left">
-            <div class="sm:flex sm:items-center sm:justify-between border-b border-slate-200 dark:border-slate-800 pb-6 mb-8">
-                <div>
-                    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                        Pusat Kendali Operasional
-                    </h1>
-                    <p class="mt-2 text-base text-slate-500 dark:text-slate-400">
-                        Akses satu-pintu untuk seluruh infrastruktur cerdas, data penghuni, logistik, dan media digital Anda.
-                    </p>
-                </div>
-                <!-- Simulated CPU / RAM load widgets -->
-                <div class="mt-4 sm:mt-0 flex gap-4 justify-center">
-                    <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm w-28 text-center">
-                        <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Beban CPU</span>
-                        <div class="text-lg font-bold text-sky-500 mt-0.5" id="cpu-load">12%</div>
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 dark:border-slate-800/80 dark:bg-slate-950/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Brand & Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-600 text-white p-2 rounded-xl shadow-md shadow-indigo-500/20">
+                        <i data-lucide="layout-grid" class="w-5 h-5"></i>
                     </div>
-                    <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm w-28 text-center">
-                        <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Beban RAM</span>
-                        <div class="text-lg font-bold text-indigo-500 mt-0.5">42%</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LIVE STATUS SUMMARY WIDGETS -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <!-- Stat 1 -->
-                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Item Gudang</span>
-                    <span class="text-2xl font-bold mt-2" id="stat-gudang-count">148</span>
-                    <span class="text-[10px] text-sky-500 font-medium mt-1">Siap Distribusi</span>
-                </div>
-                <!-- Stat 2 -->
-                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">WA Terkirim</span>
-                    <span class="text-2xl font-bold mt-2" id="stat-wa-count">1.284</span>
-                    <span class="text-[10px] text-emerald-500 font-medium mt-1">100% Sukses</span>
-                </div>
-                <!-- Stat 3 -->
-                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Dokumen Digital</span>
-                    <span class="text-2xl font-bold mt-2" id="stat-arsip-count">482</span>
-                    <span class="text-[10px] text-indigo-500 font-medium mt-1">Ter-enkripsi</span>
-                </div>
-                <!-- Stat 4 -->
-                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Saklar Aktif</span>
-                    <span class="text-2xl font-bold mt-2 text-amber-500" id="stat-saklar-count">3/5</span>
-                    <span class="text-[10px] text-amber-500 font-medium mt-1">Hemat Daya Otomatis</span>
-                </div>
-                <!-- Stat 5 -->
-                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Data Penghuni</span>
-                    <span class="text-2xl font-bold mt-2" id="stat-penghuni-count">24</span>
-                    <span class="text-[10px] text-slate-500 font-medium mt-1">Terdaftar Aktif</span>
-                </div>
-                <!-- Stat 6 -->
-                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Signage Aktif</span>
-                    <span class="text-2xl font-bold mt-2" id="stat-signage-status">ON</span>
-                    <span class="text-[10px] text-purple-500 font-medium mt-1">Tampilan Publik</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- CORE HUB GRID (Akses Modul) -->
-        <section class="mb-12">
-            <h2 class="text-lg font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-6">Modul Manajemen Terintegrasi</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <!-- 1. MANAJEMEN GUDANG CARD -->
-                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-sky-500/50 dark:hover:border-sky-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 dark:bg-sky-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
                     <div>
-                        <div class="p-3 bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 rounded-2xl w-fit mb-5">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors">Manajemen Gudang</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-                            Lacak inventaris stok secara akurat, mutasi barang masuk/keluar, dan status ketersediaan komoditas secara real-time.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
-                        <span class="text-xs font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full">Optimal</span>
-                        <button onclick="openModal('gudang')" class="text-sm font-bold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Buka Sistem &rarr;
-                        </button>
+                        <span class="text-lg font-bold bg-gradient-to-r from-slate-900 to-indigo-950 dark:from-white dark:to-indigo-200 bg-clip-text text-transparent">
+                            KMT Hub
+                        </span>
+                        <span class="hidden sm:inline-block text-xs text-slate-500 dark:text-slate-400 ml-2 border-l border-slate-300 dark:border-slate-700 pl-2">
+                            v2.1 PRO
+                        </span>
                     </div>
                 </div>
 
-                <!-- 2. WA SENDER CARD -->
-                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-emerald-500/50 dark:hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 dark:bg-emerald-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
-                    <div>
-                        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-2xl w-fit mb-5">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors">Pengirim WA (WA Sender)</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-                            Kirimkan notifikasi tagihan bulanan, siaran informasi darurat, dan pengingat otomatis kepada penghuni via WhatsApp.
-                        </p>
+                <!-- Right Utility Menu -->
+                <div class="flex items-center gap-4">
+                    <!-- Live Clock Widget -->
+                    <div class="hidden md:flex items-center gap-2 bg-slate-100 dark:bg-slate-900 py-1.5 px-3 rounded-lg border border-slate-200 dark:border-slate-800">
+                        <i data-lucide="clock" class="w-4 h-4 text-indigo-500"></i>
+                        <span id="liveClock" class="text-xs font-semibold font-mono tracking-wider">00:00:00 WIB</span>
                     </div>
-                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
-                        <span class="text-xs font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full">API Tersambung</span>
-                        <button onclick="openModal('wa')" class="text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Buka Sistem &rarr;
-                        </button>
-                    </div>
-                </div>
 
-                <!-- 3. ARSIP DIGITAL CARD -->
-                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
-                    <div>
-                        <div class="p-3 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-2xl w-fit mb-5">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">Arsip Digital</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-                            Penyimpanan berkas legalitas, surat keluar/masuk, laporan keuangan, dan dokumen penting ter-enkripsi yang mudah dicari.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
-                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">Secure S3</span>
-                        <button onclick="openModal('arsip')" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Buka Sistem &rarr;
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 4. KONTROL SAKLAR LISTRIK & AIR CARD -->
-                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-amber-500/50 dark:hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 dark:bg-amber-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
-                    <div>
-                        <div class="p-3 bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 rounded-2xl w-fit mb-5">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">Saklar Listrik & Air</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-                            Kontrol IoT sakelar lampu gedung, sensor otomatisasi kelistrikan, dan katup pemompa air langsung dari kejauhan.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
-                        <span class="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-100/60 dark:bg-amber-950/50 px-2.5 py-1 rounded-full" id="saklar-summary-badge">3 Aktif</span>
-                        <button onclick="openModal('saklar')" class="text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Buka Sistem &rarr;
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 5. DATA PENGHUNI CARD -->
-                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-purple-500/50 dark:hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 dark:bg-purple-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
-                    <div>
-                        <div class="p-3 bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 rounded-2xl w-fit mb-5">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors">Data Penghuni</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-                            Database lengkap profil penghuni, data kontak, unit hunian, status iuran lingkungan, hingga riwayat masuk log.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
-                        <span class="text-xs font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full">Valid</span>
-                        <button onclick="openModal('penghuni')" class="text-sm font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Buka Sistem &rarr;
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 6. DIGITAL SIGNAGE CARD -->
-                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-pink-500/50 dark:hover:border-pink-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/5 dark:bg-pink-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
-                    <div>
-                        <div class="p-3 bg-pink-50 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 rounded-2xl w-fit mb-5">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors">Digital Signage</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-                            Atur konten papan reklame digital, running text pengumuman lobi, informasi cuaca, dan video edukasi lingkungan.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
-                        <span class="text-xs font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full">Transmisi Aktif</span>
-                        <button onclick="openModal('signage')" class="text-sm font-bold text-pink-600 dark:text-pink-400 hover:text-pink-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Buka Sistem &rarr;
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SYSTEM INFORMATION SECTION -->
-        <section class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Butuh Sinkronisasi Spreadsheet / Google Apps Script?</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
-                        Landing page ini dirancang untuk dapat dengan mudah disambungkan ke modul Google Sheets sebagai database utama melalui Google Apps Script.
-                    </p>
-                </div>
-                <div class="flex flex-wrap gap-3">
-                    <button onclick="showInstructions()" class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 px-5 py-3 rounded-2xl text-sm font-bold shadow-md transition-all">
-                        Baca Petunjuk Deploy
+                    <!-- Dark/Light Toggle -->
+                    <button id="themeToggle" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-800" aria-label="Toggle Theme">
+                        <i id="themeIcon" data-lucide="sun" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
-        </section>
+        </div>
+    </nav>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- HERO SECTION -->
+        <div class="mb-10 text-center sm:text-left sm:flex sm:items-center sm:justify-between border-b border-slate-200 dark:border-slate-800 pb-8 gap-6">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 bg-gradient-to-r from-slate-900 via-indigo-950 to-indigo-900 dark:from-white dark:via-slate-100 dark:to-indigo-300 bg-clip-text text-transparent">
+                    Kontrol Manajemen Terpadu
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-base max-w-2xl">
+                    Sistem kendali modular terintegrasi untuk efisiensi pengelolaan gudang, arsip digital, pengiriman notifikasi, kontrol IoT cerdas, dan pusat informasi publik.
+                </p>
+            </div>
+            <!-- Quick System Health Indicator -->
+            <div class="mt-4 sm:mt-0 flex flex-wrap gap-2 justify-center sm:justify-start">
+                <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Sistem Stabil
+                </span>
+                <span id="activeIoTBadge" class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-950/50 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                    <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                    3/4 IoT Aktif
+                </span>
+            </div>
+        </div>
+
+        <!-- QUICK SUMMARY CARDS -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-premium dark:shadow-premium-dark">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Total Stok Gudang</span>
+                    <i data-lucide="box" class="w-4 h-4 text-indigo-500"></i>
+                </div>
+                <p class="text-xl sm:text-2xl font-bold font-mono">1,420 <span class="text-xs font-normal text-slate-400">Unit</span></p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-premium dark:shadow-premium-dark">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Antrean WA Sender</span>
+                    <i data-lucide="send" class="w-4 h-4 text-emerald-500"></i>
+                </div>
+                <p class="text-xl sm:text-2xl font-bold font-mono">12 <span class="text-xs font-normal text-slate-400">Pesan</span></p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-premium dark:shadow-premium-dark">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Total Arsip</span>
+                    <i data-lucide="folder-archive" class="w-4 h-4 text-amber-500"></i>
+                </div>
+                <p class="text-xl sm:text-2xl font-bold font-mono">348 <span class="text-xs font-normal text-slate-400">Dokumen</span></p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-premium dark:shadow-premium-dark">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Beban Daya IoT</span>
+                    <i data-lucide="activity" class="w-4 h-4 text-rose-500"></i>
+                </div>
+                <p id="totalPowerStat" class="text-xl sm:text-2xl font-bold font-mono">420 <span class="text-xs font-normal text-slate-400">Watt</span></p>
+            </div>
+        </div>
+
+        <!-- MODULE CARDS GRID -->
+        <h2 class="text-xl font-bold mb-5 flex items-center gap-2">
+            <i data-lucide="shapes" class="text-indigo-500 w-5 h-5"></i>
+            Daftar Modul Manajemen Utama
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- CARD 1: MANAJEMEN GUDANG -->
+            <div class="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 flex flex-col justify-between shadow-premium dark:shadow-premium-dark hover:border-indigo-500 dark:hover:border-indigo-500 transition-all duration-300 hover:-translate-y-1">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 rounded-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="package" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-medium py-1 px-2.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/50">
+                            Stok Terjaga
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Manajemen Gudang</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+                        Lacak ketersediaan stok, kelola katalog produk, monitor barang masuk dan keluar dengan pencatatan inventaris otomatis.
+                    </p>
+                </div>
+                <div class="border-t border-slate-100 dark:border-slate-800/80 pt-4 flex items-center justify-between">
+                    <span class="text-xs font-medium text-slate-400">12 Item Kategori Aktif</span>
+                    <button onclick="openModal('gudang')" class="min-h-[44px] px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95">
+                        Akses Sistem
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 2: WA SENDER -->
+            <div class="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 flex flex-col justify-between shadow-premium dark:shadow-premium-dark hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:-translate-y-1">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-2xl group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="message-square" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-medium py-1 px-2.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/50">
+                            WhatsApp API Ready
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">WA Sender</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+                        Kirim notifikasi pesan WhatsApp masal atau personal secara otomatis untuk laporan, verifikasi, atau promosi berjadwal.
+                    </p>
+                </div>
+                <div class="border-t border-slate-100 dark:border-slate-800/80 pt-4 flex items-center justify-between">
+                    <span class="text-xs font-medium text-slate-400">Status Gateway: Online</span>
+                    <button onclick="openModal('waSender')" class="min-h-[44px] px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95">
+                        Akses Sistem
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 3: ARSIP DIGITAL -->
+            <div class="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 flex flex-col justify-between shadow-premium dark:shadow-premium-dark hover:border-amber-500 dark:hover:border-amber-500 transition-all duration-300 hover:-translate-y-1">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 rounded-2xl group-hover:bg-amber-600 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="folder-open" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-medium py-1 px-2.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400 border border-blue-200/50 dark:border-blue-900/50">
+                            Cloud Storage
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Arsip Digital</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+                        Organisir, cari, dan tinjau semua berkas dokumen penting perusahaan secara aman dengan sistem otorisasi peninjauan digital.
+                    </p>
+                </div>
+                <div class="border-t border-slate-100 dark:border-slate-800/80 pt-4 flex items-center justify-between">
+                    <span class="text-xs font-medium text-slate-400">Penyimpanan Terpakai: 24%</span>
+                    <button onclick="openModal('arsip')" class="min-h-[44px] px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95">
+                        Akses Sistem
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 4: KONTROL SAKLAR -->
+            <div class="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 flex flex-col justify-between shadow-premium dark:shadow-premium-dark hover:border-rose-500 dark:hover:border-rose-500 transition-all duration-300 hover:-translate-y-1">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 rounded-2xl group-hover:bg-rose-600 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="toggle-right" class="w-6 h-6"></i>
+                        </div>
+                        <span id="iotOnlineStatus" class="text-xs font-medium py-1 px-2.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/50">
+                            IoT Relay Aktif
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">Saklar Listrik & Air</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+                        Kendali jarak jauh nirkabel (IoT) untuk mengaktifkan dan menonaktifkan saklar lampu, pompa air, pendingin AC secara efisien.
+                    </p>
+                </div>
+                <div class="border-t border-slate-100 dark:border-slate-800/80 pt-4 flex items-center justify-between">
+                    <span id="activeSwitchesText" class="text-xs font-medium text-slate-400">3 dari 4 Saklar ON</span>
+                    <button onclick="openModal('saklar')" class="min-h-[44px] px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-medium text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95">
+                        Akses Sistem
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 5: DATA PENGHUNI -->
+            <div class="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 flex flex-col justify-between shadow-premium dark:shadow-premium-dark hover:border-violet-500 dark:hover:border-violet-500 transition-all duration-300 hover:-translate-y-1">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-violet-50 dark:bg-violet-950/50 text-violet-600 dark:text-violet-400 rounded-2xl group-hover:bg-violet-600 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="users" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-medium py-1 px-2.5 rounded-full bg-violet-50 text-violet-700 dark:bg-violet-950/30 dark:text-violet-400 border border-violet-200/50 dark:border-violet-900/50">
+                            CRM & Registri
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">Data Penghuni</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+                        Data induk registrasi penghuni apartemen, gedung perkantoran, atau perumahan yang dilengkapi data kontak dan tagihan.
+                    </p>
+                </div>
+                <div class="border-t border-slate-100 dark:border-slate-800/80 pt-4 flex items-center justify-between">
+                    <span class="text-xs font-medium text-slate-400">Total: 4 Penghuni Terdaftar</span>
+                    <button onclick="openModal('penghuni')" class="min-h-[44px] px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-medium text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95">
+                        Akses Sistem
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 6: DIGITAL SIGNAGE -->
+            <div class="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 flex flex-col justify-between shadow-premium dark:shadow-premium-dark hover:border-cyan-500 dark:hover:border-cyan-500 transition-all duration-300 hover:-translate-y-1">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-cyan-50 dark:bg-cyan-950/50 text-cyan-600 dark:text-cyan-400 rounded-2xl group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="monitor-play" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-medium py-1 px-2.5 rounded-full bg-cyan-50 text-cyan-700 dark:bg-cyan-950/30 dark:text-cyan-400 border border-cyan-200/50 dark:border-cyan-900/50">
+                            Layar Publik
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">Digital Signage</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+                        Kontrol media pengumuman digital, teks berjalan (*running text*), video publik, dan slide informasi di layar lobi gedung Anda.
+                    </p>
+                </div>
+                <div class="border-t border-slate-100 dark:border-slate-800/80 pt-4 flex items-center justify-between">
+                    <span class="text-xs font-medium text-slate-400">Status Display: Aktif Berputar</span>
+                    <button onclick="openModal('signage')" class="min-h-[44px] px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-medium text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95">
+                        Akses Sistem
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
 
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto transition-colors">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-xs text-slate-500 dark:text-slate-400">&copy; 2026 Kontrol Manajemen Terpadu (KMT). Hak Cipta Dilindungi.</p>
-            <div class="flex items-center gap-6">
-                <span class="text-xs text-slate-400">v2.1 Premium Studio Edition</span>
-                <span class="text-xs text-emerald-500 font-semibold flex items-center gap-1.5">
-                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Latency: 4ms
-                </span>
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+                &copy; 2026 Kontrol Manajemen Terpadu Hub. Hak Cipta Dilindungi.
+            </p>
+            <div class="flex gap-4 text-xs text-slate-400 dark:text-slate-500">
+                <a href="#" class="hover:text-indigo-500 transition-colors">Panduan Sistem</a>
+                <span>&bull;</span>
+                <a href="#" class="hover:text-indigo-500 transition-colors">Hubungi Engineer</a>
+                <span>&bull;</span>
+                <a href="#" class="hover:text-indigo-500 transition-colors">Kebijakan Otoritas</a>
             </div>
         </div>
     </footer>
 
-    <!-- ================= SUB APP MODALS ================= -->
+    <!-- ============================================== -->
+    <!-- INTERACTIVE SLIDE OVER / DRAWER MODAL SIMULATORS -->
+    <!-- ============================================== -->
 
-    <!-- BACKDROP MODAL -->
-    <div id="modal-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeAllModals()"></div>
+    <div id="modalContainer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div onclick="closeModal()" class="absolute inset-0 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm transition-opacity"></div>
 
-    <!-- 1. GUDANG MODAL SUB-APP -->
-    <div id="modal-gudang" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-2xl w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
-        <!-- Modal Header -->
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 rounded-xl">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Inventaris Gudang Pintar</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Simulasi manajemen stok real-time</p>
-                </div>
-            </div>
-            <button onclick="closeModal('gudang')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <!-- Modal Body -->
-        <div class="p-6 overflow-y-auto space-y-4 flex-grow">
-            <!-- Form Tambah Inventaris -->
-            <div class="bg-slate-50 dark:bg-slate-950/40 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800/60">
-                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-3">Tambah Stok Baru</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <input type="text" id="gudang-name-input" placeholder="Nama Barang (misal: Pompa Air)" class="sm:col-span-2 px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-sky-500 focus:outline-none dark:text-white">
-                    <input type="number" id="gudang-qty-input" placeholder="Jumlah (Pcs)" class="px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-sky-500 focus:outline-none dark:text-white">
-                </div>
-                <button onclick="addGudangItem()" class="mt-3 w-full bg-sky-500 hover:bg-sky-600 text-white text-sm font-bold py-2 px-4 rounded-xl transition-colors shadow-sm">
-                    Simpan ke Inventaris
-                </button>
-            </div>
-            
-            <!-- List Inventaris -->
-            <div>
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Daftar Stok Saat Ini</span>
-                    <span class="text-xs font-bold text-sky-500" id="gudang-total-label">3 Item Terdaftar</span>
-                </div>
-                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden bg-white dark:bg-slate-900">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-50 dark:bg-slate-800/50 text-[10px] uppercase font-bold tracking-wider text-slate-400 border-b border-slate-200 dark:border-slate-800">
-                                <th class="p-3">Nama Barang</th>
-                                <th class="p-3 text-center">Stok</th>
-                                <th class="p-3 text-right">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="gudang-table-body" class="text-sm divide-y divide-slate-100 dark:divide-slate-800/60">
-                            <!-- JS populated -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2. WA SENDER MODAL SUB-APP -->
-    <div id="modal-wa" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-lg w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-xl">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">WhatsApp Notifier Hub</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Siaran pesan & pengingat otomatis</p>
-                </div>
-            </div>
-            <button onclick="closeModal('wa')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-4">
-            <div>
-                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Nomor WhatsApp Penerima</label>
-                <input type="text" id="wa-phone" placeholder="081234567xxx atau 62812..." class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none dark:text-white">
-            </div>
-            <div>
-                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Template Pesan Pengumuman</label>
-                <select id="wa-template" onchange="applyWATemplate()" class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none dark:text-white">
-                    <option value="">-- Pilih Template --</option>
-                    <option value="tagihan">Pemberitahuan Tagihan Bulanan</option>
-                    <option value="kerja-bakti">Pengumuman Kerja Bakti Lingkungan</option>
-                    <option value="darurat">Pemberitahuan Pemeliharaan Air Bersih</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Isi Pesan</label>
-                <textarea id="wa-message" rows="4" placeholder="Tulis pesan Anda di sini..." class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none dark:text-white resize-none"></textarea>
-            </div>
-            
-            <!-- Simulated Send Button with Progress -->
-            <button id="wa-send-btn" onclick="sendWAMessage()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                Kirim Notifikasi via WhatsApp
-            </button>
-            
-            <div id="wa-progress" class="hidden space-y-2">
-                <div class="flex justify-between text-xs font-medium text-slate-400">
-                    <span>Sedang mentransmisikan via API Gateway...</span>
-                    <span id="wa-percent">0%</span>
-                </div>
-                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
-                    <div id="wa-progress-bar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. ARSIP DIGITAL MODAL SUB-APP -->
-    <div id="modal-arsip" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-xl w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-xl">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path></svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Arsip Berkas Digital</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Penyimpanan & Pencarian Dokumen Pintar</p>
-                </div>
-            </div>
-            <button onclick="closeModal('arsip')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-4 flex-grow">
-            <!-- Search & Filter -->
-            <div class="flex gap-2">
-                <input type="text" id="arsip-search" oninput="filterArsip()" placeholder="Cari nama dokumen..." class="flex-grow px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none dark:text-white">
-                <select id="arsip-filter-type" onchange="filterArsip()" class="px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none dark:text-white">
-                    <option value="">Semua Tipe</option>
-                    <option value="Laporan">Laporan</option>
-                    <option value="Surat">Surat Keputusan</option>
-                    <option value="Sertifikat">Sertifikat</option>
-                </select>
-            </div>
-
-            <!-- Upload simulation -->
-            <div class="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-4 text-center cursor-pointer hover:border-indigo-500 dark:hover:border-indigo-400 transition-colors" onclick="simulateUpload()">
-                <div class="text-xs font-semibold text-slate-400">Klik untuk mensimulasikan unggahan berkas (.pdf, .xlsx)</div>
-                <div class="text-[10px] text-slate-500 mt-1">Ukuran maksimal file: 10MB</div>
-            </div>
-
-            <!-- Doc List -->
-            <div id="arsip-list" class="space-y-2">
-                <!-- JS populated -->
-            </div>
-        </div>
-    </div>
-
-    <!-- 4. KONTROL SAKLAR MODAL SUB-APP -->
-    <div id="modal-saklar" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-lg w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 rounded-xl">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Kontrol Saklar & Sensor</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Dashboard Kontrol IoT & Katup Pompa</p>
-                </div>
-            </div>
-            <button onclick="closeModal('saklar')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-4">
-            <!-- Alert Simulation Mode -->
-            <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 p-3 rounded-2xl flex gap-3 text-xs text-amber-800 dark:text-amber-300">
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                <span>Mengganti saklar di bawah ini akan mensimulasikan transmisi perintah data serial ke relay fisik IoT pengontrol.</span>
-            </div>
-
-            <!-- Switches Grid -->
-            <div class="space-y-3" id="switches-list">
-                <!-- JS populated switches -->
-            </div>
-        </div>
-    </div>
-
-    <!-- 5. DATA PENGHUNI MODAL SUB-APP -->
-    <div id="modal-penghuni" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-2xl w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 rounded-xl">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Database Penghuni Terpadu</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Arsip data warga terdaftar & unit hunian</p>
-                </div>
-            </div>
-            <button onclick="closeModal('penghuni')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-4 flex-grow">
-            <!-- Tambah Penghuni Form -->
-            <div class="bg-slate-50 dark:bg-slate-950/40 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800/60">
-                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-3">Daftarkan Penghuni Baru</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input type="text" id="penghuni-nama" placeholder="Nama Lengkap" class="px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none dark:text-white">
-                    <input type="text" id="penghuni-unit" placeholder="Nomor Unit (misal: B-14)" class="px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none dark:text-white">
-                    <input type="text" id="penghuni-telp" placeholder="No. Handphone (WhatsApp)" class="px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none dark:text-white col-span-2">
-                </div>
-                <button onclick="addPenghuni()" class="mt-3 w-full bg-purple-500 hover:bg-purple-600 text-white text-sm font-bold py-2 px-4 rounded-xl transition-colors shadow-sm">
-                    Daftarkan Penghuni
-                </button>
-            </div>
-
-            <!-- List Search -->
-            <div class="flex gap-2">
-                <input type="text" id="penghuni-search" oninput="filterPenghuni()" placeholder="Cari nama atau unit..." class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none dark:text-white">
-            </div>
-
-            <!-- Penghuni Cards -->
-            <div id="penghuni-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <!-- JS populated -->
-            </div>
-        </div>
-    </div>
-
-    <!-- 6. DIGITAL SIGNAGE MODAL SUB-APP -->
-    <div id="modal-signage" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-lg w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-pink-50 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 rounded-xl">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path></svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Kontrol Digital Signage</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Pengaturan Tampilan Reklame & Running Text</p>
-                </div>
-            </div>
-            <button onclick="closeModal('signage')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-4">
-            <!-- Signage Screen Simulator -->
-            <div class="space-y-1">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Simulasi Layar Publik (Signage TV)</span>
-                <div class="bg-black text-lime-400 font-mono p-4 rounded-2xl relative overflow-hidden h-36 flex flex-col justify-between border-4 border-slate-800 shadow-inner">
-                    <div class="flex items-center justify-between border-b border-lime-900 pb-1 text-[10px]">
-                        <span>SIGNAGE_LOBBY_01</span>
-                        <span class="text-red-500 animate-pulse">● LIVE</span>
-                    </div>
-                    <div class="text-center py-2 text-base font-bold tracking-wide" id="signage-preview-text">
-                        SELAMAT DATANG DI SMART CONDO SUITE
-                    </div>
-                    <!-- Running Text -->
-                    <div class="bg-lime-950/40 text-[10px] py-1 px-2 overflow-hidden whitespace-nowrap rounded border border-lime-900/50">
-                        <div class="animate-[marquee_15s_linear_infinite]" id="signage-marquee-text">
-                            Pemberitahuan: Pemeliharaan pompa air bersih terjadwal besok pukul 09:00 - 11:00 WIB. Terima kasih atas pengertiannya.
+        <div class="absolute inset-y-0 right-0 pl-10 max-w-full flex">
+            <!-- Modal Body Slider -->
+            <div class="w-screen max-w-lg sm:max-w-xl bg-white dark:bg-slate-900 shadow-2xl flex flex-col border-l border-slate-200 dark:border-slate-800 transform translate-x-full transition-transform duration-300 ease-in-out" id="modalBody">
+                
+                <!-- HEADER MODAL -->
+                <div class="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-950">
+                    <div class="flex items-center gap-3">
+                        <div id="modalIconContainer" class="p-2.5 rounded-xl text-white">
+                            <i id="modalIcon" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h2 id="modalTitle" class="text-lg font-bold text-slate-900 dark:text-white">Nama Modul</h2>
+                            <p id="modalSubtitle" class="text-xs text-slate-500 dark:text-slate-400">Simulator Kontrol Terpadu</p>
                         </div>
                     </div>
+                    <button onclick="closeModal()" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-400 dark:text-slate-300 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
                 </div>
-            </div>
 
-            <!-- Form Ubah Teks -->
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Teks Utama Tampilan Layar</label>
-                    <input type="text" id="signage-main-input" value="SELAMAT DATANG DI SMART CONDO SUITE" class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-pink-500 focus:outline-none dark:text-white">
+                <!-- CONTENT MODAL (Scrollable) -->
+                <div class="flex-grow overflow-y-auto px-6 py-6" id="modalMainContent">
+                    <!-- Dynamic Simulated Subsystems Rendered Here -->
                 </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Running Text Pengumuman Bawah</label>
-                    <textarea id="signage-marquee-input" rows="2" class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-pink-500 focus:outline-none dark:text-white resize-none">Pemberitahuan: Pemeliharaan pompa air bersih terjadwal besok pukul 09:00 - 11:00 WIB.</textarea>
-                </div>
-                <button onclick="updateSignage()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2.5 px-4 rounded-xl shadow-md transition-colors">
-                    Perbarui Layar Signage
-                </button>
-            </div>
-        </div>
-    </div>
 
-    <!-- 7. INSTRUCTIONAL DEPLOY MODAL -->
-    <div id="modal-instructions" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-lg w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Petunjuk Deploy & Koneksi Database</h3>
-            <button onclick="closeModal('instructions')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-            <p>Untuk menyambungkan frontend ini dengan Google Sheets menggunakan Google Apps Script:</p>
-            <ol class="list-decimal pl-5 space-y-2">
-                <li>Buat <strong>Google Spreadsheet</strong> baru.</li>
-                <li>Salin <strong>Spreadsheet ID</strong> dari URL spreadsheet Anda.</li>
-                <li>Buat proyek <strong>Google Apps Script</strong> melalui menu Ekstensi di spreadsheet.</li>
-                <li>Buat fungsi backend <code class="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-indigo-500">doGet()</code> untuk menyajikan file HTML ini.</li>
-                <li>Gunakan fungsi <code class="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-indigo-500">google.script.run</code> dari frontend untuk mengirim/membaca data secara dinamis dari Sheets.</li>
-                <li>Simpan project Apps Script, lalu lakukan <strong>Deploy sebagai Aplikasi Web (Web App)</strong>.</li>
-            </ol>
-            <div class="bg-indigo-50 dark:bg-indigo-950/40 p-3 rounded-2xl border border-indigo-100 dark:border-indigo-900 text-xs text-indigo-700 dark:text-indigo-300">
-                Arsitektur landing page ini sudah disiapkan agar siap diintegrasikan secara instan kapan saja modul backend Google Apps Script Anda siap!
+                <!-- FOOTER MODAL -->
+                <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex items-center justify-between">
+                    <span class="text-xs text-slate-400 flex items-center gap-1">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i>
+                        Mode Simulasi Terisolasi
+                    </span>
+                    <button onclick="closeModal()" class="min-h-[44px] px-5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 font-semibold text-sm rounded-xl transition-colors active:scale-95">
+                        Tutup Panel
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
 
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
 
-    <!-- ================= JAVASCRIPT STATE ENGINE ================= -->
+
+    <!-- ============================================== -->
+    <!-- APP LOGIC & SIMULATION JAVASCRIPT -->
+    <!-- ============================================== -->
     <script>
-        // --- 1. LOCAL STORAGE & THEME ENGINE ---
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        // --- 1. DUMMY STATE DATA ---
+        let state = {
+            gudang: [
+                { id: 'GD-001', nama: 'Kabel UTP Cat 6 300m', stok: 14, unit: 'Roll', status: 'Cukup' },
+                { id: 'GD-002', nama: 'Smart Switch Relay 4CH', stok: 45, unit: 'Unit', status: 'Melimpah' },
+                { id: 'GD-003', nama: 'Router WiFi Dual Band', stok: 4, unit: 'Unit', status: 'Hampir Habis' },
+                { id: 'GD-004', nama: 'Pipa Conduit PVC 20mm', stok: 120, unit: 'Batang', status: 'Melimpah' },
+                { id: 'GD-005', nama: 'Bohlam LED Smart IoT 12W', stok: 0, unit: 'Pcs', status: 'Habis' }
+            ],
+            waSender: {
+                logs: [
+                    { id: 'W-901', tujuan: '08123456789', pesan: 'Pemberitahuan: Pemeliharaan gardu listrik jam 13.00.', status: 'Terkirim', waktu: '10:15' },
+                    { id: 'W-902', tujuan: '08987654321', pesan: 'Tagihan IPL Unit B-12 sebesar Rp 450.000 terbit.', status: 'Terkirim', waktu: '09:30' }
+                ]
+            },
+            arsip: [
+                { id: 'ARC-001', nama: 'SOP_Pemeliharaan_Genset_2026.pdf', kategori: 'Teknis', ukuran: '2.4 MB' },
+                { id: 'ARC-002', nama: 'Kontrak_Layanan_Kebersihan_Gedung.pdf', kategori: 'Legal', ukuran: '4.1 MB' },
+                { id: 'ARC-003', nama: 'Laporan_Keuangan_Kuartal_1.xlsx', kategori: 'Keuangan', ukuran: '12.8 MB' }
+            ],
+            saklar: [
+                { id: 'sw-1', nama: 'Lampu Koridor Lobi', tipe: 'Listrik', status: true, watt: 120 },
+                { id: 'sw-2', nama: 'Pompa Air Utama', tipe: 'Air', status: true, watt: 250 },
+                { id: 'sw-3', nama: 'Air Conditioner (AC) R. Rapat', tipe: 'Listrik', status: false, watt: 0 },
+                { id: 'sw-4', nama: 'Lampu Taman Belakang', tipe: 'Listrik', status: true, watt: 50 }
+            ],
+            penghuni: [
+                { id: 'PNH-01', nama: 'Achmad Fauzi', unit: 'Unit A-03', kontak: '0812-7788-9900', status: 'Aktif' },
+                { id: 'PNH-02', nama: 'Clara Setyawati', unit: 'Unit B-12', kontak: '0856-1122-3344', status: 'Aktif' },
+                { id: 'PNH-03', nama: 'Bambang Trianto', unit: 'Unit C-05', kontak: '0819-4455-6677', status: 'Tunggakan' },
+                { id: 'PNH-04', nama: 'Diana Lestari', unit: 'Unit A-10', kontak: '0812-3333-5555', status: 'Aktif' }
+            ],
+            signage: {
+                runningText: "Selamat Datang di Portal Kendali Manajemen Terpadu Gedung Cerdas.",
+                layout: "Double Panel Display",
+                status: "Aktif Pemutaran"
+            }
+        };
 
-        // Set initial theme
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleDarkIcon.classList.remove('hidden');
+        // --- 2. LIVE CLOCK RUNNER ---
+        function runLiveClock() {
+            const clockEl = document.getElementById('liveClock');
+            if (clockEl) {
+                setInterval(() => {
+                    const now = new Date();
+                    clockEl.innerText = now.toLocaleTimeString('id-ID') + " WIB";
+                }, 1000);
+            }
         }
 
-        themeToggleBtn.addEventListener('click', function() {
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-                showToast("Beralih ke Mode Terang", "info");
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-                showToast("Beralih ke Mode Gelap", "info");
-            }
-        });
-
-        // --- 2. TOAST SYSTEM ---
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
+        // --- 3. THEME MANAGER ---
+        function initTheme() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
             
-            let bgClass = "bg-emerald-50 border-emerald-200 dark:bg-emerald-950/90 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200";
-            let iconSvg = `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-
-            if (type === 'error') {
-                bgClass = "bg-rose-50 border-rose-200 dark:bg-rose-950/90 dark:border-rose-800 text-rose-800 dark:text-rose-200";
-                iconSvg = `<svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-            } else if (type === 'info') {
-                bgClass = "bg-sky-50 border-sky-200 dark:bg-sky-950/90 dark:border-sky-800 text-sky-800 dark:text-sky-200";
-                iconSvg = `<svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-            } else if (type === 'warning') {
-                bgClass = "bg-amber-50 border-amber-200 dark:bg-amber-950/90 dark:border-amber-800 text-amber-800 dark:text-amber-200";
-                iconSvg = `<svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+            // Check saved theme or default
+            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                updateThemeIcon(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeIcon(false);
             }
 
-            toast.className = `flex items-start gap-3 p-4 rounded-2xl border shadow-lg backdrop-blur-md transition-all duration-300 transform translate-y-2 opacity-0 ${bgClass}`;
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateThemeIcon(isDark);
+            });
+        }
+
+        function updateThemeIcon(isDark) {
+            const themeIcon = document.getElementById('themeIcon');
+            if (isDark) {
+                themeIcon.setAttribute('data-lucide', 'sun');
+                themeIcon.classList.add('text-amber-400');
+            } else {
+                themeIcon.setAttribute('data-lucide', 'moon');
+                themeIcon.classList.remove('text-amber-400');
+            }
+            lucide.createIcons();
+        }
+
+        // --- 4. TOAST NOTIFICATION UTILITY ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `p-4 rounded-2xl shadow-lg border text-sm font-semibold flex items-center gap-3 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto`;
+            
+            let icon = 'info';
+            let colorClasses = '';
+            
+            if (type === 'success') {
+                icon = 'check-circle-2';
+                colorClasses = 'bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-950 dark:border-emerald-800 dark:text-emerald-300';
+            } else if (type === 'error') {
+                icon = 'alert-triangle';
+                colorClasses = 'bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-950 dark:border-rose-800 dark:text-rose-300';
+            } else {
+                icon = 'info';
+                colorClasses = 'bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-950 dark:border-blue-800 dark:text-blue-300';
+            }
+
+            toast.className += ` ${colorClasses}`;
             toast.innerHTML = `
-                <div class="flex-shrink-0">${iconSvg}</div>
-                <div class="flex-grow text-xs font-semibold leading-relaxed">${message}</div>
-                <button class="flex-shrink-0 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" onclick="this.parentElement.remove()">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+                <i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i>
+                <span class="flex-grow">${message}</span>
             `;
 
             container.appendChild(toast);
-            
-            // Trigger animation
+            lucide.createIcons();
+
+            // Trigger Animation In
             setTimeout(() => {
                 toast.classList.remove('translate-y-2', 'opacity-0');
             }, 10);
 
-            // Auto dismiss
+            // Destroy Toast
             setTimeout(() => {
                 toast.classList.add('translate-y-2', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
         }
 
-        // --- 3. MODAL CONTROLS ---
-        function openModal(id) {
-            const backdrop = document.getElementById('modal-backdrop');
-            const modal = document.getElementById(`modal-${id}`);
-            
-            backdrop.classList.remove('hidden');
-            modal.classList.remove('hidden');
-            
+        // --- 5. INTERACTIVE MODAL & SIMULATION CONTROL ---
+        function openModal(moduleType) {
+            const container = document.getElementById('modalContainer');
+            const body = document.getElementById('modalBody');
+            const title = document.getElementById('modalTitle');
+            const subtitle = document.getElementById('modalSubtitle');
+            const iconContainer = document.getElementById('modalIconContainer');
+            const icon = document.getElementById('modalIcon');
+            const content = document.getElementById('modalMainContent');
+
+            // Setup Header Styling & Metadata
+            if (moduleType === 'gudang') {
+                title.innerText = "Manajemen Gudang";
+                subtitle.innerText = "Simulasi Katalog, Stok & Mutasi Barang";
+                iconContainer.className = "p-2.5 rounded-xl bg-indigo-600 text-white";
+                icon.setAttribute('data-lucide', 'package');
+                renderGudangSim(content);
+            } 
+            else if (moduleType === 'waSender') {
+                title.innerText = "WhatsApp Mass Sender";
+                subtitle.innerText = "Simulator Mesin Pengirim Pesan Otomatis";
+                iconContainer.className = "p-2.5 rounded-xl bg-emerald-600 text-white";
+                icon.setAttribute('data-lucide', 'message-square');
+                renderWaSenderSim(content);
+            } 
+            else if (moduleType === 'arsip') {
+                title.innerText = "Sistem Arsip Digital";
+                subtitle.innerText = "Repositori Penyimpanan Dokumen Rahasia";
+                iconContainer.className = "p-2.5 rounded-xl bg-amber-600 text-white";
+                icon.setAttribute('data-lucide', 'folder-open');
+                renderArsipSim(content);
+            } 
+            else if (moduleType === 'saklar') {
+                title.innerText = "Hub IoT Saklar Pintar";
+                subtitle.innerText = "Monitor & Kontrol Daya Listrik-Air Real-time";
+                iconContainer.className = "p-2.5 rounded-xl bg-rose-600 text-white";
+                icon.setAttribute('data-lucide', 'toggle-right');
+                renderSaklarSim(content);
+            } 
+            else if (moduleType === 'penghuni') {
+                title.innerText = "Registri Data Penghuni";
+                subtitle.innerText = "Manajemen Direktori Penghuni & Kontak Unit";
+                iconContainer.className = "p-2.5 rounded-xl bg-violet-600 text-white";
+                icon.setAttribute('data-lucide', 'users');
+                renderPenghuniSim(content);
+            } 
+            else if (moduleType === 'signage') {
+                title.innerText = "Digital Signage Controller";
+                subtitle.innerText = "Manajemen Layout & Tulisan Berjalan Layar Publik";
+                iconContainer.className = "p-2.5 rounded-xl bg-cyan-600 text-white";
+                icon.setAttribute('data-lucide', 'monitor-play');
+                renderSignageSim(content);
+            }
+
+            // Reveal Animation
+            container.classList.remove('hidden');
             setTimeout(() => {
-                backdrop.classList.remove('opacity-0');
-                modal.classList.remove('opacity-0', 'scale-95');
-                modal.classList.add('scale-100');
+                body.classList.remove('translate-x-full');
             }, 50);
+            
+            lucide.createIcons();
         }
 
-        function closeModal(id) {
-            const backdrop = document.getElementById('modal-backdrop');
-            const modal = document.getElementById(`modal-${id}`);
+        function closeModal() {
+            const container = document.getElementById('modalContainer');
+            const body = document.getElementById('modalBody');
             
-            backdrop.classList.add('opacity-0');
-            modal.classList.add('opacity-0', 'scale-95');
-            modal.classList.remove('scale-100');
-            
+            body.classList.add('translate-x-full');
             setTimeout(() => {
-                backdrop.classList.add('hidden');
-                modal.classList.add('hidden');
+                container.classList.add('hidden');
             }, 300);
         }
 
-        function closeAllModals() {
-            const modals = ['gudang', 'wa', 'arsip', 'saklar', 'penghuni', 'signage', 'instructions'];
-            modals.forEach(closeModal);
+        // --- 6. RENDER SIMULATOR SUB-SYSTEMS ---
+
+        // ================= GUDANG SIMULATOR =================
+        function renderGudangSim(container) {
+            let html = `
+                <div class="space-y-6">
+                    <!-- Quick Add Form -->
+                    <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Simulasi Tambah Item Baru</h4>
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <input type="text" id="gudangNamaInput" placeholder="Nama Barang..." class="text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 min-h-[44px]">
+                            <input type="number" id="gudangStokInput" placeholder="Stok Awal..." class="text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 min-h-[44px]">
+                        </div>
+                        <button onclick="handleTambahBarang()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-4 rounded-xl min-h-[44px] transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Tambah ke Inventaris
+                        </button>
+                    </div>
+
+                    <!-- Item Stock List Table (Responsive) -->
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-sm font-bold">Katalog Stok Saat Ini</h4>
+                            <span class="text-xs text-slate-400 font-mono">${state.gudang.length} Kategori</span>
+                        </div>
+                        <div class="space-y-3" id="gudangListContainer">
+                            ${renderGudangRows()}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+            lucide.createIcons();
         }
 
-        // --- 4. DYNAMIC SYSTEM LOAD SIMULATOR ---
-        setInterval(() => {
-            const cpuEl = document.getElementById('cpu-load');
-            if (cpuEl) {
-                const randomLoad = Math.floor(Math.random() * (22 - 6 + 1)) + 6;
-                cpuEl.textContent = `${randomLoad}%`;
-            }
-        }, 3000);
+        function renderGudangRows() {
+            return state.gudang.map(item => {
+                let badgeColor = "bg-green-100 text-green-800 dark:bg-green-950/30 dark:text-green-400";
+                if (item.status === 'Hampir Habis') badgeColor = "bg-amber-100 text-amber-800 dark:bg-amber-950/30 dark:text-amber-400";
+                if (item.status === 'Habis') badgeColor = "bg-rose-100 text-rose-800 dark:bg-rose-950/30 dark:text-rose-400";
 
-        // --- 5. SUB APP 1: GUDANG LOGIC ---
-        let gudangData = [
-            { id: 1, nama: "Lampu LED Lobi 15W", qty: 45 },
-            { id: 2, nama: "Filter Pompa Air Cadangan", qty: 8 },
-            { id: 3, nama: "Kabel Listrik NYA 2.5mm (Roll)", qty: 12 },
-            { id: 4, nama: "Keran Air Stainless Steel 1/2 Inch", qty: 24 }
-        ];
-
-        function renderGudang() {
-            const tbody = document.getElementById('gudang-table-body');
-            const totalLabel = document.getElementById('gudang-total-label');
-            const totalStatCount = document.getElementById('stat-gudang-count');
-            
-            tbody.innerHTML = '';
-            gudangData.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.className = 'hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors';
-                tr.innerHTML = `
-                    <td class="p-3 font-medium text-slate-700 dark:text-slate-300">${item.nama}</td>
-                    <td class="p-3 text-center font-bold text-slate-900 dark:text-white">${item.qty} Pcs</td>
-                    <td class="p-3 text-right">
-                        <div class="flex justify-end gap-1">
-                            <button onclick="changeQty(${item.id}, 1)" class="p-1 text-slate-500 hover:text-sky-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            </button>
-                            <button onclick="changeQty(${item.id}, -1)" class="p-1 text-slate-500 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
-                            </button>
+                return `
+                    <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+                        <div class="pr-2">
+                            <p class="text-sm font-semibold">${item.nama}</p>
+                            <span class="text-[11px] font-mono text-slate-400">${item.id}</span>
                         </div>
-                    </td>
+                        <div class="flex items-center gap-3 flex-shrink-0">
+                            <span class="text-xs py-1 px-2.5 rounded-full ${badgeColor} font-semibold">${item.status}</span>
+                            <span class="text-sm font-bold font-mono text-indigo-600 dark:text-indigo-400">${item.stok} ${item.unit}</span>
+                        </div>
+                    </div>
                 `;
-                tbody.appendChild(tr);
+            }).join('');
+        }
+
+        window.handleTambahBarang = function() {
+            const nama = document.getElementById('gudangNamaInput').value.trim();
+            const stok = parseInt(document.getElementById('gudangStokInput').value);
+
+            if (!nama || isNaN(stok) || stok < 0) {
+                showToast("Isi data barang & stok dengan benar!", "error");
+                return;
+            }
+
+            let status = 'Cukup';
+            if (stok === 0) status = 'Habis';
+            else if (stok < 10) status = 'Hampir Habis';
+            else if (stok > 40) status = 'Melimpah';
+
+            const newId = `GD-00${state.gudang.length + 1}`;
+            state.gudang.unshift({
+                id: newId,
+                nama: nama,
+                stok: stok,
+                unit: 'Unit',
+                status: status
             });
 
-            const sumTotal = gudangData.reduce((acc, curr) => acc + curr.qty, 0);
-            totalLabel.textContent = `${gudangData.length} Varian Terdaftar`;
-            totalStatCount.textContent = sumTotal;
+            // Re-render
+            const listContainer = document.getElementById('gudangListContainer');
+            if (listContainer) listContainer.innerHTML = renderGudangRows();
+            
+            // Reset input
+            document.getElementById('gudangNamaInput').value = '';
+            document.getElementById('gudangStokInput').value = '';
+            
+            showToast(`Barang '${nama}' berhasil ditambahkan ke Gudang!`, "success");
+            lucide.createIcons();
         }
 
-        function changeQty(id, diff) {
-            const item = gudangData.find(i => i.id === id);
-            if (item) {
-                item.qty = Math.max(0, item.qty + diff);
-                renderGudang();
-            }
+
+        // ================= WA SENDER SIMULATOR =================
+        function renderWaSenderSim(container) {
+            let html = `
+                <div class="space-y-6">
+                    <!-- WhatsApp Compose Section -->
+                    <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Tulis Pesan Notifikasi Baru</h4>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 mb-1 block">Nomor Tujuan</label>
+                                <input type="text" id="waPhoneInput" placeholder="Contoh: 0812XXXXXXXX" class="w-full text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 min-h-[44px]">
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 mb-1 block">Pesan</label>
+                                <textarea id="waMessageInput" rows="3" placeholder="Tulis notifikasi Anda di sini..." class="w-full text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3"></textarea>
+                            </div>
+                        </div>
+
+                        <button onclick="handleKirimPesan()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2 px-4 rounded-xl min-h-[44px] transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> Kirim Notifikasi Instan
+                        </button>
+                    </div>
+
+                    <!-- Progress Bar Simulation (Hidden by default) -->
+                    <div id="waProgressWrapper" class="hidden bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+                        <div class="flex justify-between items-center text-xs font-semibold mb-2">
+                            <span>Sedang Menghubungkan Gateway...</span>
+                            <span id="waProgressPercent" class="font-mono">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
+                            <div id="waProgressBar" class="bg-emerald-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Log Outbox -->
+                    <div>
+                        <h4 class="text-sm font-bold mb-3">Arsip Pengiriman Notifikasi Terakhir</h4>
+                        <div class="space-y-3" id="waLogList">
+                            ${renderWaLogs()}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+            lucide.createIcons();
         }
 
-        function addGudangItem() {
-            const nameInput = document.getElementById('gudang-name-input');
-            const qtyInput = document.getElementById('gudang-qty-input');
-            
-            const name = nameInput.value.trim();
-            const qty = parseInt(qtyInput.value);
-
-            if (!name || isNaN(qty) || qty <= 0) {
-                showToast("Isi nama barang & jumlah yang valid!", "error");
-                return;
-            }
-
-            const newId = gudangData.length > 0 ? Math.max(...gudangData.map(i => i.id)) + 1 : 1;
-            gudangData.push({ id: newId, nama: name, qty: qty });
-            
-            nameInput.value = '';
-            qtyInput.value = '';
-            
-            renderGudang();
-            showToast(`Sukses menambahkan ${name} ke inventaris!`, "success");
+        function renderWaLogs() {
+            return state.waSender.logs.map(log => `
+                <div class="p-3.5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="text-xs font-bold text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                            <i data-lucide="user" class="w-3.5 h-3.5"></i> ${log.tujuan}
+                        </span>
+                        <span class="text-[10px] text-slate-400 font-mono">${log.waktu} WIB</span>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-2 bg-white dark:bg-slate-900 p-2 rounded-lg border border-slate-100 dark:border-slate-800">${log.pesan}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[10px] font-mono text-slate-400">${log.id}</span>
+                        <span class="text-[10px] font-semibold py-0.5 px-2 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400">
+                            ${log.status}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // --- 6. SUB APP 2: WA SENDER LOGIC ---
-        const templates = {
-            tagihan: "Yth. Bpk/Ibu Penghuni Unit [Unit]. Diberitahukan bahwa tagihan iuran pemeliharaan lingkungan bulan ini telah terbit sebesar Rp 350.000. Mohon melakukan pelunasan sebelum tanggal 10. Terima kasih.",
-            "kerja-bakti": "Undangan Kerja Bakti: Mengharap kehadiran seluruh warga Smart Condo dalam kegiatan kerja bakti pembersihan area lobi utama & taman vertikal pada Minggu besok jam 07.30 WIB. Mari jaga kebersihan lingkungan bersama.",
-            darurat: "Pemberitahuan darurat: Aliran distribusi air bersih sementara dihentikan karena perbaikan sistem pemompaan utama. Air diperkirakan akan mengalir normal kembali dalam 2 jam. Mohon maaf atas ketidaknyamanan ini."
-        };
-
-        function applyWATemplate() {
-            const selector = document.getElementById('wa-template');
-            const textarea = document.getElementById('wa-message');
-            const selectedVal = selector.value;
-            
-            if (selectedVal && templates[selectedVal]) {
-                textarea.value = templates[selectedVal];
-            } else {
-                textarea.value = '';
-            }
-        }
-
-        function sendWAMessage() {
-            const phone = document.getElementById('wa-phone').value.trim();
-            const message = document.getElementById('wa-message').value.trim();
-            const sendBtn = document.getElementById('wa-send-btn');
-            const progressContainer = document.getElementById('wa-progress');
-            const progressBar = document.getElementById('wa-progress-bar');
-            const percentLabel = document.getElementById('wa-percent');
+        window.handleKirimPesan = function() {
+            const phone = document.getElementById('waPhoneInput').value.trim();
+            const message = document.getElementById('waMessageInput').value.trim();
+            const progressWrapper = document.getElementById('waProgressWrapper');
+            const progressBar = document.getElementById('waProgressBar');
+            const progressPercent = document.getElementById('waProgressPercent');
 
             if (!phone || !message) {
-                showToast("Lengkapi nomor telepon & pesan terlebih dahulu!", "error");
+                showToast("Nomor tujuan & pesan tidak boleh kosong!", "error");
                 return;
             }
 
-            // Lock UI & Start simulation progress bar
-            sendBtn.disabled = true;
-            sendBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            progressContainer.classList.remove('hidden');
-            
+            // Animate Gateway Connection Progress Bar
+            progressWrapper.classList.remove('hidden');
             let progress = 0;
-            progressBar.style.width = '0%';
-            percentLabel.textContent = '0%';
-
             const interval = setInterval(() => {
-                progress += 20;
+                progress += 25;
                 progressBar.style.width = `${progress}%`;
-                percentLabel.textContent = `${progress}%`;
+                progressPercent.innerText = `${progress}%`;
 
                 if (progress >= 100) {
                     clearInterval(interval);
                     
-                    // Reset UI & Trigger Success
+                    // Push data to state log
+                    const now = new Date();
+                    const logId = `W-${Math.floor(100 + Math.random() * 900)}`;
+                    state.waSender.logs.unshift({
+                        id: logId,
+                        tujuan: phone,
+                        pesan: message,
+                        status: 'Terkirim',
+                        waktu: now.toLocaleTimeString('id-ID').substring(0, 5)
+                    });
+
+                    // Hide progress and refresh list
                     setTimeout(() => {
-                        sendBtn.disabled = false;
-                        sendBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                        progressContainer.classList.add('hidden');
+                        progressWrapper.classList.add('hidden');
+                        progressBar.style.width = `0%`;
+                        progressPercent.innerText = `0%`;
                         
-                        // Increment sent stats
-                        const statWa = document.getElementById('stat-wa-count');
-                        const currentCount = parseInt(statWa.textContent.replace(/[^0-9]/g, ''));
-                        statWa.textContent = (currentCount + 1).toLocaleString('id-ID');
+                        document.getElementById('waPhoneInput').value = '';
+                        document.getElementById('waMessageInput').value = '';
                         
-                        showToast(`Pesan berhasil ditransmisikan ke ${phone}!`, "success");
-                        closeModal('wa');
-                    }, 300);
+                        const logList = document.getElementById('waLogList');
+                        if (logList) logList.innerHTML = renderWaLogs();
+                        
+                        showToast("Notifikasi berhasil dilepas melalui WhatsApp Gateway!", "success");
+                        lucide.createIcons();
+                    }, 400);
                 }
             }, 300);
         }
 
-        // --- 7. SUB APP 3: ARSIP LOGIC ---
-        let arsipData = [
-            { id: 1, nama: "Laporan_Keuangan_KMT_2025_Q4.pdf", tipe: "Laporan", tgl: "15 Jan 2026", size: "3.2 MB" },
-            { id: 2, nama: "SK_Pengurus_Kondominium_Terbaru.pdf", tipe: "Surat", tgl: "02 Feb 2026", size: "1.4 MB" },
-            { id: 3, nama: "Sertifikat_Kelaikan_Lift_Utama.pdf", tipe: "Sertifikat", tgl: "18 Nov 2025", size: "850 KB" },
-            { id: 4, nama: "Kontrak_Vendor_Kebersihan_2026.xlsx", tipe: "Laporan", tgl: "29 Des 2025", size: "5.1 MB" }
-        ];
 
-        function renderArsip(dataToRender = arsipData) {
-            const listContainer = document.getElementById('arsip-list');
-            const statArsip = document.getElementById('stat-arsip-count');
-            listContainer.innerHTML = '';
-
-            statArsip.textContent = arsipData.length;
-
-            if (dataToRender.length === 0) {
-                listContainer.innerHTML = `
-                    <div class="text-center py-6 text-xs font-semibold text-slate-400">
-                        Tidak ada berkas cocok ditemukan.
+        // ================= ARSIP DIGITAL SIMULATOR =================
+        function renderArsipSim(container) {
+            let html = `
+                <div class="space-y-6">
+                    <!-- File Upload Simulation Area -->
+                    <div class="border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-6 text-center hover:border-amber-500 dark:hover:border-amber-500 transition-colors group cursor-pointer">
+                        <input type="file" id="arsipFileInput" class="hidden" onchange="handleSimulasiUpload(event)">
+                        <label for="arsipFileInput" class="cursor-pointer block">
+                            <i data-lucide="cloud-lightning" class="w-10 h-10 mx-auto text-slate-400 group-hover:text-amber-500 transition-colors mb-2"></i>
+                            <p class="text-sm font-semibold mb-1">Simulasi Unggah Berkas Baru</p>
+                            <span class="text-xs text-slate-400">Klik di sini untuk mengunggah dummy file (.pdf, .docx, .xlsx)</span>
+                        </label>
                     </div>
-                `;
-                return;
-            }
 
-            dataToRender.forEach(doc => {
-                const docCard = document.createElement('div');
-                docCard.className = "flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60 rounded-xl hover:border-indigo-500/40 transition-all";
-                docCard.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <div class="p-2 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-500 rounded-lg flex-shrink-0">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    <!-- File List Explorer -->
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-sm font-bold">Arsip Penyimpanan</h4>
+                            <span class="text-xs text-slate-400 font-mono">${state.arsip.length} Berkas</span>
                         </div>
-                        <div class="min-w-0">
-                            <h5 class="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">${doc.nama}</h5>
-                            <p class="text-[10px] text-slate-400 mt-0.5">${doc.tipe} &bull; ${doc.tgl} &bull; ${doc.size}</p>
+                        <div class="space-y-3" id="arsipFileList">
+                            ${renderArsipItems()}
                         </div>
                     </div>
-                    <button onclick="downloadArsip('${doc.nama}')" class="p-1.5 text-slate-400 hover:text-indigo-500 rounded-lg hover:bg-white dark:hover:bg-slate-900 shadow-sm transition-all" title="Unduh File">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    </button>
-                `;
-                listContainer.appendChild(docCard);
-            });
+                </div>
+            `;
+            container.innerHTML = html;
+            lucide.createIcons();
         }
 
-        function filterArsip() {
-            const query = document.getElementById('arsip-search').value.toLowerCase();
-            const typeFilter = document.getElementById('arsip-filter-type').value;
-
-            const filtered = arsipData.filter(doc => {
-                const matchesQuery = doc.nama.toLowerCase().includes(query);
-                const matchesType = typeFilter === "" || doc.tipe === typeFilter;
-                return matchesQuery && matchesType;
-            });
-
-            renderArsip(filtered);
-        }
-
-        function simulateUpload() {
-            showToast("Mensimulasikan enkripsi berkas...", "info");
-            setTimeout(() => {
-                const names = ["Berita_Acara_Rapat_Pleno.pdf", "SOP_Keamanan_Gerbang.xlsx", "Skema_Kelistrikan_Gedung_B.pdf"];
-                const types = ["Surat", "Laporan", "Sertifikat"];
-                
-                const randomName = names[Math.floor(Math.random() * names.length)];
-                const randomType = types[Math.floor(Math.random() * types.length)];
-                
-                // Avoid duplication in simulation
-                const uniqueName = Date.now().toString().slice(-4) + "_" + randomName;
-
-                arsipData.unshift({
-                    id: Date.now(),
-                    nama: uniqueName,
-                    tipe: randomType,
-                    tgl: "Hari Ini",
-                    size: "1.8 MB"
-                });
-
-                renderArsip();
-                showToast("Berkas baru berhasil dienkripsi & diunggah ke Secure S3!", "success");
-            }, 1000);
-        }
-
-        function downloadArsip(name) {
-            showToast(`Mengunduh berkas ${name}...`, "success");
-        }
-
-        // --- 8. SUB APP 4: SWITCH CONTROLS LOGIC ---
-        let switchStates = [
-            { id: 1, label: "Lampu Lobi Utama", desc: "Listrik Lantai 1", active: true, type: "listrik" },
-            { id: 2, label: "Lampu Taman Belakang", desc: "Listrik Taman Luar", active: false, type: "listrik" },
-            { id: 3, label: "Pompa Pasokan Air Utama", desc: "Mesin Pompa Bawah Tanah", active: true, type: "air" },
-            { id: 4, label: "Filter Tandon Atas", desc: "Pompa Resirkulasi Tandon", active: true, type: "air" },
-            { id: 5, label: "AC Server Room", desc: "Kontrol Suhu Ruang Pusat", active: false, type: "listrik" }
-        ];
-
-        function renderSwitches() {
-            const container = document.getElementById('switches-list');
-            container.innerHTML = '';
-
-            switchStates.forEach(item => {
-                const row = document.createElement('div');
-                row.className = "flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl";
-                
-                // Toggle Button styling
-                const toggleBg = item.active ? "bg-amber-500" : "bg-slate-300 dark:bg-slate-700";
-                const toggleHandle = item.active ? "translate-x-6" : "translate-x-0";
-
-                row.innerHTML = `
+        function renderArsipItems() {
+            return state.arsip.map(file => `
+                <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800">
                     <div class="flex items-center gap-3">
-                        <div class="p-2.5 rounded-xl ${item.active ? 'bg-amber-100 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400' : 'bg-slate-100 text-slate-400 dark:bg-slate-900'}">
-                            ${item.type === 'listrik' 
-                                ? `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`
-                                : `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5a2 2 0 00-2-2zm2.5 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path></svg>`
-                            }
+                        <div class="p-2.5 bg-amber-50 dark:bg-amber-950/40 text-amber-600 rounded-xl">
+                            <i data-lucide="file-text" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <h5 class="text-xs font-bold text-slate-800 dark:text-slate-200">${item.label}</h5>
-                            <p class="text-[10px] text-slate-400 mt-0.5">${item.desc}</p>
+                            <p class="text-sm font-semibold truncate max-w-[180px] sm:max-w-[280px]">${file.nama}</p>
+                            <span class="text-[10px] text-slate-400 font-semibold uppercase">${file.kategori} &bull; ${file.ukuran}</span>
                         </div>
                     </div>
-                    
-                    <!-- Toggle Switch -->
-                    <button onclick="toggleSwitch(${item.id})" class="relative inline-flex h-6 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${toggleBg}">
-                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${toggleHandle}"></span>
+                    <button onclick="previewArsip('${file.nama}')" class="min-h-[44px] px-3 py-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm active:scale-95 flex items-center gap-1.5">
+                        <i data-lucide="eye" class="w-3.5 h-3.5"></i> Review
                     </button>
-                `;
-                container.appendChild(row);
+                </div>
+            `).join('');
+        }
+
+        window.handleSimulasiUpload = function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const name = file.name;
+            const size = (file.size / (1024 * 1024)).toFixed(1) + " MB";
+            const category = name.endsWith('.xlsx') ? 'Keuangan' : name.endsWith('.docx') ? 'Admin' : 'Teknis';
+
+            state.arsip.unshift({
+                id: `ARC-00${state.arsip.length + 1}`,
+                nama: name,
+                kategori: category,
+                ukuran: size
             });
 
-            // Update stats
-            const activeCount = switchStates.filter(s => s.active).length;
-            const badge = document.getElementById('saklar-summary-badge');
-            const totalCount = document.getElementById('stat-saklar-count');
-            
-            badge.textContent = `${activeCount} Aktif`;
-            totalCount.textContent = `${activeCount}/${switchStates.length}`;
+            const fileList = document.getElementById('arsipFileList');
+            if (fileList) fileList.innerHTML = renderArsipItems();
+
+            showToast(`Berkas '${name}' berhasil diunggah ke repositori arsip digital!`, "success");
+            lucide.createIcons();
         }
 
-        function toggleSwitch(id) {
-            const item = switchStates.find(s => s.id === id);
-            if (item) {
-                item.active = !item.active;
-                renderSwitches();
-                const statusStr = item.active ? "DIAKTIFKAN" : "DIMATIKAN";
-                showToast(`${item.label} berhasil ${statusStr}!`, "success");
-            }
+        window.previewArsip = function(fileName) {
+            showToast(`Pratinjau digital '${fileName}' berhasil dipanggil!`, "info");
         }
 
-        // --- 9. SUB APP 5: DATA PENGHUNI LOGIC ---
-        let penghuniData = [
-            { id: 1, nama: "Budi Santoso", unit: "A-12", telp: "08129876543", status: "Pemilik" },
-            { id: 2, nama: "Siti Rahmawati", unit: "B-04", telp: "08131234567", status: "Penyewa" },
-            { id: 3, nama: "Andi Wijaya", unit: "A-14", telp: "08575556677", status: "Pemilik" },
-            { id: 4, nama: "Diana Lestari", unit: "C-08", telp: "08190001112", status: "Penyewa" }
-        ];
 
-        function renderPenghuni(dataToRender = penghuniData) {
-            const list = document.getElementById('penghuni-list');
-            const statPenghuni = document.getElementById('stat-penghuni-count');
-            list.innerHTML = '';
-
-            statPenghuni.textContent = penghuniData.length;
-
-            if (dataToRender.length === 0) {
-                list.innerHTML = `
-                    <div class="col-span-2 text-center py-6 text-xs font-semibold text-slate-400">
-                        Tidak ada data penghuni yang cocok.
-                    </div>
-                `;
-                return;
-            }
-
-            dataToRender.forEach(p => {
-                const card = document.createElement('div');
-                card.className = "p-4 bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl flex flex-col justify-between";
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-start justify-between">
-                            <h5 class="text-xs font-bold text-slate-800 dark:text-slate-100">${p.nama}</h5>
-                            <span class="text-[9px] px-2 py-0.5 rounded-full font-bold ${p.status === 'Pemilik' ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400'}">${p.status}</span>
+        // ================= SAKLAR IOT SIMULATOR =================
+        function renderSaklarSim(container) {
+            let html = `
+                <div class="space-y-6">
+                    <div class="bg-indigo-50/50 dark:bg-slate-950 p-4 rounded-2xl border border-indigo-100 dark:border-slate-800 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wide">Estimasi Penghematan Energi</p>
+                            <h4 id="savingRateText" class="text-lg font-extrabold text-indigo-600 dark:text-indigo-400">Efisiensi Aktif</h4>
                         </div>
-                        <p class="text-[10px] text-slate-400 mt-1">Unit: <span class="font-bold text-slate-600 dark:text-slate-300">${p.unit}</span></p>
-                        <p class="text-[10px] text-slate-400">Kontak: <span class="text-slate-600 dark:text-slate-300">${p.telp}</span></p>
+                        <div class="p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-indigo-600 rounded-xl">
+                            <i data-lucide="zap" class="w-5 h-5"></i>
+                        </div>
                     </div>
-                    <div class="flex justify-end gap-2 border-t border-slate-200/40 dark:border-slate-800/40 pt-2 mt-3">
-                        <button onclick="hubungiPenghuni('${p.telp}')" class="text-[10px] font-bold text-emerald-500 hover:underline">
-                            Kirim WA
-                        </button>
-                        <button onclick="hapusPenghuni(${p.id})" class="text-[10px] font-bold text-rose-500 hover:underline">
-                            Hapus
-                        </button>
+
+                    <div>
+                        <h4 class="text-sm font-bold mb-3">Relay Saklar Fisik</h4>
+                        <div class="grid grid-cols-1 gap-3" id="saklarContainer">
+                            ${renderSaklarSwitches()}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+            calculateIoTStats();
+            lucide.createIcons();
+        }
+
+        function renderSaklarSwitches() {
+            return state.saklar.map(sw => {
+                const switchBg = sw.status ? 'bg-rose-50 border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/50' : 'bg-slate-50 border-slate-200 dark:bg-slate-950 dark:border-slate-800';
+                const statusBadge = sw.status ? 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-400' : 'bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-400';
+                const toggleIcon = sw.status ? 'toggle-right' : 'toggle-left';
+                const toggleColor = sw.status ? 'text-rose-500' : 'text-slate-400';
+
+                return `
+                    <div class="flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 ${switchBg}">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                                <i data-lucide="${sw.tipe === 'Listrik' ? 'lightbulb' : 'droplet'}" class="w-5 h-5 ${sw.status ? 'text-amber-500 animate-pulse' : 'text-slate-400'}"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-sm font-bold">${sw.nama}</h5>
+                                <span class="text-[11px] font-mono text-slate-400">${sw.tipe} &bull; ${sw.status ? sw.watt + 'W' : '0W'}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] font-bold py-0.5 px-2 rounded-full uppercase ${statusBadge}">${sw.status ? 'ON' : 'OFF'}</span>
+                            <button onclick="toggleSwitch('${sw.id}')" class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+                                <i data-lucide="${toggleIcon}" class="w-9 h-9 ${toggleColor}"></i>
+                            </button>
+                        </div>
                     </div>
                 `;
-                list.appendChild(card);
-            });
+            }).join('');
         }
 
-        function filterPenghuni() {
-            const query = document.getElementById('penghuni-search').value.toLowerCase();
-            const filtered = penghuniData.filter(p => {
-                return p.nama.toLowerCase().includes(query) || p.unit.toLowerCase().includes(query);
-            });
-            renderPenghuni(filtered);
+        window.toggleSwitch = function(id) {
+            const index = state.saklar.findIndex(sw => sw.id === id);
+            if (index !== -1) {
+                // Toggle status
+                state.saklar[index].status = !state.saklar[index].status;
+                
+                // Adjust wattage
+                if (state.saklar[index].status) {
+                    state.saklar[index].watt = state.saklar[index].id === 'sw-1' ? 120 : state.saklar[index].id === 'sw-2' ? 250 : state.saklar[index].id === 'sw-3' ? 1200 : 50;
+                } else {
+                    state.saklar[index].watt = 0;
+                }
+
+                // Re-render
+                const container = document.getElementById('saklarContainer');
+                if (container) container.innerHTML = renderSaklarSwitches();
+
+                calculateIoTStats();
+                showToast(`Saklar '${state.saklar[index].nama}' telah diubah ke posisi ${state.saklar[index].status ? 'ON' : 'OFF'}!`, "info");
+                lucide.createIcons();
+            }
         }
 
-        function addPenghuni() {
-            const namaInput = document.getElementById('penghuni-nama');
-            const unitInput = document.getElementById('penghuni-unit');
-            const telpInput = document.getElementById('penghuni-telp');
+        function calculateIoTStats() {
+            const totalSwitches = state.saklar.length;
+            const activeSwitches = state.saklar.filter(s => s.status).length;
+            const totalWatt = state.saklar.reduce((acc, curr) => acc + curr.watt, 0);
 
-            const nama = namaInput.value.trim();
-            const unit = unitInput.value.trim();
-            const telp = telpInput.value.trim();
+            // Update main dashboard widgets and texts
+            const activeSwitchesText = document.getElementById('activeSwitchesText');
+            if (activeSwitchesText) activeSwitchesText.innerText = `${activeSwitches} dari ${totalSwitches} Saklar ON`;
 
-            if (!nama || !unit || !telp) {
-                showToast("Semua kolom pendaftaran wajib diisi!", "error");
+            const activeIoTBadge = document.getElementById('activeIoTBadge');
+            if (activeIoTBadge) activeIoTBadge.innerHTML = `<i data-lucide="zap" class="w-3.5 h-3.5"></i> ${activeSwitches}/${totalSwitches} IoT Aktif`;
+
+            const totalPowerStat = document.getElementById('totalPowerStat');
+            if (totalPowerStat) totalPowerStat.innerHTML = `${totalWatt} <span class="text-xs font-normal text-slate-400">Watt</span>`;
+
+            const iotOnlineStatus = document.getElementById('iotOnlineStatus');
+            if (iotOnlineStatus) {
+                if (activeSwitches > 0) {
+                    iotOnlineStatus.className = "text-xs font-medium py-1 px-2.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/50";
+                    iotOnlineStatus.innerText = "IoT Relay Aktif";
+                } else {
+                    iotOnlineStatus.className = "text-xs font-medium py-1 px-2.5 rounded-full bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400 border border-slate-200 dark:border-slate-700";
+                    iotOnlineStatus.innerText = "Semua Nonaktif";
+                }
+            }
+
+            // Inside modal panel
+            const savingRateText = document.getElementById('savingRateText');
+            if (savingRateText) {
+                const maxWatt = 1620; // total watt when all switches are ON
+                const savingPercentage = Math.max(0, Math.round(((maxWatt - totalWatt) / maxWatt) * 100));
+                savingRateText.innerText = `Hemat ${savingPercentage}% Listrik`;
+            }
+        }
+
+
+        // ================= PENGHUNI SIMULATOR =================
+        function renderPenghuniSim(container) {
+            let html = `
+                <div class="space-y-6">
+                    <!-- Search Input Dynamic -->
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                        </span>
+                        <input type="text" id="penghuniSearchInput" oninput="handleFilterPenghuni()" placeholder="Cari nama penghuni atau unit..." class="w-full text-sm pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl min-h-[44px]">
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold mb-3">Direktori Terdaftar</h4>
+                        <div class="space-y-3" id="penghuniList">
+                            ${renderPenghuniRows(state.penghuni)}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderPenghuniRows(dataList) {
+            if (dataList.length === 0) {
+                return `
+                    <div class="text-center py-6 text-slate-400">
+                        <i data-lucide="users" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
+                        <p class="text-sm">Tidak ada penghuni yang cocok.</p>
+                    </div>
+                `;
+            }
+
+            return dataList.map(p => {
+                const statusColor = p.status === 'Aktif' ? 'bg-green-100 text-green-800 dark:bg-green-950/40 dark:text-green-400' : 'bg-rose-100 text-rose-800 dark:bg-rose-950/40 dark:text-rose-400';
+                return `
+                    <div class="p-3.5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h5 class="text-sm font-bold">${p.nama}</h5>
+                                <span class="text-xs text-slate-400 font-semibold">${p.unit}</span>
+                            </div>
+                            <span class="text-[10px] font-bold py-0.5 px-2 rounded-full ${statusColor}">${p.status}</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-slate-500 border-t border-slate-100 dark:border-slate-800/80 pt-2 mt-2">
+                            <span class="font-mono flex items-center gap-1">
+                                <i data-lucide="phone" class="w-3.5 h-3.5"></i> ${p.kontak}
+                            </span>
+                            <button onclick="panggilPenghuni('${p.nama}')" class="text-indigo-600 hover:text-indigo-700 font-semibold flex items-center gap-1">
+                                Hubungi
+                                <i data-lucide="external-link" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.handleFilterPenghuni = function() {
+            const query = document.getElementById('penghuniSearchInput').value.toLowerCase();
+            const filtered = state.penghuni.filter(p => p.nama.toLowerCase().includes(query) || p.unit.toLowerCase().includes(query));
+            
+            const list = document.getElementById('penghuniList');
+            if (list) {
+                list.innerHTML = renderPenghuniRows(filtered);
+                lucide.createIcons();
+            }
+        }
+
+        window.panggilPenghuni = function(nama) {
+            showToast(`Mengalihkan panggian suara VoIP ke ${nama}...`, "info");
+        }
+
+
+        // ================= SIGNAGE SIMULATOR =================
+        function renderSignageSim(container) {
+            let html = `
+                <div class="space-y-6">
+                    <!-- Live Running Text Preview Panel -->
+                    <div class="bg-black text-amber-500 font-mono p-4 rounded-2xl border border-slate-800 overflow-hidden relative shadow-inner">
+                        <div class="absolute top-2 left-2 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping"></span>
+                            <span class="text-[9px] text-slate-500 uppercase tracking-wider font-sans">LIVE DISPLAY SCREEN</span>
+                        </div>
+                        
+                        <div class="pt-5 pb-1 select-none">
+                            <marquee class="text-sm font-bold font-mono tracking-widest uppercase text-yellow-400" id="signagePreviewScroll">
+                                ${state.signage.runningText}
+                            </marquee>
+                        </div>
+                    </div>
+
+                    <!-- Input Editor Panel -->
+                    <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Modifikasi Informasi Teks Berjalan</h4>
+                        
+                        <div class="mb-4">
+                            <label class="text-xs font-semibold text-slate-500 mb-1 block">Teks Berjalan Baru</label>
+                            <input type="text" id="signageTextInput" value="${state.signage.runningText}" class="w-full text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 min-h-[44px]">
+                        </div>
+
+                        <button onclick="handleUpdateSignage()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold py-2 px-4 rounded-xl min-h-[44px] transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i> Publikasikan ke Layar
+                        </button>
+                    </div>
+
+                    <!-- System Playback Options -->
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold">Kondisi Tampilan Layar Utama</h4>
+                        
+                        <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800">
+                            <div>
+                                <h5 class="text-sm font-bold">Pilihan Tata Letak</h5>
+                                <p class="text-xs text-slate-400">Layout monitor utama saat ini</p>
+                            </div>
+                            <select id="signageLayoutSelect" onchange="handleLayoutChange()" class="text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-2 font-semibold">
+                                <option value="Double Panel Display" ${state.signage.layout === 'Double Panel Display' ? 'selected' : ''}>Double Panel Display</option>
+                                <option value="Fullscreen Video Lobi" ${state.signage.layout === 'Fullscreen Video Lobi' ? 'selected' : ''}>Fullscreen Video Lobi</option>
+                                <option value="Split-Screen Agenda" ${state.signage.layout === 'Split-Screen Agenda' ? 'selected' : ''}>Split-Screen Agenda</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        window.handleUpdateSignage = function() {
+            const input = document.getElementById('signageTextInput').value.trim();
+            if (!input) {
+                showToast("Isi teks berjalan terlebih dahulu!", "error");
                 return;
             }
 
-            const newId = Date.now();
-            penghuniData.push({
-                id: newId,
-                nama: nama,
-                unit: unit,
-                telp: telp,
-                status: "Penyewa" // Default status dalam simulasi
-            });
+            state.signage.runningText = input;
+            
+            // Re-render preview inside active simulator
+            const marquee = document.getElementById('signagePreviewScroll');
+            if (marquee) marquee.innerText = input;
 
-            namaInput.value = '';
-            unitInput.value = '';
-            telpInput.value = '';
-
-            renderPenghuni();
-            showToast(`Sukses mendaftarkan ${nama} ke unit ${unit}!`, "success");
+            showToast("Teks informasi running-text berhasil diperbarui langsung ke lobi lobi!", "success");
         }
 
-        function hapusPenghuni(id) {
-            penghuniData = penghuniData.filter(p => p.id !== id);
-            renderPenghuni();
-            showToast("Data penghuni berhasil dihapus.", "info");
+        window.handleLayoutChange = function() {
+            const selectVal = document.getElementById('signageLayoutSelect').value;
+            state.signage.layout = selectVal;
+            showToast(`Layout monitor beralih ke: ${selectVal}!`, "info");
         }
 
-        function hubungiPenghuni(telp) {
-            closeModal('penghuni');
-            openModal('wa');
-            document.getElementById('wa-phone').value = telp;
-            showToast(`Menghubungkan ke WhatsApp Sender untuk kontak ${telp}`, "info");
-        }
 
-        // --- 10. SUB APP 6: DIGITAL SIGNAGE LOGIC ---
-        function updateSignage() {
-            const mainText = document.getElementById('signage-main-input').value.trim();
-            const marqueeText = document.getElementById('signage-marquee-input').value.trim();
-
-            if (!mainText || !marqueeText) {
-                showToast("Teks utama dan teks berjalan tidak boleh kosong!", "error");
-                return;
-            }
-
-            document.getElementById('signage-preview-text').textContent = mainText.toUpperCase();
-            document.getElementById('signage-marquee-text').textContent = marqueeText;
-
-            showToast("Konten layar Signage Lobi berhasil diperbarui!", "success");
-            closeModal('signage');
-        }
-
-        // --- 11. EXTRA: INSTRUCTIONS ---
-        function showInstructions() {
-            openModal('instructions');
-        }
-
-        // Initialize state on render
+        // --- 7. INITIALIZE WEB APP ---
         window.onload = function() {
-            renderGudang();
-            renderArsip();
-            renderSwitches();
-            renderPenghuni();
+            runLiveClock();
+            initTheme();
+            lucide.createIcons();
+            showToast("Selamat Datang di Hub Manajemen Terpadu Cerdas!", "info");
         };
-    </script>
 
-    <!-- Marquee Keyframe CSS Animation inside HTML body -->
-    <style>
-        @keyframes marquee {
-            0% { transform: translate3d(100%, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
-        }
-    </style>
+    </script>
 </body>
 </html>
