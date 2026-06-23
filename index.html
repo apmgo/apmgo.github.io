@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontrol Manajemen Terpadu - Hub Sistem Pintar</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full px-4 md:px-0"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-gradient-to-tr from-sky-500 to-indigo-600 rounded-xl text-white shadow-md shadow-sky-500/10">
+                    <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 3.055A9.003 9.003 0 1020.945 13H11V3.055z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-slate-900 via-sky-600 to-indigo-500 dark:from-white dark:via-sky-400 dark:to-indigo-300 bg-clip-text text-transparent">KMT</span>
+                    <span class="hidden sm:inline text-xs text-slate-500 dark:text-slate-400 ml-2 border-l border-slate-300 dark:border-slate-700 pl-2">Hub Kontrol Terpadu</span>
+                </div>
+            </div>
+
+            <!-- Header Controls -->
+            <div class="flex items-center gap-3">
+                <!-- Live System Badge -->
+                <div class="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 px-3 py-1.5 rounded-full">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-xs font-semibold text-emerald-700 dark:text-emerald-400">SISTEM ONLINE</span>
+                </div>
+
+                <!-- Dark/Light Theme Toggle -->
+                <button id="theme-toggle" class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Ganti Tema">
+                    <!-- Sun Icon -->
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+                    </svg>
+                    <!-- Moon Icon -->
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP CANVAS -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- HERO SECTION & OVERVIEW -->
+        <section class="mb-10 text-center sm:text-left">
+            <div class="sm:flex sm:items-center sm:justify-between border-b border-slate-200 dark:border-slate-800 pb-6 mb-8">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                        Pusat Kendali Operasional
+                    </h1>
+                    <p class="mt-2 text-base text-slate-500 dark:text-slate-400">
+                        Akses satu-pintu untuk seluruh infrastruktur cerdas, data penghuni, logistik, dan media digital Anda.
+                    </p>
+                </div>
+                <!-- Simulated CPU / RAM load widgets -->
+                <div class="mt-4 sm:mt-0 flex gap-4 justify-center">
+                    <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm w-28 text-center">
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Beban CPU</span>
+                        <div class="text-lg font-bold text-sky-500 mt-0.5" id="cpu-load">12%</div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm w-28 text-center">
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Beban RAM</span>
+                        <div class="text-lg font-bold text-indigo-500 mt-0.5">42%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE STATUS SUMMARY WIDGETS -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <!-- Stat 1 -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Item Gudang</span>
+                    <span class="text-2xl font-bold mt-2" id="stat-gudang-count">148</span>
+                    <span class="text-[10px] text-sky-500 font-medium mt-1">Siap Distribusi</span>
+                </div>
+                <!-- Stat 2 -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">WA Terkirim</span>
+                    <span class="text-2xl font-bold mt-2" id="stat-wa-count">1.284</span>
+                    <span class="text-[10px] text-emerald-500 font-medium mt-1">100% Sukses</span>
+                </div>
+                <!-- Stat 3 -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Dokumen Digital</span>
+                    <span class="text-2xl font-bold mt-2" id="stat-arsip-count">482</span>
+                    <span class="text-[10px] text-indigo-500 font-medium mt-1">Ter-enkripsi</span>
+                </div>
+                <!-- Stat 4 -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Saklar Aktif</span>
+                    <span class="text-2xl font-bold mt-2 text-amber-500" id="stat-saklar-count">3/5</span>
+                    <span class="text-[10px] text-amber-500 font-medium mt-1">Hemat Daya Otomatis</span>
+                </div>
+                <!-- Stat 5 -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Data Penghuni</span>
+                    <span class="text-2xl font-bold mt-2" id="stat-penghuni-count">24</span>
+                    <span class="text-[10px] text-slate-500 font-medium mt-1">Terdaftar Aktif</span>
+                </div>
+                <!-- Stat 6 -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Signage Aktif</span>
+                    <span class="text-2xl font-bold mt-2" id="stat-signage-status">ON</span>
+                    <span class="text-[10px] text-purple-500 font-medium mt-1">Tampilan Publik</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CORE HUB GRID (Akses Modul) -->
+        <section class="mb-12">
+            <h2 class="text-lg font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-6">Modul Manajemen Terintegrasi</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- 1. MANAJEMEN GUDANG CARD -->
+                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-sky-500/50 dark:hover:border-sky-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 dark:bg-sky-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
+                    <div>
+                        <div class="p-3 bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 rounded-2xl w-fit mb-5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors">Manajemen Gudang</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                            Lacak inventaris stok secara akurat, mutasi barang masuk/keluar, dan status ketersediaan komoditas secara real-time.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
+                        <span class="text-xs font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full">Optimal</span>
+                        <button onclick="openModal('gudang')" class="text-sm font-bold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Buka Sistem &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. WA SENDER CARD -->
+                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-emerald-500/50 dark:hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 dark:bg-emerald-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
+                    <div>
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-2xl w-fit mb-5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors">Pengirim WA (WA Sender)</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                            Kirimkan notifikasi tagihan bulanan, siaran informasi darurat, dan pengingat otomatis kepada penghuni via WhatsApp.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
+                        <span class="text-xs font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full">API Tersambung</span>
+                        <button onclick="openModal('wa')" class="text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Buka Sistem &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. ARSIP DIGITAL CARD -->
+                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
+                    <div>
+                        <div class="p-3 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-2xl w-fit mb-5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">Arsip Digital</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                            Penyimpanan berkas legalitas, surat keluar/masuk, laporan keuangan, dan dokumen penting ter-enkripsi yang mudah dicari.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
+                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">Secure S3</span>
+                        <button onclick="openModal('arsip')" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Buka Sistem &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. KONTROL SAKLAR LISTRIK & AIR CARD -->
+                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-amber-500/50 dark:hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 dark:bg-amber-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
+                    <div>
+                        <div class="p-3 bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 rounded-2xl w-fit mb-5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">Saklar Listrik & Air</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                            Kontrol IoT sakelar lampu gedung, sensor otomatisasi kelistrikan, dan katup pemompa air langsung dari kejauhan.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
+                        <span class="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-100/60 dark:bg-amber-950/50 px-2.5 py-1 rounded-full" id="saklar-summary-badge">3 Aktif</span>
+                        <button onclick="openModal('saklar')" class="text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Buka Sistem &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5. DATA PENGHUNI CARD -->
+                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-purple-500/50 dark:hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 dark:bg-purple-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
+                    <div>
+                        <div class="p-3 bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 rounded-2xl w-fit mb-5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors">Data Penghuni</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                            Database lengkap profil penghuni, data kontak, unit hunian, status iuran lingkungan, hingga riwayat masuk log.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
+                        <span class="text-xs font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full">Valid</span>
+                        <button onclick="openModal('penghuni')" class="text-sm font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Buka Sistem &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 6. DIGITAL SIGNAGE CARD -->
+                <div class="group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-pink-500/50 dark:hover:border-pink-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/5 dark:bg-pink-500/10 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
+                    <div>
+                        <div class="p-3 bg-pink-50 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 rounded-2xl w-fit mb-5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors">Digital Signage</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                            Atur konten papan reklame digital, running text pengumuman lobi, informasi cuaca, dan video edukasi lingkungan.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 pt-4 mt-auto">
+                        <span class="text-xs font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full">Transmisi Aktif</span>
+                        <button onclick="openModal('signage')" class="text-sm font-bold text-pink-600 dark:text-pink-400 hover:text-pink-700 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Buka Sistem &rarr;
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SYSTEM INFORMATION SECTION -->
+        <section class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Butuh Sinkronisasi Spreadsheet / Google Apps Script?</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                        Landing page ini dirancang untuk dapat dengan mudah disambungkan ke modul Google Sheets sebagai database utama melalui Google Apps Script.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="showInstructions()" class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 px-5 py-3 rounded-2xl text-sm font-bold shadow-md transition-all">
+                        Baca Petunjuk Deploy
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400">&copy; 2026 Kontrol Manajemen Terpadu (KMT). Hak Cipta Dilindungi.</p>
+            <div class="flex items-center gap-6">
+                <span class="text-xs text-slate-400">v2.1 Premium Studio Edition</span>
+                <span class="text-xs text-emerald-500 font-semibold flex items-center gap-1.5">
+                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Latency: 4ms
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= SUB APP MODALS ================= -->
+
+    <!-- BACKDROP MODAL -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeAllModals()"></div>
+
+    <!-- 1. GUDANG MODAL SUB-APP -->
+    <div id="modal-gudang" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-2xl w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
+        <!-- Modal Header -->
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Inventaris Gudang Pintar</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Simulasi manajemen stok real-time</p>
+                </div>
+            </div>
+            <button onclick="closeModal('gudang')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <!-- Modal Body -->
+        <div class="p-6 overflow-y-auto space-y-4 flex-grow">
+            <!-- Form Tambah Inventaris -->
+            <div class="bg-slate-50 dark:bg-slate-950/40 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800/60">
+                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-3">Tambah Stok Baru</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <input type="text" id="gudang-name-input" placeholder="Nama Barang (misal: Pompa Air)" class="sm:col-span-2 px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-sky-500 focus:outline-none dark:text-white">
+                    <input type="number" id="gudang-qty-input" placeholder="Jumlah (Pcs)" class="px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-sky-500 focus:outline-none dark:text-white">
+                </div>
+                <button onclick="addGudangItem()" class="mt-3 w-full bg-sky-500 hover:bg-sky-600 text-white text-sm font-bold py-2 px-4 rounded-xl transition-colors shadow-sm">
+                    Simpan ke Inventaris
+                </button>
+            </div>
+            
+            <!-- List Inventaris -->
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Daftar Stok Saat Ini</span>
+                    <span class="text-xs font-bold text-sky-500" id="gudang-total-label">3 Item Terdaftar</span>
+                </div>
+                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden bg-white dark:bg-slate-900">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 dark:bg-slate-800/50 text-[10px] uppercase font-bold tracking-wider text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                                <th class="p-3">Nama Barang</th>
+                                <th class="p-3 text-center">Stok</th>
+                                <th class="p-3 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gudang-table-body" class="text-sm divide-y divide-slate-100 dark:divide-slate-800/60">
+                            <!-- JS populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. WA SENDER MODAL SUB-APP -->
+    <div id="modal-wa" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-lg w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">WhatsApp Notifier Hub</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Siaran pesan & pengingat otomatis</p>
+                </div>
+            </div>
+            <button onclick="closeModal('wa')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Nomor WhatsApp Penerima</label>
+                <input type="text" id="wa-phone" placeholder="081234567xxx atau 62812..." class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none dark:text-white">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Template Pesan Pengumuman</label>
+                <select id="wa-template" onchange="applyWATemplate()" class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none dark:text-white">
+                    <option value="">-- Pilih Template --</option>
+                    <option value="tagihan">Pemberitahuan Tagihan Bulanan</option>
+                    <option value="kerja-bakti">Pengumuman Kerja Bakti Lingkungan</option>
+                    <option value="darurat">Pemberitahuan Pemeliharaan Air Bersih</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Isi Pesan</label>
+                <textarea id="wa-message" rows="4" placeholder="Tulis pesan Anda di sini..." class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none dark:text-white resize-none"></textarea>
+            </div>
+            
+            <!-- Simulated Send Button with Progress -->
+            <button id="wa-send-btn" onclick="sendWAMessage()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                Kirim Notifikasi via WhatsApp
+            </button>
+            
+            <div id="wa-progress" class="hidden space-y-2">
+                <div class="flex justify-between text-xs font-medium text-slate-400">
+                    <span>Sedang mentransmisikan via API Gateway...</span>
+                    <span id="wa-percent">0%</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div id="wa-progress-bar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. ARSIP DIGITAL MODAL SUB-APP -->
+    <div id="modal-arsip" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-xl w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Arsip Berkas Digital</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Penyimpanan & Pencarian Dokumen Pintar</p>
+                </div>
+            </div>
+            <button onclick="closeModal('arsip')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto space-y-4 flex-grow">
+            <!-- Search & Filter -->
+            <div class="flex gap-2">
+                <input type="text" id="arsip-search" oninput="filterArsip()" placeholder="Cari nama dokumen..." class="flex-grow px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none dark:text-white">
+                <select id="arsip-filter-type" onchange="filterArsip()" class="px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none dark:text-white">
+                    <option value="">Semua Tipe</option>
+                    <option value="Laporan">Laporan</option>
+                    <option value="Surat">Surat Keputusan</option>
+                    <option value="Sertifikat">Sertifikat</option>
+                </select>
+            </div>
+
+            <!-- Upload simulation -->
+            <div class="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-4 text-center cursor-pointer hover:border-indigo-500 dark:hover:border-indigo-400 transition-colors" onclick="simulateUpload()">
+                <div class="text-xs font-semibold text-slate-400">Klik untuk mensimulasikan unggahan berkas (.pdf, .xlsx)</div>
+                <div class="text-[10px] text-slate-500 mt-1">Ukuran maksimal file: 10MB</div>
+            </div>
+
+            <!-- Doc List -->
+            <div id="arsip-list" class="space-y-2">
+                <!-- JS populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. KONTROL SAKLAR MODAL SUB-APP -->
+    <div id="modal-saklar" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-lg w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Kontrol Saklar & Sensor</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Dashboard Kontrol IoT & Katup Pompa</p>
+                </div>
+            </div>
+            <button onclick="closeModal('saklar')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto space-y-4">
+            <!-- Alert Simulation Mode -->
+            <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 p-3 rounded-2xl flex gap-3 text-xs text-amber-800 dark:text-amber-300">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <span>Mengganti saklar di bawah ini akan mensimulasikan transmisi perintah data serial ke relay fisik IoT pengontrol.</span>
+            </div>
+
+            <!-- Switches Grid -->
+            <div class="space-y-3" id="switches-list">
+                <!-- JS populated switches -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. DATA PENGHUNI MODAL SUB-APP -->
+    <div id="modal-penghuni" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-2xl w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Database Penghuni Terpadu</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Arsip data warga terdaftar & unit hunian</p>
+                </div>
+            </div>
+            <button onclick="closeModal('penghuni')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto space-y-4 flex-grow">
+            <!-- Tambah Penghuni Form -->
+            <div class="bg-slate-50 dark:bg-slate-950/40 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800/60">
+                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-3">Daftarkan Penghuni Baru</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <input type="text" id="penghuni-nama" placeholder="Nama Lengkap" class="px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none dark:text-white">
+                    <input type="text" id="penghuni-unit" placeholder="Nomor Unit (misal: B-14)" class="px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none dark:text-white">
+                    <input type="text" id="penghuni-telp" placeholder="No. Handphone (WhatsApp)" class="px-3 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none dark:text-white col-span-2">
+                </div>
+                <button onclick="addPenghuni()" class="mt-3 w-full bg-purple-500 hover:bg-purple-600 text-white text-sm font-bold py-2 px-4 rounded-xl transition-colors shadow-sm">
+                    Daftarkan Penghuni
+                </button>
+            </div>
+
+            <!-- List Search -->
+            <div class="flex gap-2">
+                <input type="text" id="penghuni-search" oninput="filterPenghuni()" placeholder="Cari nama atau unit..." class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none dark:text-white">
+            </div>
+
+            <!-- Penghuni Cards -->
+            <div id="penghuni-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <!-- JS populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. DIGITAL SIGNAGE MODAL SUB-APP -->
+    <div id="modal-signage" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-lg w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-pink-50 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Kontrol Digital Signage</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Pengaturan Tampilan Reklame & Running Text</p>
+                </div>
+            </div>
+            <button onclick="closeModal('signage')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto space-y-4">
+            <!-- Signage Screen Simulator -->
+            <div class="space-y-1">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Simulasi Layar Publik (Signage TV)</span>
+                <div class="bg-black text-lime-400 font-mono p-4 rounded-2xl relative overflow-hidden h-36 flex flex-col justify-between border-4 border-slate-800 shadow-inner">
+                    <div class="flex items-center justify-between border-b border-lime-900 pb-1 text-[10px]">
+                        <span>SIGNAGE_LOBBY_01</span>
+                        <span class="text-red-500 animate-pulse">● LIVE</span>
+                    </div>
+                    <div class="text-center py-2 text-base font-bold tracking-wide" id="signage-preview-text">
+                        SELAMAT DATANG DI SMART CONDO SUITE
+                    </div>
+                    <!-- Running Text -->
+                    <div class="bg-lime-950/40 text-[10px] py-1 px-2 overflow-hidden whitespace-nowrap rounded border border-lime-900/50">
+                        <div class="animate-[marquee_15s_linear_infinite]" id="signage-marquee-text">
+                            Pemberitahuan: Pemeliharaan pompa air bersih terjadwal besok pukul 09:00 - 11:00 WIB. Terima kasih atas pengertiannya.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Ubah Teks -->
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Teks Utama Tampilan Layar</label>
+                    <input type="text" id="signage-main-input" value="SELAMAT DATANG DI SMART CONDO SUITE" class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-pink-500 focus:outline-none dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Running Text Pengumuman Bawah</label>
+                    <textarea id="signage-marquee-input" rows="2" class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-pink-500 focus:outline-none dark:text-white resize-none">Pemberitahuan: Pemeliharaan pompa air bersih terjadwal besok pukul 09:00 - 11:00 WIB.</textarea>
+                </div>
+                <button onclick="updateSignage()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2.5 px-4 rounded-xl shadow-md transition-colors">
+                    Perbarui Layar Signage
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. INSTRUCTIONAL DEPLOY MODAL -->
+    <div id="modal-instructions" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl z-50 max-w-lg w-[92%] max-h-[85vh] flex flex-col hidden opacity-0 transition-all duration-300 border border-slate-200 dark:border-slate-800">
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Petunjuk Deploy & Koneksi Database</h3>
+            <button onclick="closeModal('instructions')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto space-y-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+            <p>Untuk menyambungkan frontend ini dengan Google Sheets menggunakan Google Apps Script:</p>
+            <ol class="list-decimal pl-5 space-y-2">
+                <li>Buat <strong>Google Spreadsheet</strong> baru.</li>
+                <li>Salin <strong>Spreadsheet ID</strong> dari URL spreadsheet Anda.</li>
+                <li>Buat proyek <strong>Google Apps Script</strong> melalui menu Ekstensi di spreadsheet.</li>
+                <li>Buat fungsi backend <code class="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-indigo-500">doGet()</code> untuk menyajikan file HTML ini.</li>
+                <li>Gunakan fungsi <code class="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-indigo-500">google.script.run</code> dari frontend untuk mengirim/membaca data secara dinamis dari Sheets.</li>
+                <li>Simpan project Apps Script, lalu lakukan <strong>Deploy sebagai Aplikasi Web (Web App)</strong>.</li>
+            </ol>
+            <div class="bg-indigo-50 dark:bg-indigo-950/40 p-3 rounded-2xl border border-indigo-100 dark:border-indigo-900 text-xs text-indigo-700 dark:text-indigo-300">
+                Arsitektur landing page ini sudah disiapkan agar siap diintegrasikan secara instan kapan saja modul backend Google Apps Script Anda siap!
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT STATE ENGINE ================= -->
+    <script>
+        // --- 1. LOCAL STORAGE & THEME ENGINE ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Set initial theme
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                showToast("Beralih ke Mode Terang", "info");
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                showToast("Beralih ke Mode Gelap", "info");
+            }
+        });
+
+        // --- 2. TOAST SYSTEM ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bgClass = "bg-emerald-50 border-emerald-200 dark:bg-emerald-950/90 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200";
+            let iconSvg = `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+
+            if (type === 'error') {
+                bgClass = "bg-rose-50 border-rose-200 dark:bg-rose-950/90 dark:border-rose-800 text-rose-800 dark:text-rose-200";
+                iconSvg = `<svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            } else if (type === 'info') {
+                bgClass = "bg-sky-50 border-sky-200 dark:bg-sky-950/90 dark:border-sky-800 text-sky-800 dark:text-sky-200";
+                iconSvg = `<svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            } else if (type === 'warning') {
+                bgClass = "bg-amber-50 border-amber-200 dark:bg-amber-950/90 dark:border-amber-800 text-amber-800 dark:text-amber-200";
+                iconSvg = `<svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+            }
+
+            toast.className = `flex items-start gap-3 p-4 rounded-2xl border shadow-lg backdrop-blur-md transition-all duration-300 transform translate-y-2 opacity-0 ${bgClass}`;
+            toast.innerHTML = `
+                <div class="flex-shrink-0">${iconSvg}</div>
+                <div class="flex-grow text-xs font-semibold leading-relaxed">${message}</div>
+                <button class="flex-shrink-0 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" onclick="this.parentElement.remove()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            `;
+
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            // Auto dismiss
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // --- 3. MODAL CONTROLS ---
+        function openModal(id) {
+            const backdrop = document.getElementById('modal-backdrop');
+            const modal = document.getElementById(`modal-${id}`);
+            
+            backdrop.classList.remove('hidden');
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                modal.classList.remove('opacity-0', 'scale-95');
+                modal.classList.add('scale-100');
+            }, 50);
+        }
+
+        function closeModal(id) {
+            const backdrop = document.getElementById('modal-backdrop');
+            const modal = document.getElementById(`modal-${id}`);
+            
+            backdrop.classList.add('opacity-0');
+            modal.classList.add('opacity-0', 'scale-95');
+            modal.classList.remove('scale-100');
+            
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function closeAllModals() {
+            const modals = ['gudang', 'wa', 'arsip', 'saklar', 'penghuni', 'signage', 'instructions'];
+            modals.forEach(closeModal);
+        }
+
+        // --- 4. DYNAMIC SYSTEM LOAD SIMULATOR ---
+        setInterval(() => {
+            const cpuEl = document.getElementById('cpu-load');
+            if (cpuEl) {
+                const randomLoad = Math.floor(Math.random() * (22 - 6 + 1)) + 6;
+                cpuEl.textContent = `${randomLoad}%`;
+            }
+        }, 3000);
+
+        // --- 5. SUB APP 1: GUDANG LOGIC ---
+        let gudangData = [
+            { id: 1, nama: "Lampu LED Lobi 15W", qty: 45 },
+            { id: 2, nama: "Filter Pompa Air Cadangan", qty: 8 },
+            { id: 3, nama: "Kabel Listrik NYA 2.5mm (Roll)", qty: 12 },
+            { id: 4, nama: "Keran Air Stainless Steel 1/2 Inch", qty: 24 }
+        ];
+
+        function renderGudang() {
+            const tbody = document.getElementById('gudang-table-body');
+            const totalLabel = document.getElementById('gudang-total-label');
+            const totalStatCount = document.getElementById('stat-gudang-count');
+            
+            tbody.innerHTML = '';
+            gudangData.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors';
+                tr.innerHTML = `
+                    <td class="p-3 font-medium text-slate-700 dark:text-slate-300">${item.nama}</td>
+                    <td class="p-3 text-center font-bold text-slate-900 dark:text-white">${item.qty} Pcs</td>
+                    <td class="p-3 text-right">
+                        <div class="flex justify-end gap-1">
+                            <button onclick="changeQty(${item.id}, 1)" class="p-1 text-slate-500 hover:text-sky-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </button>
+                            <button onclick="changeQty(${item.id}, -1)" class="p-1 text-slate-500 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            const sumTotal = gudangData.reduce((acc, curr) => acc + curr.qty, 0);
+            totalLabel.textContent = `${gudangData.length} Varian Terdaftar`;
+            totalStatCount.textContent = sumTotal;
+        }
+
+        function changeQty(id, diff) {
+            const item = gudangData.find(i => i.id === id);
+            if (item) {
+                item.qty = Math.max(0, item.qty + diff);
+                renderGudang();
+            }
+        }
+
+        function addGudangItem() {
+            const nameInput = document.getElementById('gudang-name-input');
+            const qtyInput = document.getElementById('gudang-qty-input');
+            
+            const name = nameInput.value.trim();
+            const qty = parseInt(qtyInput.value);
+
+            if (!name || isNaN(qty) || qty <= 0) {
+                showToast("Isi nama barang & jumlah yang valid!", "error");
+                return;
+            }
+
+            const newId = gudangData.length > 0 ? Math.max(...gudangData.map(i => i.id)) + 1 : 1;
+            gudangData.push({ id: newId, nama: name, qty: qty });
+            
+            nameInput.value = '';
+            qtyInput.value = '';
+            
+            renderGudang();
+            showToast(`Sukses menambahkan ${name} ke inventaris!`, "success");
+        }
+
+        // --- 6. SUB APP 2: WA SENDER LOGIC ---
+        const templates = {
+            tagihan: "Yth. Bpk/Ibu Penghuni Unit [Unit]. Diberitahukan bahwa tagihan iuran pemeliharaan lingkungan bulan ini telah terbit sebesar Rp 350.000. Mohon melakukan pelunasan sebelum tanggal 10. Terima kasih.",
+            "kerja-bakti": "Undangan Kerja Bakti: Mengharap kehadiran seluruh warga Smart Condo dalam kegiatan kerja bakti pembersihan area lobi utama & taman vertikal pada Minggu besok jam 07.30 WIB. Mari jaga kebersihan lingkungan bersama.",
+            darurat: "Pemberitahuan darurat: Aliran distribusi air bersih sementara dihentikan karena perbaikan sistem pemompaan utama. Air diperkirakan akan mengalir normal kembali dalam 2 jam. Mohon maaf atas ketidaknyamanan ini."
+        };
+
+        function applyWATemplate() {
+            const selector = document.getElementById('wa-template');
+            const textarea = document.getElementById('wa-message');
+            const selectedVal = selector.value;
+            
+            if (selectedVal && templates[selectedVal]) {
+                textarea.value = templates[selectedVal];
+            } else {
+                textarea.value = '';
+            }
+        }
+
+        function sendWAMessage() {
+            const phone = document.getElementById('wa-phone').value.trim();
+            const message = document.getElementById('wa-message').value.trim();
+            const sendBtn = document.getElementById('wa-send-btn');
+            const progressContainer = document.getElementById('wa-progress');
+            const progressBar = document.getElementById('wa-progress-bar');
+            const percentLabel = document.getElementById('wa-percent');
+
+            if (!phone || !message) {
+                showToast("Lengkapi nomor telepon & pesan terlebih dahulu!", "error");
+                return;
+            }
+
+            // Lock UI & Start simulation progress bar
+            sendBtn.disabled = true;
+            sendBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            progressContainer.classList.remove('hidden');
+            
+            let progress = 0;
+            progressBar.style.width = '0%';
+            percentLabel.textContent = '0%';
+
+            const interval = setInterval(() => {
+                progress += 20;
+                progressBar.style.width = `${progress}%`;
+                percentLabel.textContent = `${progress}%`;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    
+                    // Reset UI & Trigger Success
+                    setTimeout(() => {
+                        sendBtn.disabled = false;
+                        sendBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        progressContainer.classList.add('hidden');
+                        
+                        // Increment sent stats
+                        const statWa = document.getElementById('stat-wa-count');
+                        const currentCount = parseInt(statWa.textContent.replace(/[^0-9]/g, ''));
+                        statWa.textContent = (currentCount + 1).toLocaleString('id-ID');
+                        
+                        showToast(`Pesan berhasil ditransmisikan ke ${phone}!`, "success");
+                        closeModal('wa');
+                    }, 300);
+                }
+            }, 300);
+        }
+
+        // --- 7. SUB APP 3: ARSIP LOGIC ---
+        let arsipData = [
+            { id: 1, nama: "Laporan_Keuangan_KMT_2025_Q4.pdf", tipe: "Laporan", tgl: "15 Jan 2026", size: "3.2 MB" },
+            { id: 2, nama: "SK_Pengurus_Kondominium_Terbaru.pdf", tipe: "Surat", tgl: "02 Feb 2026", size: "1.4 MB" },
+            { id: 3, nama: "Sertifikat_Kelaikan_Lift_Utama.pdf", tipe: "Sertifikat", tgl: "18 Nov 2025", size: "850 KB" },
+            { id: 4, nama: "Kontrak_Vendor_Kebersihan_2026.xlsx", tipe: "Laporan", tgl: "29 Des 2025", size: "5.1 MB" }
+        ];
+
+        function renderArsip(dataToRender = arsipData) {
+            const listContainer = document.getElementById('arsip-list');
+            const statArsip = document.getElementById('stat-arsip-count');
+            listContainer.innerHTML = '';
+
+            statArsip.textContent = arsipData.length;
+
+            if (dataToRender.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-6 text-xs font-semibold text-slate-400">
+                        Tidak ada berkas cocok ditemukan.
+                    </div>
+                `;
+                return;
+            }
+
+            dataToRender.forEach(doc => {
+                const docCard = document.createElement('div');
+                docCard.className = "flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60 rounded-xl hover:border-indigo-500/40 transition-all";
+                docCard.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-500 rounded-lg flex-shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="min-w-0">
+                            <h5 class="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">${doc.nama}</h5>
+                            <p class="text-[10px] text-slate-400 mt-0.5">${doc.tipe} &bull; ${doc.tgl} &bull; ${doc.size}</p>
+                        </div>
+                    </div>
+                    <button onclick="downloadArsip('${doc.nama}')" class="p-1.5 text-slate-400 hover:text-indigo-500 rounded-lg hover:bg-white dark:hover:bg-slate-900 shadow-sm transition-all" title="Unduh File">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </button>
+                `;
+                listContainer.appendChild(docCard);
+            });
+        }
+
+        function filterArsip() {
+            const query = document.getElementById('arsip-search').value.toLowerCase();
+            const typeFilter = document.getElementById('arsip-filter-type').value;
+
+            const filtered = arsipData.filter(doc => {
+                const matchesQuery = doc.nama.toLowerCase().includes(query);
+                const matchesType = typeFilter === "" || doc.tipe === typeFilter;
+                return matchesQuery && matchesType;
+            });
+
+            renderArsip(filtered);
+        }
+
+        function simulateUpload() {
+            showToast("Mensimulasikan enkripsi berkas...", "info");
+            setTimeout(() => {
+                const names = ["Berita_Acara_Rapat_Pleno.pdf", "SOP_Keamanan_Gerbang.xlsx", "Skema_Kelistrikan_Gedung_B.pdf"];
+                const types = ["Surat", "Laporan", "Sertifikat"];
+                
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                const randomType = types[Math.floor(Math.random() * types.length)];
+                
+                // Avoid duplication in simulation
+                const uniqueName = Date.now().toString().slice(-4) + "_" + randomName;
+
+                arsipData.unshift({
+                    id: Date.now(),
+                    nama: uniqueName,
+                    tipe: randomType,
+                    tgl: "Hari Ini",
+                    size: "1.8 MB"
+                });
+
+                renderArsip();
+                showToast("Berkas baru berhasil dienkripsi & diunggah ke Secure S3!", "success");
+            }, 1000);
+        }
+
+        function downloadArsip(name) {
+            showToast(`Mengunduh berkas ${name}...`, "success");
+        }
+
+        // --- 8. SUB APP 4: SWITCH CONTROLS LOGIC ---
+        let switchStates = [
+            { id: 1, label: "Lampu Lobi Utama", desc: "Listrik Lantai 1", active: true, type: "listrik" },
+            { id: 2, label: "Lampu Taman Belakang", desc: "Listrik Taman Luar", active: false, type: "listrik" },
+            { id: 3, label: "Pompa Pasokan Air Utama", desc: "Mesin Pompa Bawah Tanah", active: true, type: "air" },
+            { id: 4, label: "Filter Tandon Atas", desc: "Pompa Resirkulasi Tandon", active: true, type: "air" },
+            { id: 5, label: "AC Server Room", desc: "Kontrol Suhu Ruang Pusat", active: false, type: "listrik" }
+        ];
+
+        function renderSwitches() {
+            const container = document.getElementById('switches-list');
+            container.innerHTML = '';
+
+            switchStates.forEach(item => {
+                const row = document.createElement('div');
+                row.className = "flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl";
+                
+                // Toggle Button styling
+                const toggleBg = item.active ? "bg-amber-500" : "bg-slate-300 dark:bg-slate-700";
+                const toggleHandle = item.active ? "translate-x-6" : "translate-x-0";
+
+                row.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-xl ${item.active ? 'bg-amber-100 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400' : 'bg-slate-100 text-slate-400 dark:bg-slate-900'}">
+                            ${item.type === 'listrik' 
+                                ? `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`
+                                : `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5a2 2 0 00-2-2zm2.5 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path></svg>`
+                            }
+                        </div>
+                        <div>
+                            <h5 class="text-xs font-bold text-slate-800 dark:text-slate-200">${item.label}</h5>
+                            <p class="text-[10px] text-slate-400 mt-0.5">${item.desc}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Toggle Switch -->
+                    <button onclick="toggleSwitch(${item.id})" class="relative inline-flex h-6 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${toggleBg}">
+                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${toggleHandle}"></span>
+                    </button>
+                `;
+                container.appendChild(row);
+            });
+
+            // Update stats
+            const activeCount = switchStates.filter(s => s.active).length;
+            const badge = document.getElementById('saklar-summary-badge');
+            const totalCount = document.getElementById('stat-saklar-count');
+            
+            badge.textContent = `${activeCount} Aktif`;
+            totalCount.textContent = `${activeCount}/${switchStates.length}`;
+        }
+
+        function toggleSwitch(id) {
+            const item = switchStates.find(s => s.id === id);
+            if (item) {
+                item.active = !item.active;
+                renderSwitches();
+                const statusStr = item.active ? "DIAKTIFKAN" : "DIMATIKAN";
+                showToast(`${item.label} berhasil ${statusStr}!`, "success");
+            }
+        }
+
+        // --- 9. SUB APP 5: DATA PENGHUNI LOGIC ---
+        let penghuniData = [
+            { id: 1, nama: "Budi Santoso", unit: "A-12", telp: "08129876543", status: "Pemilik" },
+            { id: 2, nama: "Siti Rahmawati", unit: "B-04", telp: "08131234567", status: "Penyewa" },
+            { id: 3, nama: "Andi Wijaya", unit: "A-14", telp: "08575556677", status: "Pemilik" },
+            { id: 4, nama: "Diana Lestari", unit: "C-08", telp: "08190001112", status: "Penyewa" }
+        ];
+
+        function renderPenghuni(dataToRender = penghuniData) {
+            const list = document.getElementById('penghuni-list');
+            const statPenghuni = document.getElementById('stat-penghuni-count');
+            list.innerHTML = '';
+
+            statPenghuni.textContent = penghuniData.length;
+
+            if (dataToRender.length === 0) {
+                list.innerHTML = `
+                    <div class="col-span-2 text-center py-6 text-xs font-semibold text-slate-400">
+                        Tidak ada data penghuni yang cocok.
+                    </div>
+                `;
+                return;
+            }
+
+            dataToRender.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "p-4 bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between">
+                            <h5 class="text-xs font-bold text-slate-800 dark:text-slate-100">${p.nama}</h5>
+                            <span class="text-[9px] px-2 py-0.5 rounded-full font-bold ${p.status === 'Pemilik' ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400'}">${p.status}</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 mt-1">Unit: <span class="font-bold text-slate-600 dark:text-slate-300">${p.unit}</span></p>
+                        <p class="text-[10px] text-slate-400">Kontak: <span class="text-slate-600 dark:text-slate-300">${p.telp}</span></p>
+                    </div>
+                    <div class="flex justify-end gap-2 border-t border-slate-200/40 dark:border-slate-800/40 pt-2 mt-3">
+                        <button onclick="hubungiPenghuni('${p.telp}')" class="text-[10px] font-bold text-emerald-500 hover:underline">
+                            Kirim WA
+                        </button>
+                        <button onclick="hapusPenghuni(${p.id})" class="text-[10px] font-bold text-rose-500 hover:underline">
+                            Hapus
+                        </button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function filterPenghuni() {
+            const query = document.getElementById('penghuni-search').value.toLowerCase();
+            const filtered = penghuniData.filter(p => {
+                return p.nama.toLowerCase().includes(query) || p.unit.toLowerCase().includes(query);
+            });
+            renderPenghuni(filtered);
+        }
+
+        function addPenghuni() {
+            const namaInput = document.getElementById('penghuni-nama');
+            const unitInput = document.getElementById('penghuni-unit');
+            const telpInput = document.getElementById('penghuni-telp');
+
+            const nama = namaInput.value.trim();
+            const unit = unitInput.value.trim();
+            const telp = telpInput.value.trim();
+
+            if (!nama || !unit || !telp) {
+                showToast("Semua kolom pendaftaran wajib diisi!", "error");
+                return;
+            }
+
+            const newId = Date.now();
+            penghuniData.push({
+                id: newId,
+                nama: nama,
+                unit: unit,
+                telp: telp,
+                status: "Penyewa" // Default status dalam simulasi
+            });
+
+            namaInput.value = '';
+            unitInput.value = '';
+            telpInput.value = '';
+
+            renderPenghuni();
+            showToast(`Sukses mendaftarkan ${nama} ke unit ${unit}!`, "success");
+        }
+
+        function hapusPenghuni(id) {
+            penghuniData = penghuniData.filter(p => p.id !== id);
+            renderPenghuni();
+            showToast("Data penghuni berhasil dihapus.", "info");
+        }
+
+        function hubungiPenghuni(telp) {
+            closeModal('penghuni');
+            openModal('wa');
+            document.getElementById('wa-phone').value = telp;
+            showToast(`Menghubungkan ke WhatsApp Sender untuk kontak ${telp}`, "info");
+        }
+
+        // --- 10. SUB APP 6: DIGITAL SIGNAGE LOGIC ---
+        function updateSignage() {
+            const mainText = document.getElementById('signage-main-input').value.trim();
+            const marqueeText = document.getElementById('signage-marquee-input').value.trim();
+
+            if (!mainText || !marqueeText) {
+                showToast("Teks utama dan teks berjalan tidak boleh kosong!", "error");
+                return;
+            }
+
+            document.getElementById('signage-preview-text').textContent = mainText.toUpperCase();
+            document.getElementById('signage-marquee-text').textContent = marqueeText;
+
+            showToast("Konten layar Signage Lobi berhasil diperbarui!", "success");
+            closeModal('signage');
+        }
+
+        // --- 11. EXTRA: INSTRUCTIONS ---
+        function showInstructions() {
+            openModal('instructions');
+        }
+
+        // Initialize state on render
+        window.onload = function() {
+            renderGudang();
+            renderArsip();
+            renderSwitches();
+            renderPenghuni();
+        };
+    </script>
+
+    <!-- Marquee Keyframe CSS Animation inside HTML body -->
+    <style>
+        @keyframes marquee {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+    </style>
+</body>
+</html>
