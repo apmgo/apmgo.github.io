@@ -127,8 +127,8 @@
     </div>
   </header>
 
-  <!-- MOBILE SIDEBAR DRAWER -->
-  <div id="mobile-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-all duration-300">
+  <!-- MOBILE SIDEBAR DRAWER (FIXED: Added 'invisible' class to prevent blocking clicks when closed) -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-all duration-300 invisible">
     <!-- Backdrop -->
     <div id="drawer-backdrop" class="absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
     <!-- Content Panel -->
@@ -224,7 +224,7 @@
                 src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" 
                 alt="Apartemen Purimas Surabaya di Malam Hari" 
                 class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
-                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80';"
+                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%221000%22 viewBox=%220 0 800 1000%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2228%22 fill=%22%23d946ef%22 font-weight=%22bold%22>PURIMAS NEO</text></svg>'"
               >
               
               <!-- Floating Card on Image -->
@@ -331,7 +331,7 @@
 
         <!-- Landmarks checklist -->
         <div class="w-full lg:w-1/2 flex flex-col space-y-6">
-          <h3 class="text-xl font-bold font-cyber text-white">Fasilitas & Layanan Sekitar Area</h3>
+          <h3 class="text-xl font-bold font-cyber text-white">Fasilitas & Layanan Sekatar Area</h3>
           
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             
@@ -420,7 +420,7 @@
               src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=600&q=80" 
               alt="Kolam renang di malam hari" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80';"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%238b5cf6%22 font-weight=%22bold%22>POOL AREA</text></svg>';"
             >
           </div>
           <div class="p-6">
@@ -438,7 +438,7 @@
               src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" 
               alt="Gym & Fitness Center" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80';"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%2306b6d4%22 font-weight=%22bold%22>GYM AREA</text></svg>';"
             >
           </div>
           <div class="p-6">
@@ -456,7 +456,7 @@
               src="https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80" 
               alt="Security & Access Card" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80';"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%238b5cf6%22 font-weight=%22bold%22>SECURITY 24/7</text></svg>';"
             >
           </div>
           <div class="p-6">
@@ -474,7 +474,7 @@
               src="https://images.unsplash.com/photo-1588880331179-bc9b93a8c5d8?auto=format&fit=crop&w=600&q=80" 
               alt="Taman Santai & Ruang Terbuka" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=80';"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%2306b6d4%22 font-weight=%22bold%22>GREEN PARK</text></svg>';"
             >
           </div>
           <div class="p-6">
@@ -492,7 +492,7 @@
               src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" 
               alt="Kawasan Komersial" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80';"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%238b5cf6%22 font-weight=%22bold%22>COMMERCIAL AREA</text></svg>';"
             >
           </div>
           <div class="p-6">
@@ -510,7 +510,7 @@
               src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" 
               alt="Exclusive Lobby" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=600&q=80';"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2220%22 fill=%22%2306b6d4%22 font-weight=%22bold%22>EXCLUSIVE LOBBY</text></svg>';"
             >
           </div>
           <div class="p-6">
@@ -563,7 +563,7 @@
               src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80" 
               alt="Unit Studio Apartemen Purimas" 
               class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80';"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22 viewBox=%220 0 800 600%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2224%22 fill=%22%23d946ef%22 font-weight=%22bold%22>STUDIO UNIT</text></svg>';"
             >
             <div class="absolute top-4 left-4 py-1 px-3.5 rounded bg-cyber-purple text-white font-cyber font-bold text-[10px] tracking-wider">
               STUDIO UNIT
@@ -642,7 +642,7 @@
               src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80" 
               alt="Unit 2 Bedroom Apartemen Purimas" 
               class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80';"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22 viewBox=%220 0 800 600%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230b0f19%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Orbitron,sans-serif%22 font-size=%2224%22 fill=%22%2306b6d4%22 font-weight=%22bold%22>2 BEDROOM UNIT</text></svg>';"
             >
             <div class="absolute top-4 left-4 py-1 px-3.5 rounded bg-cyber-cyan text-slate-950 font-cyber font-bold text-[10px] tracking-wider">
               2 BEDROOM UNIT
@@ -891,7 +891,7 @@
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80" 
                 alt="Ika S. - Penyewa" 
                 class="w-full h-full object-cover"
-                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';"
+                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%238b5cf6%22/></svg>';"
               >
             </div>
             <div>
@@ -922,7 +922,7 @@
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" 
                 alt="Budi H. - Investor" 
                 class="w-full h-full object-cover"
-                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80';"
+                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%2306b6d4%22/></svg>';"
               >
             </div>
             <div>
@@ -953,7 +953,7 @@
                 src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80" 
                 alt="Rizka R. - Pemilik" 
                 class="w-full h-full object-cover"
-                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80';"
+                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%238b5cf6%22/></svg>';"
               >
             </div>
             <div>
@@ -1171,7 +1171,7 @@
 
   <!-- CLIENT-SIDE SCRIPT LOGIC -->
   <script>
-    // --- 1. MOBILE MENU & DRAWER MECHANISM ---
+    // --- 1. MOBILE MENU & DRAWER MECHANISM (FIXED: Toggle 'invisible' to completely unblock interactions when closed) ---
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileDrawer = document.getElementById('mobile-drawer');
     const drawerBackdrop = document.getElementById('drawer-backdrop');
@@ -1179,19 +1179,28 @@
     const drawerLinks = document.querySelectorAll('.drawer-link');
 
     function openDrawer() {
-      mobileDrawer.classList.remove('pointer-events-none');
+      mobileDrawer.classList.remove('invisible');
       drawerBackdrop.classList.remove('opacity-0');
       drawerBackdrop.classList.add('opacity-100');
-      mobileDrawer.querySelector('.transform').classList.remove('translate-x-full');
-      mobileDrawer.querySelector('.transform').classList.add('translate-x-0');
+      const panel = mobileDrawer.querySelector('.translate-x-full');
+      if (panel) {
+        panel.classList.remove('translate-x-full');
+        panel.classList.add('translate-x-0');
+      }
     }
 
     function closeDrawer() {
-      mobileDrawer.classList.add('pointer-events-none');
       drawerBackdrop.classList.remove('opacity-100');
       drawerBackdrop.classList.add('opacity-0');
-      mobileDrawer.querySelector('.transform').classList.remove('translate-x-0');
-      mobileDrawer.querySelector('.transform').classList.add('translate-x-full');
+      const panel = mobileDrawer.querySelector('.translate-x-0');
+      if (panel) {
+        panel.classList.remove('translate-x-0');
+        panel.classList.add('translate-x-full');
+      }
+      // Wait for transitions to finish before completely adding 'invisible' to clean pointer interactions
+      setTimeout(() => {
+        mobileDrawer.classList.add('invisible');
+      }, 300);
     }
 
     mobileMenuBtn.addEventListener('click', openDrawer);
@@ -1381,7 +1390,6 @@
       let totalPrice = basePrice + floorSurcharge + furnishSurcharge + viewSurcharge;
 
       // Yield calculation (projections base)
-      // Studio semi rent: 1.5M/mo. Studio full: 2M/mo. 2BR semi: 2.2M/mo. 2BR full: 3M/mo.
       let baseRent = 0;
       if (simState.type === 'studio') {
         baseRent = simState.furnish === 'semi' ? 1500000 : 2000000;
@@ -1394,7 +1402,6 @@
       let viewRentBonus = simState.view === 'city' ? 0 : 150000;
 
       let monthlyRentEst = baseRent + floorRentBonus + viewRentBonus;
-      // Occupancy assumption: 10 months filled per year (approx 83.3%)
       let yearlyYieldEst = monthlyRentEst * 10;
       let yieldPercentage = (yearlyYieldEst / totalPrice) * 100;
 
@@ -1412,7 +1419,6 @@
     function bookingCustomUnit() {
       const typeText = simState.type === 'studio' ? 'Studio' : '2 Bedroom';
       const furnishText = simState.furnish === 'semi' ? 'Semi-Furnished' : 'Fully-Furnished';
-      const customText = `${typeText} Custom (${furnishText} - View ${simState.view.toUpperCase()})`;
       
       const selectElement = document.getElementById('form-unit');
       selectElement.value = typeText === 'Studio' ? 'Studio - Rp 180 Juta' : '2 Bedroom - Rp 295 Juta';
